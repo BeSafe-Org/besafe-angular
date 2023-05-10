@@ -1,0 +1,46 @@
+<div class="signup_container">
+    <div class="heading"> Sign up to be safe </div>
+    <form class="signup_form">
+        <div class="email">
+            <label class="input_field_label">
+                <input class="input_field" type="text" placeholder="&nbsp;">
+                <div class="title">E-mail</div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/input-field-icons-sprite.svg#email"></use>
+                </svg>
+            </label>
+            <div class="invalid_message">Required</div>
+        </div>
+        <div class="password">
+            <label class="input_field_label">
+                <input class="input_field" type="password" placeholder="&nbsp;">
+                <div class="title">Password</div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/input-field-icons-sprite.svg#password"></use>
+                </svg>
+            </label>
+            <div class="invalid_message">Required</div>
+        </div>
+        <div class="confirm_password">
+            <label class="input_field_label">
+                <input class="input_field" type="password" placeholder="&nbsp;">
+                <div class="title">Confirm Password</div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/input-field-icons-sprite.svg#password"></use>
+                </svg>
+            </label>
+            <div class="invalid_message">Required</div>
+        </div>
+        <div class="button_container">
+            <app-button
+                [buttonDisplayType]="'PRIMARY'" [buttonFunctionalityType]="'submit'"
+                [title]="'Sign up'" [isDisabled]="false"
+                (clicked)="temp()">
+            </app-button>
+        </div>
+        <div class="already_have_an_account">
+            <span> Already have an account? </span>
+            <a routerLink="/auth/signin"> Sign in </a>
+        </div>
+    </form>
+</div>
