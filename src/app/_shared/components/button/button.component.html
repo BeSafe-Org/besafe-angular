@@ -1,0 +1,8 @@
+<button class="bs_button" [ngClass]="isDisabled ? buttonDisplayType.toLowerCase() + ' disabled': buttonDisplayType.toLowerCase()"
+    [type]="buttonFunctionalityType" [disabled]="isDisabled"
+    (click)="clicked()">
+    <ng-container *ngIf="imgSrc">
+        <img class="icon" [src]="imgSrc">
+    </ng-container>
+    <span class="title"> {{ title }} </span>
+</button>

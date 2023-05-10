@@ -1,0 +1,34 @@
+@import "src/app/_shared/scss/mixin";
+
+$size: 6rem;
+
+.logo_and_name {
+    // @include dev_border();
+    @include flex(center, center);
+    gap: 1rem;
+    .logo {
+        // @include dev_border();
+        @include flex(center, center);
+        img {
+            // @include dev_border();
+            width: $size;
+            height: $size;
+        }
+    }
+    .name {
+        // @include dev_border();
+        font-size: $size;
+        line-height: $size;
+        font-weight: 600;
+        .be {
+            color: black;
+            color: white;
+            color: $brandPrimaryColor;
+        }
+        .safe {
+            color: black;
+            color: white;
+            color: $brandPrimaryColor;
+        }
+    }
+}
