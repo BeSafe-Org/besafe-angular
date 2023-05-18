@@ -1,0 +1,35 @@
+@import "src/app/layout/_shared/scss/mixin";
+
+.sidebar {
+    // @include dev_border();s
+    width: max-content;
+    height: 100%;
+    background-color: $brandPrimaryColor;
+    padding-top: 3rem;
+    padding-right: 2.5rem;
+    border-top-right-radius: 4rem;
+    .sidebar_menu {
+        // @include dev_border();
+        .option {
+            list-style: none;
+            > a {
+                display: block;
+                text-decoration: none;
+                padding: 2rem 1rem;
+                border-top-right-radius: 5rem;
+                border-bottom-right-radius: 5rem;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: black;
+                &:hover {
+                    color: white;
+                    background-color: darken($color: $brandPrimaryColor, $amount: 10%);
+                }
+                &.selected {
+                    color: white;
+                    background-color: $brandSecondaryColor;
+                }
+            }
+        }
+    }
+}
