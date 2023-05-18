@@ -1,1 +1,9 @@
-<p>sidebar works!</p>
+<div class="sidebar">
+    <ul class="sidebar_menu">
+        <ng-container *ngFor="let option of sidebarOptions">
+            <li class="option">
+                <a [routerLink]="option.routerLink" routerLinkActive="selected"> {{ option.title }} </a>
+            </li>
+        </ng-container>
+    </ul>
+</div>

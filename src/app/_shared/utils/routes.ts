@@ -13,6 +13,9 @@ export const APP_ROUTES = {
     },
     home: {
         _: 'home',
-        myFiles: { _: 'my-files' }
+        myFiles: { _: 'my-files' },
+        ultraSavedFiles: { _: 'ultra-saved-files' },
+        starredFiles: { _: 'starred-files' },
+        recycleBin: { _: 'recycle-bin' },
     }
 };

@@ -1,9 +1,11 @@
 @import "src/app/_shared/scss/mixin";
 
-$size: 6rem;
+$size: 4rem;
 
 .logo_and_name {
     // @include dev_border();
+    width: max-content;
+    height: max-content;
     @include flex(center, center);
     gap: 1rem;
     .logo {
