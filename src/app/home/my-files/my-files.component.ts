@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MyFilesComponent implements OnInit {
 
   constructor() { }
-
+  files:  number[] = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
   ngOnInit(): void {
   }
 

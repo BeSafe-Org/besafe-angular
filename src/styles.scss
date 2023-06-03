@@ -10,3 +10,17 @@
     // color: $blackColor;
     // color: $whiteColor;
 }
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(201, 201, 201);
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a6a1a1;
+}
