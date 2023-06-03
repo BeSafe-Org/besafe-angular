@@ -3,7 +3,7 @@
 .full_container {
     width: 100vw;
     height: 100vh;
-    background: url("/assets/images/svg/auth-background-image.svg");
+    // background: url("/assets/images/svg/auth-background-image.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -11,6 +11,7 @@
     display: flex;
     .left_section {
         width: 50%;
+        // background-color: red;
         @include flex(center, flex-start);
         .app_logo {
             @include dev_border();
@@ -21,6 +22,22 @@
             border-radius: 1rem;
             margin-top: 2rem;
         }
+        
+        .intro{
+            // border: 1px solid red;
+            margin-top: 27vh;
+            .title{
+                font-size: 8rem;
+                color: $brandSecondaryColor;
+            }
+            .description{
+                font-size: 2rem;
+                color: $brandPrimaryColor;
+                margin-left: 0.5rem;
+
+            }
+        }
+        
     }
     .right_section {
         width: 50%;

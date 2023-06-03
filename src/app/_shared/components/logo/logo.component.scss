@@ -1,6 +1,6 @@
 @import "src/app/_shared/scss/mixin";
 
-$size: 4rem;
+$size: 2rem;
 
 .logo_and_name {
     // @include dev_border();
@@ -21,16 +21,16 @@ $size: 4rem;
         // @include dev_border();
         font-size: $size;
         line-height: $size;
-        font-weight: 600;
+        // font-weight: 600;
         .be {
             color: black;
             color: white;
-            color: $brandPrimaryColor;
+            // color: $brandPrimaryColor;
         }
         .safe {
             color: black;
             color: white;
-            color: $brandPrimaryColor;
+            // color: $brandPrimaryColor;
         }
     }
 }

@@ -1,1 +1,10 @@
-<p>my-files works!</p>
+
+<div class="main_container">
+    <ul>
+        <ng-container *ngFor="let option of files">
+            <li class="file">
+                <img src="assets/images/svg/file-icon.svg" alt="">
+            </li>
+        </ng-container>
+    </ul>
+</div>
