@@ -1,13 +1,14 @@
 @import "src/app/layout/_shared/scss/mixin";
 
+
 .sidebar {
     // @include dev_border();s
-    width: max-content;
+    // width: max-content;
     height: 100%;
     background-color: $brandPrimaryColor;
     padding-top: 3rem;
     padding-right: 2.5rem;
-    border-top-right-radius: 4rem;
+    // border-top-right-radius: 4rem;
     .sidebar_menu {
         // @include dev_border();
         .option {
@@ -18,9 +19,9 @@
                 padding: 2rem 1rem;
                 border-top-right-radius: 5rem;
                 border-bottom-right-radius: 5rem;
-                font-size: 1.5rem;
-                font-weight: 600;
-                color: black;
+                font-size: 1rem;
+                // font-weight: 600;
+                color: rgb(213, 215, 231);
                 &:hover {
                     color: white;
                     background-color: darken($color: $brandPrimaryColor, $amount: 10%);
