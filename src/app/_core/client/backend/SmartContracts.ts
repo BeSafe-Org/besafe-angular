@@ -53,7 +53,7 @@ export class SmartContracts {
         try {
             const contract = new window.web3.eth.Contract(this.abi, this.address);
             const file = await contract.methods.files(fileId).call();
-            return file.fileData;
+            return file;
         } catch (error) {
             return null;
         }
