@@ -1,0 +1,39 @@
+@import "src/app/home/_shared/scss/mixin";
+
+.list_card {
+    padding: 0.5rem;
+    @include flex(flex-start, center);
+    gap: 0.8rem;
+    border: 1px solid $darkGrayColor;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    cursor: pointer;
+    .icon {
+        $size: 1.8rem;
+        width: $size;
+        height: $size;
+    }
+    .name {
+        width: 50%;
+        user-select: none;
+        @include manage_long_text();
+    }
+    &:hover {
+        background-color: $tintThreeColor;
+    }
+    &.selected {
+        border-color: darken($color: $brandPrimaryColor, $amount: 30%);
+        border-bottom-color: transparent;
+        background-color: lighten($color: $brandPrimaryColor, $amount: 10%);
+        .icon {
+            fill: white;
+        }
+        .name {
+            color: white;
+        }
+        // &:hover {
+        //     background-color: $tintThreeColor;
+        // }
+    }
+}
