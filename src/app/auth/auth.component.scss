@@ -7,37 +7,33 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    // background-color: #121212;
     display: flex;
     .left_section {
         width: 50%;
-        // background-color: red;
-        @include flex(center, flex-start);
-        .app_logo {
-            @include dev_border();
-            width: max-content;
-            height: max-content;
-            background-color: $brandSecondaryColor;
-            padding: 1rem;
-            border-radius: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .intro{
-            // border: 1px solid red;
-            margin-top: 27vh;
-            .title{
-                font-size: 8rem;
-                color: $brandSecondaryColor;
-            }
-            .description{
-                font-size: 2rem;
+        display: flex;
+        flex-direction: column;
+        // .app_logo {
+        //     @include dev_border();
+        //     width: max-content;
+        //     height: max-content;
+        //     background-color: $brandSecondaryColor;
+        //     padding: 1rem;
+        //     border-radius: 1rem;
+        //     margin-top: 2rem;
+        // }
+        .intro {
+            margin: auto 1rem auto 4rem;
+            .title {
                 color: $brandPrimaryColor;
-                margin-left: 0.5rem;
-
+                font-size: 4rem;
+                font-weight: 600;
+            }
+            .description {
+                color: lighten($color: $brandPrimaryColor, $amount: 10%);
+                font-size: 1.5rem;
+                margin-left: 0.2rem;
             }
         }
-        
     }
     .right_section {
         width: 50%;

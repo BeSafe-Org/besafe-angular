@@ -1,7 +1,7 @@
 @import "src/app/_shared/scss/mixin";
 
 @mixin auth_form_container() {
-    padding: 2rem;
+    padding: 1.2rem;
     box-shadow: 0px 4px 40px 2px rgba(7, 60, 7, 0.25);
     border-radius: 16px;
     // background-color: #282828;
@@ -9,27 +9,27 @@
 }
 
 @mixin auth_form_heading() {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: $brandPrimaryColor;
-    font-size: 2.5rem;
-    // font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 @mixin auth_form() {
-    width: 28rem;
+    width: 20rem;
 }
 
 @mixin auth_form_button_container() {
-    margin-top: 2rem;
+    // margin-top: 1rem;
     @include flex(center, center);
 }
 
 @mixin auth_form_have_or_do_not_have_an_account() {
-    margin-top: 2rem;
+    margin-top: 1rem;
     text-align: center;
     > span,
     > a {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     // > span {
     // }

@@ -1,5 +1,34 @@
-.main_container{
-    height: calc(100% - 4rem);
-    // border: 1px solid red;
-    overflow-y: auto;
+@import "src/app/home/_shared/scss/mixin";
+
+.my_files {
+    height: 100%;
+    $headerHeight: 2.5rem;
+    .header {
+        height: $headerHeight;
+        @include flex(space-between, center);
+        .header_title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .actions {
+            @include flex(center, center);
+            gap: 1rem;
+        }
+    }
+    .griv_view,
+    .list_view {
+        $marginTop: 1rem;
+        margin-top: $marginTop;
+        height: calc(100% - (#{$headerHeight} + #{$marginTop}));
+        overflow-y: scroll;
+    }
+    .griv_view {
+        $size_of_grid_card: 8rem;
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax($size_of_grid_card, 1fr));
+    }
+    .list_view {
+        padding-right: 1rem;
+    }
 }

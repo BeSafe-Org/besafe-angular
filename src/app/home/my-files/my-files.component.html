@@ -1,10 +1,33 @@
-
-<div class="main_container">
-    <ul>
+<div class="my_files">
+    <div class="header">
+        <div class="header_title"> All files </div>
+        <div class="actions">
+            <app-button
+                [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
+                [isDisabled]="false"
+                [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
+                (clicked)="toggleViewType()">
+            </app-button>
+            <app-button
+                [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'button'"
+                [title]="'Add files'" [isDisabled]="false"
+                [imgSrc]="'assets/images/svg/common-sprite.svg#grid-view-icon'"
+                (clicked)="'temp()'">
+            </app-button>
+        </div>
+    </div>
+    <ul class="griv_view" *ngIf="viewType === 'grid'">
         <ng-container *ngFor="let option of files">
-            <li class="file">
-                <img src="assets/images/svg/file-icon.svg" alt="">
-            </li>
+            <div class="grid_card_container">
+                <app-file-grid-card></app-file-grid-card>
+            </div>
+        </ng-container>
+    </ul>
+    <ul class="list_view" *ngIf="viewType === 'list'">
+        <ng-container *ngFor="let option of files; last as isLast;">
+            <div class="list_card_container">
+                <app-file-list-card></app-file-list-card>
+            </div>
         </ng-container>
     </ul>
 </div>

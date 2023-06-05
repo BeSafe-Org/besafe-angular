@@ -9,3 +9,10 @@
     justify-content: $justifyContent;
     align-items: $alignItems;
 }
+
+@mixin manage_long_text() {
+    overflow-y: clip;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
