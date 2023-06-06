@@ -1,1 +1,15 @@
-<p>recycle-bin works!</p>
+<div *ngIf="isLoggedIn()">
+    <div class="container">Hi and welcome!</div>
+    <div class="container">Name: {{ userInfo?.info?.name }}</div>
+    <!-- <div class="container"><img src="{{ userInfo?.info?.picture }}"></div> -->
+    <div class="container">
+        <!-- <button (click)="getEmails()">List Emails</button> -->
+        <input type="file" (change)="onFileSelected($event)">
+        <button (click)="getAllFiles()">Get Files</button>
+        <button (click)="downloadFile()">Download file</button>
+        <button (click)="deleteFile()">Delete file</button>
+    </div>
+    <div class="container">
+        <button (click)="logout()">Logout from Google</button>
+    </div>
+</div>

@@ -6,7 +6,6 @@ import { SmartContracts } from '../../client/backend/SmartContracts';
 
 declare const window: any;
 
-
 @Injectable({
     providedIn: 'root'
 })

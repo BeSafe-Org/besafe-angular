@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { log } from 'console';
+import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 
 @Component({
@@ -8,42 +10,64 @@ import { SmartContractService } from 'src/app/_core/services/backend/smart-contr
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private smart: SmartContractService) { }
+  encryptedText: string;
+  decryptedText: string;
+
+  constructor(private smart: SmartContractService) {
+
+    const password = 'Pass123$'; 
+    const salt = 'a1b2c3d4e5f6dsdfsdfdf';
+    
+    const userKey = new AesCrypto().generateUserKey(password, salt);
+    const iv = new AesCrypto().generateRandomIV();
+    console.log(userKey);
+    
+    const aes = new AesCrypto(userKey, iv);
+    
+    const plainText = 'Hello, world!';
+    this.encryptedText = aes.encrypt(plainText);
+    this.decryptedText = aes.decrypt(this.encryptedText);
+    
+    console.log(this.encryptedText);
+    console.log(this.decryptedText);
+  }
 
   ngOnInit(): void {
   }
 
-  connect(){
+  connect() {
     const res = this.smart.connectToMetamask();
-    res.subscribe((res)=>{
+    res.subscribe((res) => {
       console.log(res);
-      
-    },err=>{
+
+    }, err => {
       console.log(err);
-      
+
     })
-    
+
   }
 
-  add(){
-    const res = this.smart.addFile("44","ok eissa besafe it is");
-    res.subscribe((res)=>{
+  add() {
+    const res = this.smart.addFile("45", "ok eissa besafe it is");
+    res.subscribe((res) => {
       console.log(res);
-      
-    },err=>{
+
+    }, err => {
       console.log(err);
-      
+
     })
   }
-  
-  get(){
-    const res = this.smart.getFile("56");
-    res.subscribe((res)=>{
+
+  get() {
+    const res = this.smart.getFile("45");
+    res.subscribe((res) => {
       console.log(res);
-      
-    },err=>{
+
+    }, err => {
       console.log(err);
-      
+
     })
   }
 }
+
+
