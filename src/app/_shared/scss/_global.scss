@@ -16,10 +16,10 @@
         padding-left: calc(3.5rem + 4px);
         padding-right: 1rem;
         background: transparent;
-        border: 2px solid $grayColor;
+        border: 2px solid $lightGrayOneColor;
         border-radius: 0.5rem;
         outline: none;
-        color: $grayColor;
+        color: $lightGrayOneColor;
         font-size: 1rem;
         &:focus,
         &:not(:placeholder-shown) {
@@ -44,7 +44,7 @@
     }
     .title {
         height: 1rem;
-        color: $grayColor;
+        color: $lightGrayOneColor;
         font-size: 1rem;
         line-height: 1rem;
         transform: translateY(-50%);
@@ -62,7 +62,7 @@
         position: absolute;
         top: 1.5rem;
         left: 1rem;
-        fill: $grayColor;
+        fill: $lightGrayOneColor;
     }
     // invalid.input_field_label
     &.invalid {

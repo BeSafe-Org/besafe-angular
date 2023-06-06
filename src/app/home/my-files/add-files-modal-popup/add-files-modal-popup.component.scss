@@ -1,0 +1,29 @@
+@import "src/app/home/_shared/scss/mixin";
+
+.main_content {
+    display: flex;
+    .add_file {
+        width: 100%;
+        padding: 1rem 0;
+        border-radius: 0.5rem;
+        border: 2px dashed $lightGrayOneColor;
+        @include flex(center, center);
+        flex-direction: column;
+        cursor: pointer;
+        > input,
+        .upload_icon,
+        > span {
+            pointer-events: none;
+        }
+        > input {
+            display: none;
+        }
+        .upload_icon {
+            height: 3.5rem;
+        }
+        > span {
+            font-size: 0.8rem;
+            color: $brandPrimaryColor;
+        }
+    }
+}
