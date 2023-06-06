@@ -13,6 +13,6 @@ export class SignupComponent implements OnInit {
     }
 
     temp(): void {
-        console.log('clicked');
+        
     }
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SmartContractService } from './smart-contract.service';
+import { FileManagementService } from './file-management';
 
-describe('SmartContractService', () => {
-  let service: SmartContractService;
+describe('FileManagementService', () => {
+  let service: FileManagementService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SmartContractService);
+    service = TestBed.inject(FileManagementService);
   });
 
   it('should be created', () => {
