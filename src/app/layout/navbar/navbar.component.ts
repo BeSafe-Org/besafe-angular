@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   encryptedText: string;
   decryptedText: string;
 
-  constructor(private smart: SmartContractService) {
+  constructor(private smartContractService: SmartContractService) {
 
     const password = 'Pass123$'; 
     const salt = 'a1b2c3d4e5f6dsdfsdfdf';
@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   connect() {
-    const res = this.smart.connectToMetamask();
+    const res = this.smartContractService.connectToMetamask();
     res.subscribe((res) => {
       console.log(res);
 
@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
   }
 
   add() {
-    const res = this.smart.addFile("45", "ok eissa besafe it is");
+    const res = this.smartContractService.addFile("45", "ok eissa besafe it is");
     res.subscribe((res) => {
       console.log(res);
 
@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit {
   }
 
   get() {
-    const res = this.smart.getFile("45");
+    const res = this.smartContractService.getFile("45");
     res.subscribe((res) => {
       console.log(res);
 

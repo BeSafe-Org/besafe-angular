@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import Web3 from "web3";
-import { SmartContracts } from '../../client/backend/SmartContracts';
+import { SmartContracts } from '../../client/backendClient/SmartContractsBackendClient';
 
 declare const window: any;
 
