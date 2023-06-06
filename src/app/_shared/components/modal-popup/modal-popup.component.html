@@ -1,0 +1,26 @@
+<div class="modal_popup_bg">
+    <div [ngClass]="(showPopUp===true)?'modal_popup_container modal_popup_container_active':'modal_popup_container'" class="modal_popup_container">
+        <div class="heading_and_close_btn">
+            <div class="heading"> {{ heading }} </div>
+            <button class="close_btn" *ngIf="!isHideCloseButton" (click)="onClickCloseButton()">
+                <svg>
+                    <use xlink:href="assets/images/svg/common-sprite.svg#close-icon"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="subheading" *ngIf="subheading"> {{ subheading }} </div>
+        <div class="main_content_container">
+            <ng-container [ngTemplateOutlet]="mainContent"></ng-container>
+        </div>
+        <div class="secondary_and_primary_btn_container btn_container" [ngClass]="buttonsPosition">
+            <app-button *ngIf="secondaryButtonText"
+                [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
+                [title]="secondaryButtonText" [isDisabled]="false" [imgSrc]="secondaryButtonImgSrc"
+                (clicked)="onClickSecondaryButton()"></app-button>
+            <app-button *ngIf="primaryButtonText"
+                [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'button'"
+                [title]="primaryButtonText" [isDisabled]="false" [imgSrc]="primaryButtonImgSrc"
+                (clicked)="onClickPrimaryButton()"></app-button>
+        </div>
+    </div>
+</div>

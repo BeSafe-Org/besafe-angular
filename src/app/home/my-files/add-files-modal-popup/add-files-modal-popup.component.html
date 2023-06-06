@@ -1,0 +1,23 @@
+<app-modal-popup
+    [buttonsPosition]="'flex-end'"
+    [heading]="'Add file'"
+    [subheading]="'Choose your file to add'"
+    [secondaryButtonText]="'Cancle'"
+    [primaryButtonText]="'Upload'"
+    (clickedOnCloseButton)="destroySelf()"
+    (clickedOnSecondaryButton)="destroySelf()"
+    (clickedOnPrimaryButton)="onClickUploadButton()">
+    <ng-template #mainContent>
+        <div class="main_content">
+            <label class="add_file">
+                <input type="file">
+                <svg class="upload_icon">
+                    <use xlink:href="assets/images/svg/common-sprite.svg#upload-icon"></use>
+                </svg>
+                <span> Browse CSV file </span>
+                <span> or </span>
+                <span> Drag & Drop CSV file </span>
+            </label>
+        </div>
+    </ng-template>
+</app-modal-popup>

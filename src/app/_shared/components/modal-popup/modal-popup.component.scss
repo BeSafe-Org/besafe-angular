@@ -1,0 +1,78 @@
+@import "src/app/_shared/scss/mixin";
+
+.modal_popup_bg {
+    // @include dev_border(red);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.35);
+    position: fixed;
+    top: 0;
+    left: 0;
+    // overflow: auto;
+    .modal_popup_container {
+        // @include dev_border(1px , red);
+        width: 35rem;
+        padding: 1rem;
+        background-color: white;
+        border-radius: 1rem;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 150%;
+        left: 50%;
+        .heading_and_close_btn {
+            // @include dev_border();
+            @include flex(space-between, center);
+            .heading {
+                font-size: 1.5rem;
+                color: $brandPrimaryColor;
+            }
+            .close_btn {
+                padding: 0.2rem;
+                border: none;
+                background: none;
+                border-radius: 0.5rem;
+                @include flex(center, center);
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                cursor: pointer;
+                &:hover {
+                    background: lighten($color: $lightGrayOneColor, $amount: 20%);
+                }
+                &:active {
+                    background: lighten($color: $lightGrayOneColor, $amount: 10%);
+                }
+                svg {
+                    $size: 1.5rem;
+                    width: $size;
+                    height: $size;
+                }
+            }
+        }
+        .subheading {
+            // @include dev_border();
+            color: $darkGrayOneColor;
+        }
+        .main_content_container {
+            // @include dev_border();
+            padding: 1rem 0;
+        }
+        .secondary_and_primary_btn_container {
+            // @include dev_border();
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            &.flex-end {
+                justify-content: flex-end;
+            }
+            &.center {
+                justify-content: center;
+            }
+        }
+    }
+}
+
+.modal_popup_container_active {
+    top: 50% !important;
+    transition: all 300ms ease-out;
+}
