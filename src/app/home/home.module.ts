@@ -8,6 +8,7 @@ import { UltraSavedFilesComponent } from './ultra-saved-files/ultra-saved-files.
 import { FileGridCardComponent } from './my-files/file-grid-card/file-grid-card.component';
 import { FileListCardComponent } from './my-files/file-list-card/file-list-card.component';
 import { SharedModule } from '../_shared/shared.module';
+import { AddFilesModalPopupComponent } from './my-files/add-files-modal-popup/add-files-modal-popup.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { SharedModule } from '../_shared/shared.module';
         StarredFilesComponent,
         UltraSavedFilesComponent,
         FileGridCardComponent,
-        FileListCardComponent
+        FileListCardComponent,
+        AddFilesModalPopupComponent
     ],
     imports: [
         CommonModule,
