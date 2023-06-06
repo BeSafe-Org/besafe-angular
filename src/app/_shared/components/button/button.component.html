@@ -2,7 +2,11 @@
     [type]="buttonFunctionalityType" [disabled]="isDisabled"
     (click)="clicked()">
     <ng-container *ngIf="imgSrc">
-        <img class="icon" [src]="imgSrc">
+        <svg class="icon">
+            <use [attr.xlink:href]="imgSrc"></use>
+        </svg>
     </ng-container>
-    <span class="title"> {{ title }} </span>
+    <ng-container *ngIf="title">
+        <span class="title"> {{ title }} </span>
+    </ng-container>
 </button>

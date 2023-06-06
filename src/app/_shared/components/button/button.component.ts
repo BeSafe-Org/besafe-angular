@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-type ButtonDisplayType = 'PRIMARY' | 'SECONDARY';
+type ButtonDisplayType = 'primary' | 'secondary';
 type ButtonFunctionalityType = 'button' | 'submit';
 
 @Component({
@@ -9,7 +9,7 @@ type ButtonFunctionalityType = 'button' | 'submit';
     styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-    @Input('buttonDisplayType') buttonDisplayType: ButtonDisplayType = 'PRIMARY';
+    @Input('buttonDisplayType') buttonDisplayType: ButtonDisplayType = 'primary';
     @Input('buttonFunctionalityType') buttonFunctionalityType: ButtonFunctionalityType = 'button';
     @Input('imgSrc') imgSrc: string = '';
     @Input('title') title: string;

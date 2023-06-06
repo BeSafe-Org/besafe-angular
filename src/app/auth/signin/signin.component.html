@@ -6,7 +6,7 @@
                 <input class="input_field" type="text" placeholder="&nbsp;">
                 <div class="title">E-mail</div>
                 <svg class="icon">
-                    <use xlink:href="assets/images/svg/input-field-icons-sprite.svg#email"></use>
+                    <use xlink:href="assets/images/svg/common-sprite.svg#email-icon"></use>
                 </svg>
             </label>
             <div class="invalid_message">Required</div>
@@ -16,14 +16,14 @@
                 <input class="input_field" type="password" placeholder="&nbsp;">
                 <div class="title">Password</div>
                 <svg class="icon">
-                    <use xlink:href="assets/images/svg/input-field-icons-sprite.svg#password"></use>
+                    <use xlink:href="assets/images/svg/common-sprite.svg#password-icon"></use>
                 </svg>
             </label>
             <div class="invalid_message">Required</div>
         </div>
         <div class="button_container">
             <app-button
-                [buttonDisplayType]="'PRIMARY'" [buttonFunctionalityType]="'submit'"
+                [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'submit'"
                 [title]="'Sign in'" [isDisabled]="false"
                 (clicked)="temp()">
             </app-button>

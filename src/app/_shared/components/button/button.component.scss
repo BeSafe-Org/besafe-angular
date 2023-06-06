@@ -3,22 +3,23 @@
 .bs_button {
     width: max-content;
     height: max-content;
-    padding: 0.5rem 1.2rem;
-    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
-    border: 4px solid transparent;
-    border-radius: 0.8rem;
+    // padding: 0.5rem 1.2rem;
+    padding: 0.4rem;
+    background-color: transparent;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
     outline: none;
     @include flex(center, center);
-    gap: 1.5ch;
+    gap: 0.4rem;
     cursor: pointer;
     .icon {
-        $size: 1.8rem;
+        $size: 1.5rem;
         width: $size;
         height: $size;
     }
     .title {
-        color: $whiteColor;
-        font-size: 1.5rem;
+        font-size: 1rem;
         // font-weight: 600;
     }
     // &:focus {
@@ -36,34 +37,47 @@
 
 .bs_button.primary {
     background-color: $brandPrimaryColor;
-    border-color: $brandPrimaryColor;
     .icon {
+        fill: white;
     }
     .title {
+        color: $whiteColor;
     }
     &:hover {
         background-color: $brandPrimaryColor;
-        border-color: $brandSecondaryColor;
     }
     &:active {
         background-color: $brandSecondaryColor;
-        border-color: $brandSecondaryColor;
     }
     &.disabled {
         &:hover {
             background-color: $brandPrimaryColor;
-            border-color: $brandPrimaryColor;
         }
         &:active {
             background-color: $brandPrimaryColor;
-            border-color: $brandPrimaryColor;
         }
     }
 }
 
 .bs_button.secondary {
+    border-color: $brandPrimaryColor;
     .icon {
+        fill: $brandPrimaryColor;
     }
     .title {
+        color: $brandPrimaryColor;
+    }
+    // &:hover {
+    // }
+    &:active {
+        background-color: $tintThreeColor;
+    }
+    &.disabled {
+        &:hover {
+            background-color: $brandPrimaryColor;
+        }
+        &:active {
+            background-color: $brandPrimaryColor;
+        }
     }
 }

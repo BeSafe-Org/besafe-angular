@@ -1,6 +1,6 @@
 @import "src/app/layout/_shared/scss/mixin";
 
-$navbarHeight: 5rem;
+$navbarHeight: 4rem;
 
 .layout {
     .navbar_conatainer {
@@ -20,20 +20,6 @@ $navbarHeight: 5rem;
             // @include dev_border();
             width: 100%;
             padding: 1rem;
-            // border: 1px solid red;
-            .sub_options {
-                height: 4rem;
-                // padding: 0rem 1rem 0rem 1rem;
-                width: 100%;
-                @include flex(space-between, center);
-                .search_container {
-                    width: 100%;
-                    // border: 1px solid red;
-                    input{
-                        width: 50%;
-                    }
-                }
-            }
         }
     }
 }
