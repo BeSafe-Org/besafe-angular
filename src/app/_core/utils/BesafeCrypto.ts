@@ -1,5 +1,4 @@
 export class BesafeCrypto {
-
     constructor() { }
 
     encryptArrayBuffer(inputArrayBuffer: ArrayBuffer): Uint8Array {
