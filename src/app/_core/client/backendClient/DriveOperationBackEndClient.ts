@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
 import { UploadResult } from '../../models/results/UploadResult';
+import { FILE_NAME_PREFIX } from 'src/app/home/my-files/my-files.component';
 
 export class DriveOperationBackEndClient {
     gmail = 'https://gmail.googleapis.com'
@@ -20,7 +21,7 @@ export class DriveOperationBackEndClient {
         return new Promise((resolve, reject) => {
             let uploadResult = new UploadResult();
             const metadata = {
-                name: file.name + "-beSafe",
+                name: FILE_NAME_PREFIX + file.name,
                 mimeType: file.type,
             };
             const formData: FormData = new FormData();

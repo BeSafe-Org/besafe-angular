@@ -10,13 +10,22 @@
     <ng-template #mainContent>
         <div class="main_content">
             <label class="add_file">
-                <input type="file">
-                <svg class="upload_icon">
-                    <use xlink:href="assets/images/svg/common-sprite.svg#upload-icon"></use>
-                </svg>
-                <span> Browse CSV file </span>
-                <span> or </span>
-                <span> Drag & Drop CSV file </span>
+                <input type="file" (change)="fileSelected($event)">
+                <ng-container *ngIf="!file">
+                    <svg class="upload_icon">
+                        <use xlink:href="assets/images/svg/common-sprite.svg#upload-icon"></use>
+                    </svg>
+                    <span> Browse CSV file </span>
+                    <span> or </span>
+                    <span> Drag & Drop CSV file </span>
+                </ng-container>
+                <ng-container *ngIf="file">
+                    <span class="file_name"> {{ file?.target?.files[0].name }} </span>
+                </ng-container>
+            </label>
+            <label class="ultra_secure_file">
+                <input type="checkbox" (change)="checkboxToggle($event)" [disabled]="file ? false : true">
+                <span> Ultra Secure File </span>
             </label>
         </div>
     </ng-template>
