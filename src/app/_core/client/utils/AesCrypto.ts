@@ -1,4 +1,5 @@
 import * as CryptoJS from 'crypto-js';
+import { SHA256 } from 'crypto-js';
 
 export class AesCrypto {
   private size: number = 128;
@@ -10,6 +11,11 @@ export class AesCrypto {
     this.iv = iv ? CryptoJS.enc.Utf8.parse(iv) : undefined;
   }
   
+  sha256(input: string): string {
+    const hash = SHA256(input);
+    return hash.toString();
+  }
+
   generateUserKey(password: string, salt: string): string {
     const iterations = 10000; 
 

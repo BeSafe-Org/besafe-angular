@@ -4,9 +4,8 @@ import { RestCalls } from "../restOperations/RestCalls";
 import { UserSaltResult } from "../../models/results/UserSaltResult";
 import { User } from "../../models/entities/User";
 import { Result } from "../../models/results/Result";
-import { UserDigestResult } from "../../models/results/UserDigestResult";
 
-export class UserManagement {
+export class UserManagementBackendClient {
 
     restCalls: RestCalls;
     constructor() {
@@ -15,8 +14,8 @@ export class UserManagement {
 
     public checkIfUserExists(userId: string): Promise<CheckIfUserExistsResult> {
         return new Promise(async (resolve, reject) => {
+            let checkIfUserExistsResult = new CheckIfUserExistsResult();
             try {
-                let checkIfUserExistsResult = new CheckIfUserExistsResult();
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/user/exists/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
@@ -26,27 +25,21 @@ export class UserManagement {
                     checkIfUserExistsResult.errorMessage = restResult.errorMessage;
                     checkIfUserExistsResult.userExists = restResult.userExists
                     resolve(checkIfUserExistsResult);
-                }
-                else if (restResult.errorCode == 409) {
-                    checkIfUserExistsResult.errorCode = 1;
-                    checkIfUserExistsResult.errorMessage = "Success";
-                    checkIfUserExistsResult.userExists = restResult.userExists
-                    reject(checkIfUserExistsResult);
+                    return;
                 }
                 else {
                     checkIfUserExistsResult.errorCode = 1;
                     checkIfUserExistsResult.errorMessage = "Something went wrong.";
                     reject(checkIfUserExistsResult);
                 }
-                resolve(checkIfUserExistsResult);
             }
             catch (err) {
-                reject(this.checkIfUserExists);
+                reject(checkIfUserExistsResult);
             }
         })
     }
 
-    public generateUserSalt(userId: string) {
+    public generateUserSalt(userId: string): Promise<UserSaltResult> {
         return new Promise(async (resolve, reject) => {
             let userSaltResult = new UserSaltResult();
             try {
@@ -65,7 +58,6 @@ export class UserManagement {
                     userSaltResult.errorMessage = "Something went wrong.";
                     reject(userSaltResult);
                 }
-                resolve(userSaltResult);
             }
             catch (err) {
                 reject(userSaltResult);
@@ -73,12 +65,12 @@ export class UserManagement {
         })
     }
 
-    public getUserSalt(userId: string) {
+    public getUserSalt(userId: string): Promise<UserSaltResult> {
         return new Promise(async (resolve, reject) => {
             let userSaltResult = new UserSaltResult();
             try {
                 let baseUrl = environment.baseUrl;
-                let relativeUrl = `/user/salt${userId}`;
+                let relativeUrl = `/user/salt/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
                 if (restResult.errorCode == 0) {
@@ -92,7 +84,6 @@ export class UserManagement {
                     userSaltResult.errorMessage = "Something went wrong.";
                     reject(userSaltResult);
                 }
-                resolve(userSaltResult);
             }
             catch (err) {
                 reject(userSaltResult);
@@ -100,7 +91,7 @@ export class UserManagement {
         })
     }
 
-    public setUserDigest(user: User) {
+    public storeUserDigest(user: User): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let userDigestResult = new Result();
             try {
@@ -126,18 +117,22 @@ export class UserManagement {
         })
     }
 
-    public getUserDigest(userId: string) {
+    public verifyDigest(user: User): Promise<Result> {
         return new Promise(async (resolve, reject) => {
-            let userDigestResult = new UserDigestResult();
+            let userDigestResult = new Result();
             try {
                 let baseUrl = environment.baseUrl;
-                let relativeUrl = `/user/digest/${userId}`;
+                let relativeUrl = `/user/digest/`;
                 let completeUrl = baseUrl + relativeUrl;
-                let restResult = await this.restCalls.GET(completeUrl);
+                let restResult = await this.restCalls.POST(completeUrl, user);
                 if (restResult.errorCode == 0) {
                     userDigestResult.errorCode = 0;
                     userDigestResult.errorMessage = restResult.errorMessage;
-                    userDigestResult.userDigest = restResult.userDigest
+                    resolve(userDigestResult);
+                }
+                else if(restResult.errorCode == 406){
+                    userDigestResult.errorCode = 406;
+                    userDigestResult.errorMessage = "Digest does not match";
                     resolve(userDigestResult);
                 }
                 else {
