@@ -3,6 +3,7 @@ import { Result } from "../../models/results/Result";
 import { AuthenticationBackendClient } from "../backendClient/AuthenticationBackendClient";
 import { UserManagementBackendClient } from "../backendClient/UserBackendClient"
 import { AesCrypto } from "../utils/AesCrypto";
+import { LocalStorage } from "../utils/LocalStorage";
 
 export class UserManagementClient {
 
@@ -27,6 +28,8 @@ export class UserManagementClient {
                 user.userDigest = digest;
                 storeDigestResult = await this.userManagementBackendClient.storeUserDigest(user);
                 if (storeDigestResult.errorCode === 0) {
+                    let masterKey = new AesCrypto().generateUserKey(userId + userPassword, userSaltResult.userSalt);
+                    new LocalStorage().addItem("masterKey", masterKey);
                     result.errorCode = 0;
                     result.errorMessage = "User account created successfully!";
                     resolve(result)
@@ -64,6 +67,8 @@ export class UserManagementClient {
                         result.errorMessage = "Something went wrong!";
                         reject(result);
                     }
+                    let masterKey = new AesCrypto().generateUserKey(userId + userPassword, userSaltResult.userSalt);
+                    new LocalStorage().addItem("masterKey", masterKey);
                     resolve(storeDigestResult);
                 }
                 else {
