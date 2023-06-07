@@ -10,10 +10,26 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 })
 export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     public readonly sidebarOptions = [
-        { title: 'All files', routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.myFiles._}` },
-        { title: 'Ultra Safe Files*', routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.ultraSavedFiles._}` },
-        { title: 'Starred', routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.starredFiles._}` },
-        { title: 'Recycle bin', routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.recycleBin._}` }
+        {
+            title: 'All files',
+            routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.myFiles._}`,
+            imgSrc: 'all-files-sidebar-icon'
+        },
+        {
+            title: 'Ultra safe files',
+            routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.ultraSavedFiles._}`,
+            imgSrc: 'ultra-safe-files-sidebar-icon'
+        },
+        {
+            title: 'Starred',
+            routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.starredFiles._}`,
+            imgSrc: 'starred-sidebar-icon'
+        },
+        {
+            title: 'Recycle bin',
+            routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.recycleBin._}`,
+            imgSrc: 'recycle-bin-sidebar-icon'
+        }
     ];
     public isSidebarCollapsed: boolean = true;
     private isSidebarCollapsedSubscription: Subscription;

@@ -15,14 +15,14 @@
             height: max-content;
         }
         .hamburger_button {
+            padding: 0.1rem;
             background: none;
             border-radius: 0.4rem;
-            border: 2px solid $lightGrayOneColor;
-            border: 2px solid $brandPrimaryColor;
+            border: 1.5px solid $brandPrimaryColor;
             @include flex(center, center);
             cursor: pointer;
             > svg {
-                $size: 2rem;
+                $size: 1.8rem;
                 width: $size;
                 height: $size;
                 fill: $brandPrimaryColor;
