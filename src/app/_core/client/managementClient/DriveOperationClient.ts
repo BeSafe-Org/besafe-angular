@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
-import { DriveOperationBackEndClient } from './DriveOperationBackEndClient';
-import { Conversion } from '../../utils/Conversion';
-import { BesafeCrypto } from '../../utils/BesafeCrypto';
-import { UploadResult } from '../../utils/UploadResult';
-import { Result } from '../../models/Result';
+import { DriveOperationBackEndClient } from '../backendClient/DriveOperationBackEndClient';
+import { BesafeCrypto } from '../utils/BesafeCrypto';
+import { UploadResult } from '../../models/results/UploadResult';
+import { Result } from '../../models/results/Result';
+import { Conversion } from '../utils/Conversion';
 
 export class DriveOperationClient {
     constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient) { }

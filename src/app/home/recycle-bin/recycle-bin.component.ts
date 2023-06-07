@@ -37,7 +37,7 @@ export class RecycleBinComponent {
         );
     }
 
-    downloadFile(fileId = "1I81hSgJg-lJhfukhWSZS_izZjUOdvIHo", fileName = "something.pdf") {
+    downloadFile(fileId = "10HRp3ou-ETJQTUSo06ho2UppzR6TvyAg", fileName = "something.pdf") {
         this.googleApi.downloadFile(fileId, fileName).subscribe(
             res => {
                 console.log('File Downloaded:', res);
@@ -72,7 +72,7 @@ export class RecycleBinComponent {
     }
 
     deleteFile() {
-        this.googleApi.deleteFile("1smMbYIr4WARD27pK-ewvOW7ylRUTEBor").subscribe(
+        this.googleApi.deleteFile("10HRp3ou-ETJQTUSo06ho2UppzR6TvyAg").subscribe(
             (response) => {
                 console.log('File deleted successfully', response);
             },

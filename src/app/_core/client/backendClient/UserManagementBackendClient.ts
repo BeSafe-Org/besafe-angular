@@ -1,10 +1,10 @@
 import { environment } from "src/environments/environment";
-import { CheckIfUserExistsResult } from "../../models/CheckIfUserExistsResult";
+import { CheckIfUserExistsResult } from "../../models/results/CheckIfUserExistsResult";
 import { RestCalls } from "../restOperations/RestCalls";
-import { UserSaltResult } from "../../models/UserSaltResult";
-import { User } from "../../models/User";
-import { Result } from "../../models/Result";
-import { UserDigestResult } from "../../models/UserDigestResult";
+import { UserSaltResult } from "../../models/results/UserSaltResult";
+import { User } from "../../models/entities/User";
+import { Result } from "../../models/results/Result";
+import { UserDigestResult } from "../../models/results/UserDigestResult";
 
 export class UserManagement {
 

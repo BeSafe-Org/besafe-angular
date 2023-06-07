@@ -1,4 +1,5 @@
-import { Result } from "../models/Result";
+import { Result } from "./Result";
+
 
 export class UploadResult extends Result {
     id: string;
