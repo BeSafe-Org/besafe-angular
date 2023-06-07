@@ -9,6 +9,7 @@ import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/googl
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { File } from 'src/app/_core/models/entities/File';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
+import { ToasterService } from 'src/app/_shared/services/toaster.service';
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 
@@ -38,7 +39,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         private besafeGlobalService: BesafeGlobalService,
         private fileManagementService: FileManagementService,
         private smartContractService: SmartContractService,
-        private googleApi: GoogleApiService
+        private googleApi: GoogleApiService,
+        private toaster: ToasterService
     ) {
         googleApi.userProfileSubject.subscribe(info => {
             this.userInfo = info

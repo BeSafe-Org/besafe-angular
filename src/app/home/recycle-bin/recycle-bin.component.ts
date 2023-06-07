@@ -7,6 +7,7 @@ import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { File } from 'src/app/_core/models/entities/File';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
+import { ToasterService } from 'src/app/_shared/services/toaster.service';
 
 @Component({
     selector: 'app-recycle-bin',
@@ -34,7 +35,8 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
         private viewContainerRef: ViewContainerRef,
         private fileManagementService: FileManagementService,
         private besafeGlobalService: BesafeGlobalService,
-        private googleApi: GoogleApiService
+        private googleApi: GoogleApiService,
+        private toaster: ToasterService
     ) {
         googleApi.userProfileSubject.subscribe(info => {
             this.userInfo = info
