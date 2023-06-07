@@ -1,6 +1,13 @@
 <div class="navbar">
-    <div class="app_logo_container">
-        <app-logo></app-logo>
+    <div class="app_logo_and_hamburger">
+        <div class="app_logo_container">
+            <app-logo></app-logo>
+        </div>
+        <button class="hamburger_button" (click)="toggleCollapseSidebar()">
+            <svg>
+                <use xlink:href="assets/images/svg/common-sprite.svg#list-view-icon"></use>
+            </svg>
+        </button>
     </div>
     <button (click)="connect()">Connect</button>
     <button (click)="add()">Add File</button>

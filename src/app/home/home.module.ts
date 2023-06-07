@@ -9,6 +9,9 @@ import { FileGridCardComponent } from './my-files/file-grid-card/file-grid-card.
 import { FileListCardComponent } from './my-files/file-list-card/file-list-card.component';
 import { SharedModule } from '../_shared/shared.module';
 import { AddFilesModalPopupComponent } from './my-files/add-files-modal-popup/add-files-modal-popup.component';
+import { FileCardComponent } from './_shared/components/file-card/file-card.component';
+import { FileSystemOperationsDirective } from './_shared/directives/file-system-operations/file-system-operations.directive';
+import { ContextMenuComponent } from './_shared/components/context-menu/context-menu.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +21,10 @@ import { AddFilesModalPopupComponent } from './my-files/add-files-modal-popup/ad
         UltraSavedFilesComponent,
         FileGridCardComponent,
         FileListCardComponent,
-        AddFilesModalPopupComponent
+        AddFilesModalPopupComponent,
+        FileCardComponent,
+        FileSystemOperationsDirective,
+        ContextMenuComponent
     ],
     imports: [
         CommonModule,

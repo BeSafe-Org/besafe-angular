@@ -4,11 +4,32 @@
     // @include dev_border(2px, red);
     padding: 0 1rem;
     height: 100%;
-    background-color: $brandPrimaryColor;
+    // background-color: $brandPrimaryColor;
+    box-shadow: 1px 2px 4px 0px #0000001a;
     @include flex(space-between, center);
-    .app_logo_container {
-        // @include dev_border();
-        width: max-content;
-        height: max-content;
+    .app_logo_and_hamburger {
+        @include flex(center, center);
+        gap: 4.2rem;
+        .app_logo_container {
+            width: max-content;
+            height: max-content;
+        }
+        .hamburger_button {
+            background: none;
+            border-radius: 0.4rem;
+            border: 2px solid $lightGrayOneColor;
+            border: 2px solid $brandPrimaryColor;
+            @include flex(center, center);
+            cursor: pointer;
+            > svg {
+                $size: 2rem;
+                width: $size;
+                height: $size;
+                fill: $brandPrimaryColor;
+            }
+            &:active {
+                background-color: $tintThreeColor;
+            }
+        }
     }
 }

@@ -21,16 +21,19 @@ $size: 2rem;
         // @include dev_border();
         font-size: $size;
         line-height: $size;
-        // font-weight: 600;
         .be {
-            color: black;
-            color: white;
-            // color: $brandPrimaryColor;
+            // color: black;
+            // color: white;
+            color: $brandPrimaryColor;
+            // color: $brandSecondaryColor;
+            font-weight: 600;
         }
         .safe {
-            color: black;
-            color: white;
+            // color: black;
+            // color: white;
             // color: $brandPrimaryColor;
+            color: $brandSecondaryColor;
+            // font-weight: 600;
         }
     }
 }
