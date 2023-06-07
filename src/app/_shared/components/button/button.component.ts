@@ -9,11 +9,12 @@ type ButtonFunctionalityType = 'button' | 'submit';
     styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-    @Input('buttonDisplayType') buttonDisplayType: ButtonDisplayType = 'primary';
-    @Input('buttonFunctionalityType') buttonFunctionalityType: ButtonFunctionalityType = 'button';
-    @Input('imgSrc') imgSrc: string = '';
-    @Input('title') title: string;
-    @Input('isDisabled') isDisabled: boolean = false;
+    @Input() buttonDisplayType: ButtonDisplayType = 'primary';
+    @Input() buttonFunctionalityType: ButtonFunctionalityType = 'button';
+    @Input() imgSrc: string = '';
+    @Input() title: string;
+    @Input() isDisabled: boolean = false;
+    @Input() isLoading: boolean = false;
 
     @Output('clicked') clickedEventEmitter: EventEmitter<void> = new EventEmitter<void>();
 

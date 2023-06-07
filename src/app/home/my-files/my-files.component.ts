@@ -49,6 +49,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
             })
         });
         this.allFiles = [...this.allFiles];
+        this.operationResult.setNoOfGridColumns();
     }
 
     public toggleViewType(): void {
