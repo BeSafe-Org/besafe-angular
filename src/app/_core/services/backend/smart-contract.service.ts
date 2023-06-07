@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SmartContracts } from '../../client/backendClient/SmartContractsBackendClient';
+import { Conversion } from '../../client/utils/Conversion';
+
 
 declare const window: any;
 
@@ -24,11 +26,13 @@ export class SmartContractService {
     };
 
     public addFile(fileId: string, fileData: string) {
-        return from(new SmartContracts().addFile(fileId, fileData));
+        return from(new SmartContracts().addFile(fileId, new Conversion().stringToArrayBuffer(fileData)));
     }
 
     public getFile(fileId: string) {
         return from(new SmartContracts().getFile(fileId));
     }
+
+
 
 }

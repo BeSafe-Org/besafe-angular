@@ -37,4 +37,15 @@ export class Conversion {
         });
     }
 
+    arrayBufferToString(arrayBuffer: ArrayBuffer) {
+        const decoder = new TextDecoder();
+        const uint8Array = new Uint8Array(arrayBuffer);
+        return decoder.decode(uint8Array);
+    }
+
+    
+    stringToArrayBuffer(inputString: string) {
+        const encoder = new TextEncoder();
+        return encoder.encode(inputString).buffer;
+    }
 }
