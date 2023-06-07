@@ -2,13 +2,16 @@
 
 .my_files {
     height: 100%;
+    padding: 1rem;
+    outline: none;
+    border: none;
     $headerHeight: 2.5rem;
     .header {
         height: $headerHeight;
         @include flex(space-between, center);
         .header_title {
             font-size: 1.2rem;
-            font-weight: 600;
+            // font-weight: 600;
         }
         .actions {
             @include flex(center, center);
@@ -23,6 +26,7 @@
         overflow-y: scroll;
         .file_card_container {
             list-style: none;
+            cursor: pointer;
         }
     }
     .grid_view {
@@ -30,62 +34,68 @@
         display: grid;
         grid-gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax($size_of_grid_card, 1fr));
+        grid-template-rows: repeat(auto-fill, $size_of_grid_card);
+        hr {
+            display: none;
+        }
         .file_card_container {
             list-style: none;
-            border: 2px solid transparent;
-            border-radius: 12px;
             width: $size_of_grid_card;
             height: $size_of_grid_card;
+            display: flex;
+            border-radius: 12px;
+            border: 1px solid $lightGrayOneColor;
             .stop_pointer_events {
-                width: $size_of_grid_card;
-                height: $size_of_grid_card;
+                border-radius: 11px;
+                width: 100%;
+                height: 100%;
+                border: 2px solid transparent;
                 aspect-ratio: 1;
                 pointer-events: none;
             }
             &:hover {
-                background-color: red;
+                background-color: $tintThreeColor;
             }
             &.focused {
-                border-color: $brandPrimaryColor;
+                border-color: white;
+                .stop_pointer_events {
+                    border-color: $brandPrimaryColor;
+                }
             }
             &.selected {
-                background-color: yellow;
-                color: $brandPrimaryColor;
+                background-color: $tintTwoColor;
             }
         }
     }
     .list_view {
         padding-right: 1rem;
+        position: relative;
+        hr {
+            width: calc(100%);
+            height: 0.75px;
+            border: none;
+            background: $lightGrayOneColor;
+            position: sticky;
+            top: 0;
+            left: 0;
+        }
         .file_card_container {
             list-style: none;
-            border: 2px solid transparent;
-            box-shadow: 0 -1px green;
-            background-color: white;
+            border-bottom: 1px solid $lightGrayOneColor;
             .stop_pointer_events {
+                border: 2px solid transparent;
                 pointer-events: none;
             }
             &:hover {
-                background-color: red;
+                background-color: $tintThreeColor;
             }
             &.focused {
-                border-color: green;
-                box-shadow: 0 -1px transparent;
-                + li {
-                    box-shadow: 0 -1px transparent;
+                .stop_pointer_events {
+                    border-color: $brandPrimaryColor;
                 }
             }
             &.selected {
-                background-color: yellow;
-                color: $brandPrimaryColor;
-            }
-            &:nth-last-child(1) {
-                padding: 2px 2px 1px 2px;
-                border: none;
-                border-bottom: 1px solid green;
-                &.focused {
-                    padding: 0;
-                    border: 2px solid $brandPrimaryColor;
-                }
+                background-color: $tintTwoColor;
             }
         }
     }

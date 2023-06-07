@@ -4,14 +4,13 @@
         <div class="actions">
             <app-button
                 [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
-                [isDisabled]="false"
                 [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
                 (clicked)="toggleViewType()">
             </app-button>
             <app-button
                 [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'button'"
-                [title]="'Add files'" [isDisabled]="false"
-                [imgSrc]="'assets/images/svg/common-sprite.svg#grid-view-icon'"
+                [title]="'Add files'"
+                [imgSrc]="'assets/images/svg/common-sprite.svg#add-icon'"
                 (clicked)="openAddFileModalPopup()">
             </app-button>
         </div>
@@ -23,6 +22,7 @@
         [prefix]="fileIdPrefix"
         #operationResult="operationResult"
         (contextmenu)="openContextMenu($event)">
+        <hr>
         <ng-container *ngFor="let file of allFiles">
             <li class="file_card_container" [id]="fileIdPrefix + file.id"
                 [ngClass]="{'selected': operationResult.isSelected(file.id),

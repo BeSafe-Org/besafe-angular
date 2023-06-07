@@ -8,23 +8,26 @@
         height: 100%;
         @include flex(center, center);
         flex-direction: column;
-        row-gap: 1rem;
+        gap: 1rem;
         .icon {
-            $size: 5rem;
+            $size: 4rem;
             width: $size;
             height: $size;
+            margin-top: 0.5rem;
+            fill: $darkGrayOneColor;
         }
         .name {
-            width: 7rem;
-            padding: 0 0.5rem 0 0.5rem;
+            width: 100%;
+            padding: 0 0.5rem;
             text-align: center;
+            font-size: 0.8rem;
             @include manage_long_text();
         }
     }
 }
 
 .list_view_card {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     @include flex(space-between, center);
     .icon_and_name {
         width: 100%;
@@ -33,9 +36,10 @@
             $size: 2rem;
             width: $size;
             height: $size;
+            margin: 0 0.5ch;
         }
         .name {
-            width: 20rem;
+            width: 60%;
             @include manage_long_text();
         }
     }
