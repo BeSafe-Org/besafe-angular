@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
-import { DriveOperationClient } from '../../client/backend/DriveOperationClient';
-import { DriveOperationBackEndClient } from '../../client/backend/DriveOperationBackEndClient';
+import { DriveOperationClient } from '../../client/managementClient/DriveOperationClient';
+import { DriveOperationBackEndClient } from '../../client/backendClient/DriveOperationBackEndClient';
 
 const authCodeFlowConfig: AuthConfig = {
     // redirectUri: window.location.origin,

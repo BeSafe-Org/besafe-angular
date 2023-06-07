@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
-import { UploadResult } from '../../utils/UploadResult';
+import { UploadResult } from '../../models/results/UploadResult';
 
 export class DriveOperationBackEndClient {
     gmail = 'https://gmail.googleapis.com'

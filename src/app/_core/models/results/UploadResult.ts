@@ -1,5 +1,6 @@
 import { Result } from "./Result";
 
+
 export class UploadResult extends Result {
     id: string;
     name: string;

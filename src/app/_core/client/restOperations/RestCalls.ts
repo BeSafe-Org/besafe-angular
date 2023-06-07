@@ -21,7 +21,7 @@ export class RestCalls {
     return promise;
   }
 
-  PUT(url: string, data: any): Promise<any> {
+  PUT(url: string, data?: any): Promise<any> {
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
