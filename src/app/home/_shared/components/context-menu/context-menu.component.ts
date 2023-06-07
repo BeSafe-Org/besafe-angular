@@ -1,21 +1,35 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
 
 export type ContextMenuPointerEventPosition = { x: number, y: number }
+
+type ClickedOption = 'download' | 'star' | 'delete';
+
+type ContextMenuOption = {
+    type: ClickedOption,
+    name: string,
+    isForSingle: boolean,
+    svgImgName: string
+}
 
 @Component({
     selector: 'app-context-menu',
     templateUrl: './context-menu.component.html',
     styleUrls: ['./context-menu.component.scss'],
 })
-export class ContextMenuComponent implements AfterViewInit {
-    @Output() clickedOnOption: EventEmitter<{ optionName: string }> = new EventEmitter<{ optionName: string }>();
+export class ContextMenuComponent implements OnInit, AfterViewInit {
+    @Output() clickedOnOption: EventEmitter<ClickedOption> = new EventEmitter<ClickedOption>();
 
     public selfRef: ComponentRef<ContextMenuComponent>;
     public selectedFilesId: string[];
     public pointerEventPosition: ContextMenuPointerEventPosition;
     private _top: number;
     private _left: number;
+    public readonly options: ContextMenuOption[] = [
+        { type: 'star', name: 'Mark as favourite', isForSingle: true, svgImgName: 'star-icon' },
+        { type: 'download', name: 'Download', isForSingle: true, svgImgName: 'download-icon' },
+        { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
+    ];
 
     public get top(): number {
         return this._top;
@@ -25,17 +39,15 @@ export class ContextMenuComponent implements AfterViewInit {
         return this._left;
     }
 
-    public readonly options = [
-        { name: 'Mark as favourite', isForSingle: true, svgImgName: 'open-folder' },
-        { name: 'Download', isForSingle: true, svgImgName: 'open-folder' },
-        { name: 'Delete', isForSingle: true, svgImgName: 'open-folder' }
-    ];
-
     constructor(
         private besafeGlobalService: BesafeGlobalService,
         private elementRef: ElementRef,
         private changeDetectorRef: ChangeDetectorRef
     ) { }
+
+    ngOnInit(): void {
+        console.log(this.selectedFilesId);
+    }
 
     ngAfterViewInit(): void {
         this.setPosition();
@@ -79,8 +91,8 @@ export class ContextMenuComponent implements AfterViewInit {
         );
     }
 
-    public contextMenuClickHandler(optionName: string): void {
-        this.clickedOnOption.emit({ optionName: optionName });
+    public contextMenuClickHandler(optionName: ClickedOption): void {
+        this.clickedOnOption.emit(optionName);
         this.selfRef.destroy();
     }
 }
