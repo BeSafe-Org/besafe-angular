@@ -1,31 +1,31 @@
 <div class="signin_container">
     <div class="heading"> Sign in to be safe </div>
-    <form class="signin_form">
+    <form class="signin_form" [formGroup]="signinForm" (ngSubmit)="onFormSubmit()">
         <div class="email">
-            <label class="input_field_label">
-                <input class="input_field" type="text" placeholder="&nbsp;">
+            <label class="input_field_label" [ngClass]="{'invalid' : signinForm.get('email').touched && signinForm.get('email').invalid}">
+                <input class="input_field" type="text" placeholder="&nbsp;" formControlName="email">
                 <div class="title">E-mail</div>
                 <svg class="icon">
                     <use xlink:href="assets/images/svg/common-sprite.svg#email-icon"></use>
                 </svg>
             </label>
-            <div class="invalid_message">Required</div>
+            <div class="invalid_message" [ngClass]="{'show' : signinForm.get('email').touched && signinForm.get('email').invalid}"> Required </div>
         </div>
         <div class="password">
-            <label class="input_field_label">
-                <input class="input_field" type="password" placeholder="&nbsp;">
+            <label class="input_field_label" [ngClass]="{'invalid' : signinForm.get('password').touched && signinForm.get('password').invalid}">
+                <input class="input_field" type="password" placeholder="&nbsp;" formControlName="password">
                 <div class="title">Password</div>
                 <svg class="icon">
                     <use xlink:href="assets/images/svg/common-sprite.svg#password-icon"></use>
                 </svg>
             </label>
-            <div class="invalid_message">Required</div>
+            <div class="invalid_message" [ngClass]="{'show' : signinForm.get('password').touched && signinForm.get('password').invalid}">Required</div>
         </div>
         <div class="button_container">
             <app-button
                 [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'submit'"
                 [title]="'Sign in'" [isDisabled]="false"
-                (clicked)="temp()">
+                (clicked)="onFormSubmit()">
             </app-button>
         </div>
         <div class="do_not_have_an_account">
@@ -34,4 +34,3 @@
         </div>
     </form>
 </div>
-<button (click)="click()"> this</button>

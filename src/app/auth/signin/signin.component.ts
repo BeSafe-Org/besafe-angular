@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserManagementService } from 'src/app/_core/services/backend/user-management.service';
+import { REGEX } from 'src/app/_shared/utils/regex';
+import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
 @Component({
     selector: 'app-signin',
@@ -7,25 +11,41 @@ import { UserManagementService } from 'src/app/_core/services/backend/user-manag
     styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+    public signinForm: FormGroup;
 
-    constructor(private userManagementService: UserManagementService)  { }
+    constructor(
+        private userManagementService: UserManagementService,
+        private router: Router
+    ) { }
 
     ngOnInit(): void {
-    }
-    click(){
-        console.log("hii");
-        
-        this.verifyUserAccount("wvnbrghllcrzy@internetkeno.com","Pass123$")
-    }
-    verifyUserAccount(userId: string, userPassword: string){
-        this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res)=>{
-            console.log(res );
-        },err=>{
-            console.log(err);
-        })
+        this.initializeSigninForm();
     }
 
-    temp(): void {
-        console.log('clicked');
+    private initializeSigninForm(): void {
+        this.signinForm = new FormGroup({
+            email: new FormControl('', [Validators.required]),
+            password: new FormControl('', [Validators.required])
+        });
+    }
+
+    public onFormSubmit(): void {
+        if (this.signinForm.valid) {
+            const email: string = this.signinForm.get('email').value;
+            const password: string = this.signinForm.get('password').value;
+            this.verifyUserAccount(email.trim(), password.trim());
+        } else {
+            this.signinForm.markAllAsTouched();
+        }
+    }
+
+    private verifyUserAccount(userId: string, userPassword: string): void {
+        localStorage.setItem(UserManagementService.AUTH_USER, 'true');
+        this.router.navigate([`${APP_ROUTES.home._}`]);
+        // this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
+        //     console.log(res);
+        // }, err => {
+        //     console.log(err);
+        // });
     }
 }
