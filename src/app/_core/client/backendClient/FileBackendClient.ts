@@ -88,4 +88,108 @@ export class FileBackendClient {
             }
         })
     }
+
+    getAllFiles(userId: string) {
+        return new Promise(async (resolve, reject) => {
+            let deleteFileResult = new Result();
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/${userId}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.errorCode == 0) {
+                    deleteFileResult.errorCode = 0;
+                    deleteFileResult.errorMessage = restResult.errorMessage;
+                    resolve(deleteFileResult);
+                }
+                else {
+                    deleteFileResult.errorCode = 1;
+                    deleteFileResult.errorMessage = "Something went wrong.";
+                    reject(deleteFileResult);
+                }
+                resolve(deleteFileResult);
+            }
+            catch (err) {
+                reject(deleteFileResult);
+            }
+        })
+    }
+
+    getStarredFiles(userId: string) {
+        return new Promise(async (resolve, reject) => {
+            let deleteFileResult = new Result();
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/starred/${userId}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.errorCode == 0) {
+                    deleteFileResult.errorCode = 0;
+                    deleteFileResult.errorMessage = restResult.errorMessage;
+                    resolve(deleteFileResult);
+                }
+                else {
+                    deleteFileResult.errorCode = 1;
+                    deleteFileResult.errorMessage = "Something went wrong.";
+                    reject(deleteFileResult);
+                }
+                resolve(deleteFileResult);
+            }
+            catch (err) {
+                reject(deleteFileResult);
+            }
+        })
+    }
+
+    getUltraSecureFiles(userId: string) {
+        return new Promise(async (resolve, reject) => {
+            let deleteFileResult = new Result();
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/ultrasafe/${userId}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.errorCode == 0) {
+                    deleteFileResult.errorCode = 0;
+                    deleteFileResult.errorMessage = restResult.errorMessage;
+                    resolve(deleteFileResult);
+                }
+                else {
+                    deleteFileResult.errorCode = 1;
+                    deleteFileResult.errorMessage = "Something went wrong.";
+                    reject(deleteFileResult);
+                }
+                resolve(deleteFileResult);
+            }
+            catch (err) {
+                reject(deleteFileResult);
+            }
+        })
+    }
+
+    getDeletedFiles(userId: string) {
+        return new Promise(async (resolve, reject) => {
+            let deleteFileResult = new Result();
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/deleted/${userId}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.errorCode == 0) {
+                    deleteFileResult.errorCode = 0;
+                    deleteFileResult.errorMessage = restResult.errorMessage;
+                    resolve(deleteFileResult);
+                }
+                else {
+                    deleteFileResult.errorCode = 1;
+                    deleteFileResult.errorMessage = "Something went wrong.";
+                    reject(deleteFileResult);
+                }
+                resolve(deleteFileResult);
+            }
+            catch (err) {
+                reject(deleteFileResult);
+            }
+        })
+    }
 }
