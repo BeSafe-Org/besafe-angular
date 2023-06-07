@@ -63,7 +63,7 @@ export class FileBackendClient {
     }
 
 
-    deleteFileMetaData(fileId: string) {
+    deleteFileMetaData(fileId: string): Promise<Result>  {
         return new Promise(async (resolve, reject) => {
             let deleteFileResult = new Result();
             try {
@@ -89,106 +89,83 @@ export class FileBackendClient {
         })
     }
 
-    getAllFiles(userId: string) {
+    getAllFiles(userId: string): Promise<File[]> {
         return new Promise(async (resolve, reject) => {
-            let deleteFileResult = new Result();
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.errorCode == 0) {
-                    deleteFileResult.errorCode = 0;
-                    deleteFileResult.errorMessage = restResult.errorMessage;
-                    resolve(deleteFileResult);
+                if (restResult.length>0) {
+                    resolve(restResult);
                 }
                 else {
-                    deleteFileResult.errorCode = 1;
-                    deleteFileResult.errorMessage = "Something went wrong.";
-                    reject(deleteFileResult);
+                    reject([]);
                 }
-                resolve(deleteFileResult);
             }
             catch (err) {
-                reject(deleteFileResult);
+                reject([]);
             }
         })
     }
 
-    getStarredFiles(userId: string) {
+    getStarredFiles(userId: string): Promise<File[]> {
         return new Promise(async (resolve, reject) => {
-            let deleteFileResult = new Result();
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/starred/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.errorCode == 0) {
-                    deleteFileResult.errorCode = 0;
-                    deleteFileResult.errorMessage = restResult.errorMessage;
-                    resolve(deleteFileResult);
+                if (restResult.length>0) {
+                    resolve(restResult);
                 }
                 else {
-                    deleteFileResult.errorCode = 1;
-                    deleteFileResult.errorMessage = "Something went wrong.";
-                    reject(deleteFileResult);
+                    reject([]);
                 }
-                resolve(deleteFileResult);
             }
             catch (err) {
-                reject(deleteFileResult);
+                reject([]);
             }
         })
     }
 
-    getUltraSecureFiles(userId: string) {
+    getUltraSecureFiles(userId: string): Promise<File[]> {
         return new Promise(async (resolve, reject) => {
-            let deleteFileResult = new Result();
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/ultrasafe/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.errorCode == 0) {
-                    deleteFileResult.errorCode = 0;
-                    deleteFileResult.errorMessage = restResult.errorMessage;
-                    resolve(deleteFileResult);
+                if (restResult.length>0) {
+                    resolve(restResult);
                 }
                 else {
-                    deleteFileResult.errorCode = 1;
-                    deleteFileResult.errorMessage = "Something went wrong.";
-                    reject(deleteFileResult);
+                    reject([]);
                 }
-                resolve(deleteFileResult);
             }
             catch (err) {
-                reject(deleteFileResult);
+                reject([]);
             }
         })
     }
 
-    getDeletedFiles(userId: string) {
+    getDeletedFiles(userId: string): Promise<File[]> {
         return new Promise(async (resolve, reject) => {
-            let deleteFileResult = new Result();
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/deleted/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.errorCode == 0) {
-                    deleteFileResult.errorCode = 0;
-                    deleteFileResult.errorMessage = restResult.errorMessage;
-                    resolve(deleteFileResult);
+                if (restResult.length>0) {
+                    resolve(restResult);
                 }
                 else {
-                    deleteFileResult.errorCode = 1;
-                    deleteFileResult.errorMessage = "Something went wrong.";
-                    reject(deleteFileResult);
+                    reject([]);
                 }
-                resolve(deleteFileResult);
+                resolve([]);
             }
             catch (err) {
-                reject(deleteFileResult);
+                reject([]);
             }
         })
     }

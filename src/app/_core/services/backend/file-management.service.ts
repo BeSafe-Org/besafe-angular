@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FileBackendClient } from '../../client/backendClient/FileBackendClient';
-import { from } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { File } from '../../models/entities/File';
+import { Result } from '../../models/results/Result';
 
 
 @Injectable({
@@ -9,31 +10,31 @@ import { File } from '../../models/entities/File';
 })
 export class FileManagementService {
 
-    addFileMetaData(newFile: File) {
+    addFileMetaData(newFile: File): Observable<Result> {
         return from(new FileBackendClient().addFileMetaData(newFile));
     }
 
-    updateFileMetaData(file: File) {
+    updateFileMetaData(file: File): Observable<Result>  {
         return from(new FileBackendClient().updateFileMetaData(file));
     }
 
-    deleteFileMetaData(fileId: string) {
+    deleteFileMetaData(fileId: string): Observable<Result>  {
         return from(new FileBackendClient().deleteFileMetaData(fileId));
     }
 
-    getAllFiles(userId: string) {
+    getAllFiles(userId: string): Observable<File[]>  {
         return from(new FileBackendClient().getAllFiles(userId));
     }
 
-    getStarredFiles(userId: string) {
+    getStarredFiles(userId: string): Observable<File[]> {
         return from(new FileBackendClient().getStarredFiles(userId));
     }
 
-    getUltraSecureFiles(userId: string) {
+    getUltraSecureFiles(userId: string): Observable<File[]> {
         return from(new FileBackendClient().getUltraSecureFiles(userId));
     }
 
-    getDeletedFiles(userId: string) {
+    getDeletedFiles(userId: string): Observable<File[]> {
         return from(new FileBackendClient().getDeletedFiles(userId));
     }
 }

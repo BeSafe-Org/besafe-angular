@@ -60,15 +60,17 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         this.fileManagementService.getAllFiles(userId).subscribe(
             (response: any) => {
                 // console.log('All files retrieved successfully:', response);
-                (response.files as any[]).forEach(file => {
-                    this.allFiles.push({
-                        id: file.id,
-                        name: file.name,
-                        mimeType: file.mimeType
-                    })
-                });
-                this.allFiles = [...this.allFiles];
-                this.operationResult.setNoOfGridColumns();
+                // (response.files as any[]).forEach(file => {
+                //     this.allFiles.push({
+                //         id: file.id,
+                //         name: file.name,
+                //         mimeType: file.mimeType
+                //     })
+                // });
+                // this.allFiles = [...this.allFiles];
+                // this.operationResult.setNoOfGridColumns();
+                console.log(response);
+                
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
