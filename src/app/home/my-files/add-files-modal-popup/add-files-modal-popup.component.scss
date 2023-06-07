@@ -3,7 +3,6 @@
 .main_content {
     display: flex;
     flex-direction: column;
-    position: relative;
     .add_file {
         width: 100%;
         height: 8rem;
@@ -23,6 +22,7 @@
         }
         .upload_icon {
             height: 3.5rem;
+            fill: $brandPrimaryColor;
         }
         > span {
             font-size: 0.8rem;
@@ -32,8 +32,56 @@
         // }
     }
     .ultra_secure_file {
-        position: absolute;
-        top: calc(100% + 1.5rem);
-        left: 0;
+        margin-top: 1rem;
+        @include flex(center, center);
+        gap: 1rem;
+        label {
+            display: block;
+            border-radius: 1rem;
+            cursor: pointer;
+            input {
+                display: none;
+                &:checked + .bg {
+                    border-color: $brandPrimaryColor;
+                    .circle {
+                        background-color: $brandPrimaryColor;
+                        left: 1.6rem;
+                        svg {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+            .bg {
+                width: calc(1rem + 1rem + 0.2rem + 4px);
+                height: calc(1rem + 0.2rem + 4px);
+                border-radius: 1rem;
+                border: 2px solid $lightGrayOneColor;
+                transition: all 300ms ease-in-out;
+                position: relative;
+                .circle {
+                    $size: 1rem;
+                    width: $size;
+                    height: $size;
+                    border-radius: 50%;
+                    background-color: $lightGrayOneColor;
+                    transition: all 300ms ease-in-out;
+                    transform: translate(-50%, -50%);
+                    @include flex(center, center);
+                    position: absolute;
+                    top: 50%;
+                    left: 0.6rem;
+                    svg {
+                        $size: 1rem;
+                        width: $size;
+                        height: $size;
+                        border-radius: 50%;
+                        fill: $brandSecondaryColor;
+                        transition: all 300ms ease-in-out;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
     }
 }

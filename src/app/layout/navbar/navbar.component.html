@@ -9,8 +9,11 @@
             </svg>
         </button>
     </div>
-    <button (click)="add()"> Add File</button>
-    <button (click)="up()">Update File</button>
-    <button (click)="de()">Delete</button>
+    <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
+        [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
+        (clicked)="signOut()"></app-button>
+    <!-- <button (click)="add()"> Add File</button> -->
+    <!-- <button (click)="up()">Update File</button> -->
+    <!-- <button (click)="de()">Delete</button> -->
     <!-- <button (click)="get()">Get File</button> -->
 </div>

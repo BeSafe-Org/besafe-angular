@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-type ButtonDisplayType = 'primary' | 'secondary';
+type ButtonDisplayType = 'primary' | 'secondary' | 'tertiary';
 type ButtonFunctionalityType = 'button' | 'submit';
 
 @Component({

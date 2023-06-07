@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     }
 
     public signOut(): void {
-        // localStorage.removeItem(UserManagementService.AUTH_USER);
+        localStorage.removeItem(UserManagementService.AUTH_USER);
         this.router.navigate([`${APP_ROUTES.auth._}`]);
     }
 

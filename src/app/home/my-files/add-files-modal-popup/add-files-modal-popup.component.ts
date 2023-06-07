@@ -6,7 +6,7 @@ import { Component, ComponentRef, EventEmitter, OnInit } from '@angular/core';
     styleUrls: ['./add-files-modal-popup.component.scss']
 })
 export class AddFilesModalPopupComponent implements OnInit {
-    public sendFile: EventEmitter<File> = new EventEmitter<File>();
+    public sendFile = new EventEmitter<{ file: File, isUltraSecure: boolean }>();
 
     public selfRef: ComponentRef<AddFilesModalPopupComponent>;
     public file: any;
@@ -23,7 +23,10 @@ export class AddFilesModalPopupComponent implements OnInit {
 
     public onClickUploadButton(): void {
         if (this.file) {
-            this.sendFile.emit(this.file);
+            this.sendFile.emit({
+                file: this.file,
+                isUltraSecure: this.isUltraSecureFile ? true : false
+            });
             this.destroySelf();
         }
     }

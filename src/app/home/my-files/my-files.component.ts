@@ -1,7 +1,7 @@
-import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AddFilesModalPopupComponent } from './add-files-modal-popup/add-files-modal-popup.component';
 import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
-import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective, FileUI } from '../_shared/directives/file-system-operations/file-system-operations.directive';
+import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
 import { Subscription } from 'rxjs';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
@@ -20,13 +20,19 @@ export const FILE_NAME_PREFIX = 'BeSafe-';
 export class MyFilesComponent implements OnInit, OnDestroy {
     @ViewChild('operationResult') operationResult: FileSystemOperationsDirective;
 
-    public viewType: FileViewType; userInfo?: UserInfo
+    public viewType: FileViewType;
+    userInfo?: UserInfo;
     public viewTypeSubscription: Subscription;
-    public allFiles: FileUI[] = [];
+    public allFiles: File[] = [];
+    private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
 
+    public isLoading: boolean = true;
+    public isEmpty: boolean = true;
+
     constructor(
+        private changeDetectorRef: ChangeDetectorRef,
         private componentFactoryResolver: ComponentFactoryResolver,
         private viewContainerRef: ViewContainerRef,
         private besafeGlobalService: BesafeGlobalService,
@@ -45,7 +51,13 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private initial(): void {
+        this.isLoading = true;
+        this.isEmpty = false;
         this.allFiles = [];
+        this.getAllFiles();
+    }
+
+    private refresh(): void {
         this.getAllFiles();
     }
 
@@ -56,21 +68,24 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        let userId = "wvnbrghllcrzy@internetkeno.com";
-        this.fileManagementService.getAllFiles(userId).subscribe(
-            (response: any) => {
+        const userId = "wvnbrghllcrzy@internetkeno.com";
+        this.allFiles$ = this.fileManagementService.getAllFiles(userId).subscribe(
+            (response) => {
                 // console.log('All files retrieved successfully:', response);
-                // (response.files as any[]).forEach(file => {
-                //     this.allFiles.push({
-                //         id: file.id,
-                //         name: file.name,
-                //         mimeType: file.mimeType
-                //     })
-                // });
-                // this.allFiles = [...this.allFiles];
-                // this.operationResult.setNoOfGridColumns();
-                console.log(response);
-                
+                if (response.length === 0) {
+                    this.isLoading = false;
+                    this.isEmpty = true;
+                }
+                else {
+                    const temp = [...response];
+                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    this.allFiles = [...temp];
+                    this.isLoading = false;
+                    this.isEmpty = false;
+                    this.changeDetectorRef.detectChanges();
+                    this.operationResult.setNoOfGridColumns();
+                }
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
@@ -86,13 +101,13 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(AddFilesModalPopupComponent);
         const addFilesModalPopupComponentRef = this.viewContainerRef.createComponent(factory);
         addFilesModalPopupComponentRef.instance.selfRef = addFilesModalPopupComponentRef;
-        addFilesModalPopupComponentRef.instance.sendFile.subscribe((file) => {
-            this.uploadFile(file);
+        addFilesModalPopupComponentRef.instance.sendFile.subscribe(({ file, isUltraSecure }) => {
+            this.uploadFile(file, isUltraSecure);
         });
     }
 
-    private uploadFile(event: any): void {
-        let isUltraSecure = true;
+    private uploadFile(event: any, isUltraSecure: boolean): void {
+        console.log('isUltraSecure', isUltraSecure);
         this.googleApi.uploadFile(event, isUltraSecure).subscribe(
             res => {
                 let uploadFile: File = new File();
@@ -104,8 +119,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
                 uploadFile.starred = false;
                 uploadFile.ultraSecure = false;
                 this.fileManagementService.addFileMetaData(uploadFile).subscribe(res => {
-                    console.log(res);
-                    this.initial();
+                    // console.log(res);
+                    this.refresh();
                 }, error => {
                     console.log(error);
                 })
@@ -130,15 +145,23 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     private deleteFileById(id: string) {
         this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
             // console.log(res);
-            this.initial();
+            this.refresh();
         }, error => {
             console.log(error);
         })
     }
 
+    private toggleFileAsFavourite(file: File): void {
+        file.starred = !file.starred;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
+            // console.log(res);
+        }, error => {
+            // console.log(error);
+        });
+    }
+
     public openContextMenu(event: any): void {
         event.preventDefault();
-        // console.log(event);
         this.viewContainerRef.clear();
         const idWithPrefix: string = event.target.id;
         const id: string = idWithPrefix.substring(this.fileIdPrefix.length);
@@ -160,37 +183,40 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private createContextMenu(ids: string[], position: ContextMenuPointerEventPosition): void {
+        this.viewContainerRef.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        contextMenu.instance.selectedFilesId = ids;
+        const files: File[] = [];
+        ids.forEach(id => {
+            const file = this.allFiles.find(file => file.fileId === id);
+            if (file) files.push(file);
+        });
+        contextMenu.instance.selectedFiles = files;
         contextMenu.instance.pointerEventPosition = position;
+        contextMenu.instance.options = [
+            { type: 'star', name: files[0].starred ? 'Remove from favourites' : 'Mark as favourite', isForSingle: true, svgImgName: 'star-icon' },
+            { type: 'download', name: 'Download', isForSingle: true, svgImgName: 'download-icon' },
+            { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
+        ];
 
-        contextMenu.instance.clickedOnOption.subscribe((event) => {
-            // if (event.optionName === 'Rename') {
-            //     // this.openRenameModalPopup(ids[0]);
-            // }
-            // else if (event.optionName === 'Delete') {
-            //     // this.openConfirmDeleteModalPopup(ids);
-            // }
-            const fileId = contextMenu.instance.selectedFilesId[0];
-            const fileName = this.allFiles.find((f) => f.id).name.slice(FILE_NAME_PREFIX.length);
-            const fileMimeType = this.allFiles.find((f) => f.id).mimeType;
-            console.log(fileName, fileMimeType);
-            switch (event) {
+        contextMenu.instance.clickedOnOption.subscribe((clickedOption) => {
+            const file = contextMenu.instance.selectedFiles[0];
+            switch (clickedOption) {
                 case 'star':
-                    // this.fileManagementService.updateFileMetaData()
+                    this.toggleFileAsFavourite(file);
                     break;
                 case 'download':
-                    this.downloadFile(fileId, fileName);
+                    this.downloadFile(file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(fileId);
+                    this.deleteFileById(file.fileId);
             }
         });
     }
 
     ngOnDestroy(): void {
+        this.allFiles$.unsubscribe();
         this.viewTypeSubscription.unsubscribe();
     }
 }
