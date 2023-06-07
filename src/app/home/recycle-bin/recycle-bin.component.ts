@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
-import { Conversion } from 'src/app/_core/utils/Conversion';
-import { BesafeCrypto } from 'src/app/_core/utils/BesafeCrypto';
 
 @Component({
     selector: 'app-recycle-bin',
@@ -11,9 +8,9 @@ import { BesafeCrypto } from 'src/app/_core/utils/BesafeCrypto';
 })
 
 export class RecycleBinComponent {
-    title = 'Recycle-bin';
+    private title = 'Recycle-bin';
     userInfo?: UserInfo
-    files: any[] = [];
+    private files: any[] = [];
 
     constructor(private googleApi: GoogleApiService) {
         googleApi.userProfileSubject.subscribe(info => {
@@ -66,6 +63,7 @@ export class RecycleBinComponent {
         this.googleApi.getAllFiles().subscribe(
             (response) => {
                 console.log('All files retrieved successfully:', response);
+                console.log(JSON.stringify(response));
             },
             (error) => {
                 console.log('Error retrieving all files:', error);

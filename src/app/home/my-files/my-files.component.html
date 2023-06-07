@@ -1,4 +1,4 @@
-<div class="my_files">
+<div class="my_files" tabindex="-1" [id]="fileSystemOperationContainerId" #fileSystemOperationContainer>
     <div class="header">
         <div class="header_title"> All files </div>
         <div class="actions">
@@ -16,18 +16,22 @@
             </app-button>
         </div>
     </div>
-    <ul class="griv_view" *ngIf="viewType === 'grid'">
-        <ng-container *ngFor="let option of files">
-            <div class="grid_card_container">
-                <app-file-grid-card></app-file-grid-card>
-            </div>
-        </ng-container>
-    </ul>
-    <ul class="list_view" *ngIf="viewType === 'list'">
-        <ng-container *ngFor="let option of files; last as isLast;">
-            <div class="list_card_container">
-                <app-file-list-card></app-file-list-card>
-            </div>
+    <ul [ngClass]="viewType + '_view'"
+        appFileSystemOperations
+        [viewType]="viewType"
+        [fileCollection]="allFiles"
+        [prefix]="fileIdPrefix"
+        #operationResult="operationResult"
+        (contextmenu)="openContextMenu($event)">
+        <ng-container *ngFor="let file of allFiles">
+            <li class="file_card_container" [id]="fileIdPrefix + file.id"
+                [ngClass]="{'selected': operationResult.isSelected(file.id),
+                                    'focused': operationResult.isLastFocused(file.id)}"
+                [title]="file.name">
+                <div class="stop_pointer_events">
+                    <app-file-card [viewType]="viewType" [fileName]="file.name"></app-file-card>
+                </div>
+            </li>
         </ng-container>
     </ul>
 </div>

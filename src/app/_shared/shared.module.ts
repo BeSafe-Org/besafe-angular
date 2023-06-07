@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { LogoComponent } from './components/logo/logo.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ModalPopupComponent } from './components/modal-popup/modal-popup.component';
+import { ClickedOutsideDirective } from './directives/clicked-outside/clicked-outside.directive';
 
 @NgModule({
     declarations: [
         LogoComponent,
         ButtonComponent,
-        ModalPopupComponent
+        ModalPopupComponent,
+        ClickedOutsideDirective
     ],
     imports: [
         CommonModule
@@ -16,7 +18,8 @@ import { ModalPopupComponent } from './components/modal-popup/modal-popup.compon
     exports: [
         LogoComponent,
         ButtonComponent,
-        ModalPopupComponent
+        ModalPopupComponent,
+        ClickedOutsideDirective
     ],
     providers: [
     ],

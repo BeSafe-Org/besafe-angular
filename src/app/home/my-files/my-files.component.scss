@@ -15,20 +15,78 @@
             gap: 1rem;
         }
     }
-    .griv_view,
+    .grid_view,
     .list_view {
         $marginTop: 1rem;
         margin-top: $marginTop;
         height: calc(100% - (#{$headerHeight} + #{$marginTop}));
         overflow-y: scroll;
+        .file_card_container {
+            list-style: none;
+        }
     }
-    .griv_view {
+    .grid_view {
         $size_of_grid_card: 8rem;
         display: grid;
         grid-gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax($size_of_grid_card, 1fr));
+        .file_card_container {
+            list-style: none;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            width: $size_of_grid_card;
+            height: $size_of_grid_card;
+            .stop_pointer_events {
+                width: $size_of_grid_card;
+                height: $size_of_grid_card;
+                aspect-ratio: 1;
+                pointer-events: none;
+            }
+            &:hover {
+                background-color: red;
+            }
+            &.focused {
+                border-color: $brandPrimaryColor;
+            }
+            &.selected {
+                background-color: yellow;
+                color: $brandPrimaryColor;
+            }
+        }
     }
     .list_view {
         padding-right: 1rem;
+        .file_card_container {
+            list-style: none;
+            border: 2px solid transparent;
+            box-shadow: 0 -1px green;
+            background-color: white;
+            .stop_pointer_events {
+                pointer-events: none;
+            }
+            &:hover {
+                background-color: red;
+            }
+            &.focused {
+                border-color: green;
+                box-shadow: 0 -1px transparent;
+                + li {
+                    box-shadow: 0 -1px transparent;
+                }
+            }
+            &.selected {
+                background-color: yellow;
+                color: $brandPrimaryColor;
+            }
+            &:nth-last-child(1) {
+                padding: 2px 2px 1px 2px;
+                border: none;
+                border-bottom: 1px solid green;
+                &.focused {
+                    padding: 0;
+                    border: 2px solid $brandPrimaryColor;
+                }
+            }
+        }
     }
 }
