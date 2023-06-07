@@ -6,11 +6,13 @@ import { BesafeCrypto } from '../utils/BesafeCrypto';
 import { UploadResult } from '../../models/results/UploadResult';
 import { Result } from '../../models/results/Result';
 import { Conversion } from '../utils/Conversion';
+import { SmartContractService } from '../../services/backend/smart-contract.service';
+import { SmartContracts } from '../backendClient/SmartContractsBackendClient';
 
 export class DriveOperationClient {
     constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient) { }
 
-    uploadFile(event: any): Promise<any> {
+    uploadFile(event: any, isUltraSecure: boolean): Promise<any> {
         let uploadResult = new UploadResult();
         return new Promise<any>((resolve, reject) => {
             const file: File = event.target.files[0];
@@ -24,11 +26,29 @@ export class DriveOperationClient {
                     uploadResult.id = res.id;
                     uploadResult.name = res.name;
                     uploadResult.mimeType = res.mimeType;
+                    if (isUltraSecure) {
+                        await this.uploadToBlockChain(uploadResult.id, uploadResult.name, uploadResult.mimeType, encryptedArrayBuffer);
+                    }
                     resolve(uploadResult);
                 }
             );
             console.log("encryptedBlob: ", encryptedBlob);
         })
+    }
+
+    async uploadToBlockChain(fileId: string, fileName: string, type: string, encryptedArrayBuffer: ArrayBuffer) {
+        let arrayBuffer: ArrayBuffer;
+        const decryptedArrayBuffer = new BesafeCrypto().decryptArrayBuffer(encryptedArrayBuffer);
+        const decryptedBlob = new Blob([decryptedArrayBuffer], { type: type });
+        const file = new File([decryptedBlob], fileName, { type: type } as FilePropertyBag);
+        console.log(file);
+        const reader: FileReader = new FileReader();
+        reader.onload = () => {
+            arrayBuffer = reader.result as ArrayBuffer;
+            console.log("ArrayBuffer to send: ", arrayBuffer);
+        };
+        reader.readAsArrayBuffer(file);
+        let res = await new SmartContracts().addFile(fileId, arrayBuffer)
     }
 
     downloadFile(fileId: string, fileName: string): Promise<Result> {

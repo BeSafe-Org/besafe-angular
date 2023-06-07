@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
+import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
+import { File } from 'src/app/_core/models/entities/File';
+import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 
@@ -27,6 +30,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         private componentFactoryResolver: ComponentFactoryResolver,
         private viewContainerRef: ViewContainerRef,
         private besafeGlobalService: BesafeGlobalService,
+        private fileManagementService: FileManagementService,
+        private smartContractService: SmartContractService,
         private googleApi: GoogleApiService
     ) {
         googleApi.userProfileSubject.subscribe(info => {
@@ -51,7 +56,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        this.googleApi.getAllFiles().subscribe(
+        let userId = "wvnbrghllcrzy@internetkeno.com";
+        this.fileManagementService.getAllFiles(userId).subscribe(
             (response: any) => {
                 // console.log('All files retrieved successfully:', response);
                 (response.files as any[]).forEach(file => {
@@ -78,17 +84,29 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(AddFilesModalPopupComponent);
         const addFilesModalPopupComponentRef = this.viewContainerRef.createComponent(factory);
         addFilesModalPopupComponentRef.instance.selfRef = addFilesModalPopupComponentRef;
-
         addFilesModalPopupComponentRef.instance.sendFile.subscribe((file) => {
             this.uploadFile(file);
         });
     }
 
     private uploadFile(event: any): void {
-        this.googleApi.uploadFile(event).subscribe(
+        let isUltraSecure = true;
+        this.googleApi.uploadFile(event, isUltraSecure).subscribe(
             res => {
-                // console.log('File Uploaded:', res);
-                this.initial();
+                let uploadFile: File = new File();
+                uploadFile.userId = "wvnbrghllcrzy@internetkeno.com";
+                uploadFile.fileId = res.id;
+                uploadFile.fileName = res.name;
+                uploadFile.mimeType = res.mimeType;
+                uploadFile.deleted = false;
+                uploadFile.starred = false;
+                uploadFile.ultraSecure = false;
+                this.fileManagementService.addFileMetaData(uploadFile).subscribe(res => {
+                    console.log(res);
+                    this.initial();
+                }, error => {
+                    console.log(error);
+                })
             },
             error => {
                 // console.error('Error uploading file:', error);
@@ -108,15 +126,12 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private deleteFileById(id: string) {
-        this.googleApi.deleteFile(id).subscribe(
-            (response) => {
-                // console.log('File deleted successfully', response);
-                this.initial();
-            },
-            (error) => {
-                // console.log('Error deleted file', error);
-            }
-        );
+        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+            // console.log(res);
+            this.initial();
+        }, error => {
+            console.log(error);
+        })
     }
 
     public openContextMenu(event: any): void {
@@ -162,6 +177,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
             console.log(fileName, fileMimeType);
             switch (event) {
                 case 'star':
+                    // this.fileManagementService.updateFileMetaData()
                     break;
                 case 'download':
                     this.downloadFile(fileId, fileName);
