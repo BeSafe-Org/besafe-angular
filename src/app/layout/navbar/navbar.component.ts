@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { log } from 'console';
 import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
+import { File } from 'src/app/_core/models/entities/File';
+import { FileManagementService } from 'src/app/_core/services/backend/file-management';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 import { UserManagementService } from 'src/app/_core/services/backend/user-management.service';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
@@ -21,6 +23,7 @@ export class NavbarComponent implements OnInit {
         private besafeGlobalService: BesafeGlobalService,
         private smartContractService: SmartContractService,
         private userManagementService: UserManagementService,
+        private fileManagementService: FileManagementService,
         private router: Router
     ) {
 
@@ -49,42 +52,64 @@ export class NavbarComponent implements OnInit {
     }
 
     public signOut(): void {
-        localStorage.removeItem(UserManagementService.AUTH_USER);
+        // localStorage.removeItem(UserManagementService.AUTH_USER);
         this.router.navigate([`${APP_ROUTES.auth._}`]);
     }
 
-    connect() {
-        const res = this.smartContractService.connectToMetamask();
-        res.subscribe((res) => {
-            console.log(res);
-
-        }, err => {
-            console.log(err);
-
-        })
-
-    }
-
     add() {
-        const res = this.smartContractService.addFile("45", "ok eissa besafe it is");
-        res.subscribe((res) => {
-            console.log(res);
 
+        console.log("start");
+        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", false, true);
+        this.fileManagementService.addFileMetaData(file).subscribe(res => {
+            console.log(res);
         }, err => {
             console.log(err);
-
         })
+        // const res = this.smartContractService.connectToMetamask();
+        // res.subscribe((res) => {
+        //     console.log(res);
+
+        // }, err => {
+        //     console.log(err);
+
+        // })
+
     }
 
-    get() {
-        const res = this.smartContractService.getFile("45");
-        res.subscribe((res) => {
+    up() {
+        console.log("start");
+        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             console.log(res);
-
         }, err => {
             console.log(err);
-
         })
+        // const res = this.smartContractService.addFile("45", "ok eissa besafe it is");
+        // res.subscribe((res) => {
+        //     console.log(res);
+
+        // }, err => {
+        //     console.log(err);
+
+        // })
+    }
+
+    de() {
+        console.log("start");
+        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
+        this.fileManagementService.deleteFileMetaData("sdf").subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        })
+        // const res = this.smartContractService.getFile("45");
+        // res.subscribe((res) => {
+        //     console.log(res);
+
+        // }, err => {
+        //     console.log(err);
+
+        // })
     }
 }
 

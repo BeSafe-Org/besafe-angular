@@ -61,7 +61,7 @@ export class RestCalls {
     return promise;
   }
   
-  DELETE(url: string, empId: String): Promise<any> {
+  DELETE(url: string, id?: String): Promise<any> {
     const xhr = new XMLHttpRequest();
     xhr.open('DELETE', url, true);
     const promise = new Promise((resolve, reject) => {
