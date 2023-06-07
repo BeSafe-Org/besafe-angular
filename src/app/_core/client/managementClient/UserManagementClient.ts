@@ -30,6 +30,7 @@ export class UserManagementClient {
                 if (storeDigestResult.errorCode === 0) {
                     let masterKey = new AesCrypto().generateUserKey(userId + userPassword, userSaltResult.userSalt);
                     new LocalStorage().addItem("masterKey", masterKey);
+                    new LocalStorage().addItem("userId", userId);
                     result.errorCode = 0;
                     result.errorMessage = "User account created successfully!";
                     resolve(result)
@@ -69,6 +70,7 @@ export class UserManagementClient {
                     }
                     let masterKey = new AesCrypto().generateUserKey(userId + userPassword, userSaltResult.userSalt);
                     new LocalStorage().addItem("masterKey", masterKey);
+                    new LocalStorage().addItem("userId", userId);
                     resolve(storeDigestResult);
                 }
                 else {
