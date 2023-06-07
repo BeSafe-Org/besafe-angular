@@ -10,7 +10,7 @@ const authCodeFlowConfig: AuthConfig = {
     // showDebugInformation: true,
     issuer: 'https://accounts.google.com',
     strictDiscoveryDocumentValidation: false,
-    redirectUri: "http://localhost:4200/home/recycle-bin",
+    redirectUri: "http://localhost:4200/home/my-files",
     clientId: '232333650014-qq92u4mj4jh97r1asgv32e90fqcdbsg1.apps.googleusercontent.com',
     scope: 'openid profile email https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file',
 };

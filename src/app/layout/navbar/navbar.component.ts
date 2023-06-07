@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { log } from 'console';
 import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
+import { UserManagementService } from 'src/app/_core/services/backend/user-management.service';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
 @Component({
     selector: 'app-navbar',
@@ -16,7 +19,9 @@ export class NavbarComponent implements OnInit {
 
     constructor(
         private besafeGlobalService: BesafeGlobalService,
-        private smartContractService: SmartContractService
+        private smartContractService: SmartContractService,
+        private userManagementService: UserManagementService,
+        private router: Router
     ) {
 
         const password = 'Pass123$';
@@ -41,6 +46,11 @@ export class NavbarComponent implements OnInit {
 
     public toggleCollapseSidebar(): void {
         this.besafeGlobalService.toggleCollapseSidebar();
+    }
+
+    public signOut(): void {
+        localStorage.removeItem(UserManagementService.AUTH_USER);
+        this.router.navigate([`${APP_ROUTES.auth._}`]);
     }
 
     connect() {

@@ -10,7 +10,7 @@
         .option {
             list-style: none;
             > a {
-                padding: 1rem 0;
+                padding: 0.8rem 0;
                 // border-top-right-radius: 5rem;
                 // border-bottom-right-radius: 5rem;
                 text-decoration: none;
@@ -19,7 +19,7 @@
                     $size: 2rem;
                     width: $size;
                     height: $size;
-                    margin: 0 1rem;
+                    margin: 0 0.8rem;
                     fill: black;
                 }
                 > span {

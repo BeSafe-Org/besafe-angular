@@ -7,6 +7,8 @@ import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
 
+export const FILE_NAME_PREFIX = 'BeSafe-';
+
 @Component({
     selector: 'app-my-files',
     templateUrl: './my-files.component.html',
@@ -34,9 +36,12 @@ export class MyFilesComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.initializeViewTypeObserver();
-        setTimeout(() => {
-            this.getAllFiles();
-        }, 0);
+        this.initial();
+    }
+
+    private initial(): void {
+        this.allFiles = [];
+        this.getAllFiles();
     }
 
     private initializeViewTypeObserver(): void {
@@ -48,7 +53,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     private getAllFiles(): void {
         this.googleApi.getAllFiles().subscribe(
             (response: any) => {
-                console.log('All files retrieved successfully:', response);
+                // console.log('All files retrieved successfully:', response);
                 (response.files as any[]).forEach(file => {
                     this.allFiles.push({
                         id: file.id,
@@ -60,7 +65,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
                 this.operationResult.setNoOfGridColumns();
             },
             (error) => {
-                console.log('Error retrieving all files:', error);
+                // console.log('Error retrieving all files:', error);
             }
         );
     }
@@ -73,6 +78,45 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(AddFilesModalPopupComponent);
         const addFilesModalPopupComponentRef = this.viewContainerRef.createComponent(factory);
         addFilesModalPopupComponentRef.instance.selfRef = addFilesModalPopupComponentRef;
+
+        addFilesModalPopupComponentRef.instance.sendFile.subscribe((file) => {
+            this.uploadFile(file);
+        });
+    }
+
+    private uploadFile(event: any): void {
+        this.googleApi.uploadFile(event).subscribe(
+            res => {
+                // console.log('File Uploaded:', res);
+                this.initial();
+            },
+            error => {
+                // console.error('Error uploading file:', error);
+            }
+        );
+    }
+
+    private downloadFile(id: string, name: string) {
+        this.googleApi.downloadFile(id, name).subscribe(
+            res => {
+                // console.log('File Downloaded:', res);
+            },
+            error => {
+                // console.error('Error downloading file:', error);
+            }
+        );
+    }
+
+    private deleteFileById(id: string) {
+        this.googleApi.deleteFile(id).subscribe(
+            (response) => {
+                // console.log('File deleted successfully', response);
+                this.initial();
+            },
+            (error) => {
+                // console.log('Error deleted file', error);
+            }
+        );
     }
 
     public openContextMenu(event: any): void {
@@ -107,11 +151,24 @@ export class MyFilesComponent implements OnInit, OnDestroy {
 
         contextMenu.instance.clickedOnOption.subscribe((event) => {
             // if (event.optionName === 'Rename') {
-            //     this.openRenameModalPopup(ids[0]);
+            //     // this.openRenameModalPopup(ids[0]);
             // }
             // else if (event.optionName === 'Delete') {
-            //     this.openConfirmDeleteModalPopup(ids);
+            //     // this.openConfirmDeleteModalPopup(ids);
             // }
+            const fileId = contextMenu.instance.selectedFilesId[0];
+            const fileName = this.allFiles.find((f) => f.id).name.slice(FILE_NAME_PREFIX.length);
+            const fileMimeType = this.allFiles.find((f) => f.id).mimeType;
+            console.log(fileName, fileMimeType);
+            switch (event) {
+                case 'star':
+                    break;
+                case 'download':
+                    this.downloadFile(fileId, fileName);
+                    break;
+                case 'delete':
+                    this.deleteFileById(fileId);
+            }
         });
     }
 

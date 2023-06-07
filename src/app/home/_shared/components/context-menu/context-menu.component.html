@@ -3,8 +3,10 @@
     appClickedOutside
     (clickedOutside)="selfRef.destroy()">
     <ng-container *ngFor="let option of options">
-        <li *ngIf="shouldBeVisible(option.isForSingle)" (click)="contextMenuClickHandler(option.name)">
-            <!-- <img [src]="'assets/images/svg/file-system-context-menu/' + option.svgImgName + '.svg'" alt=""> -->
+        <li *ngIf="shouldBeVisible(option.isForSingle)" (click)="contextMenuClickHandler(option.type)">
+            <svg>
+                <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + option.svgImgName"></use>
+            </svg>
             <span> {{ option.name }} </span>
         </li>
     </ng-container>

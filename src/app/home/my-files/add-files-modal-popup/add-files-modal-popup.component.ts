@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnInit } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-add-files-modal-popup',
@@ -6,7 +6,11 @@ import { Component, ComponentRef, OnInit } from '@angular/core';
     styleUrls: ['./add-files-modal-popup.component.scss']
 })
 export class AddFilesModalPopupComponent implements OnInit {
-    public selfRef: ComponentRef<AddFilesModalPopupComponent>
+    public sendFile: EventEmitter<File> = new EventEmitter<File>();
+
+    public selfRef: ComponentRef<AddFilesModalPopupComponent>;
+    public file: any;
+    public isUltraSecureFile: boolean;
 
     constructor() { }
 
@@ -18,5 +22,17 @@ export class AddFilesModalPopupComponent implements OnInit {
     }
 
     public onClickUploadButton(): void {
+        if (this.file) {
+            this.sendFile.emit(this.file);
+            this.destroySelf();
+        }
+    }
+
+    public fileSelected(event: any): void {
+        this.file = event;
+    }
+
+    public checkboxToggle(event: any): void {
+        this.isUltraSecureFile = event.target.checked;
     }
 }

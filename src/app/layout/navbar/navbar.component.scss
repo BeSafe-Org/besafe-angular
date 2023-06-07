@@ -9,7 +9,7 @@
     @include flex(space-between, center);
     .app_logo_and_hamburger {
         @include flex(center, center);
-        gap: 4.2rem;
+        gap: 2rem;
         .app_logo_container {
             width: max-content;
             height: max-content;
