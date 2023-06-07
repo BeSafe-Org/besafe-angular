@@ -61,6 +61,7 @@ export class SmartContracts {
 
     public async addFile(fileId: string, fileData: ArrayBuffer): Promise<any> {
         try {
+            this.connectToMetamask();
             const contract = new window.web3.eth.Contract(this.abi, this.address);
             const accounts = await this.getAccounts();
 

@@ -5,14 +5,15 @@ export class File {
     mimeType: string;
     deleted: boolean;
     starred: boolean;
+    ultraSecure: boolean;
   
     constructor(
-      userId: string,
-      fileId: string,
-      fileName: string,
-      mimeType: string,
-      deleted: boolean,
-      starred: boolean
+      userId?: string,
+      fileId?: string,
+      fileName?: string,
+      mimeType?: string,
+      deleted?: boolean,
+      starred?: boolean
     ) {
       this.userId = userId;
       this.fileId = fileId;
