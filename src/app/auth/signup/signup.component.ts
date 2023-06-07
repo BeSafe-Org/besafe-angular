@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 import { Router } from '@angular/router';
 import { AuthenticationManagementService } from 'src/app/_core/services/backend/authentication-management';
 import { UserManagementService } from 'src/app/_core/services/backend/user-management.service';
+import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { REGEX } from 'src/app/_shared/utils/regex';
 import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
@@ -18,7 +19,8 @@ export class SignupComponent implements OnInit {
     constructor(
         private userManagementService: UserManagementService,
         private authenticationManagementService: AuthenticationManagementService,
-        private router: Router
+        private router: Router,
+        private toaster: ToasterService
     ) { }
 
     ngOnInit(): void {
@@ -55,6 +57,7 @@ export class SignupComponent implements OnInit {
         this.isSigningUp = true;
         setTimeout(() => {
             localStorage.setItem(UserManagementService.AUTH_USER, 'true');
+            this.toaster.success('Sign up successsful')
             this.router.navigate([`${APP_ROUTES.home._}`]);
         }, 1500);
         // console.log("inside");
