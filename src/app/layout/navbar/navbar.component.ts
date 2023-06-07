@@ -15,6 +15,7 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+    public isSigningOut: boolean = false;
 
     encryptedText: string;
     decryptedText: string;
@@ -52,8 +53,11 @@ export class NavbarComponent implements OnInit {
     }
 
     public signOut(): void {
-        localStorage.removeItem(UserManagementService.AUTH_USER);
-        this.router.navigate([`${APP_ROUTES.auth._}`]);
+        this.isSigningOut = true;
+        setTimeout(() => {
+            localStorage.removeItem(UserManagementService.AUTH_USER);
+            this.router.navigate([`${APP_ROUTES.auth._}`]);
+        }, 3000);
     }
 
     add() {

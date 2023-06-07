@@ -24,9 +24,14 @@
         .intro {
             margin: auto 1rem auto 4rem;
             .title {
-                color: $brandPrimaryColor;
                 font-size: 4rem;
-                font-weight: 600;
+                .be {
+                    color: $brandPrimaryColor;
+                    font-weight: 600;
+                }
+                .safe {
+                    color: $brandSecondaryColor;
+                }
             }
             .description {
                 color: lighten($color: $brandPrimaryColor, $amount: 10%);

@@ -70,7 +70,6 @@
     }
     &.disabled {
         pointer-events: none;
-        filter: brightness(250%);
     }
 }
 
@@ -95,6 +94,7 @@
     }
     &.disabled {
         background: $darkGrayOneColor;
+        filter: brightness(250%);
         .icon,
         .title {
             filter: brightness(250%);
@@ -128,6 +128,7 @@
     }
     &.disabled {
         border-color: $darkGrayOneColor;
+        filter: brightness(250%);
         .icon {
             fill: $darkGrayOneColor;
         }
@@ -158,6 +159,12 @@
         filter: brightness(150%);
     }
     &.disabled {
+        filter: brightness(250%);
+        .loader {
+            .circle {
+                background-color: $darkGrayOneColor;
+            }
+        }
         .icon {
             fill: $darkGrayOneColor;
         }

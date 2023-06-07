@@ -12,6 +12,7 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 })
 export class SigninComponent implements OnInit {
     public signinForm: FormGroup;
+    public isSigningIn: boolean = false;
 
     constructor(
         private userManagementService: UserManagementService,
@@ -40,8 +41,11 @@ export class SigninComponent implements OnInit {
     }
 
     private verifyUserAccount(userId: string, userPassword: string): void {
-        localStorage.setItem(UserManagementService.AUTH_USER, 'true');
-        this.router.navigate([`${APP_ROUTES.home._}`]);
+        this.isSigningIn = true;
+        setTimeout(() => {
+            localStorage.setItem(UserManagementService.AUTH_USER, 'true');
+            this.router.navigate([`${APP_ROUTES.home._}`]);
+        }, 2500);
         // this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
         //     console.log(res);
         // }, err => {

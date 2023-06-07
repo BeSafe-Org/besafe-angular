@@ -13,6 +13,7 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 })
 export class SignupComponent implements OnInit {
     public signupForm: FormGroup;
+    public isSigningUp: boolean = false;
 
     constructor(
         private userManagementService: UserManagementService,
@@ -51,8 +52,11 @@ export class SignupComponent implements OnInit {
     }
 
     private createUserAccount(userId: string, userPassword: string): void {
-        localStorage.setItem(UserManagementService.AUTH_USER, 'true');
-        this.router.navigate([`${APP_ROUTES.home._}`]);
+        this.isSigningUp = true;
+        setTimeout(() => {
+            localStorage.setItem(UserManagementService.AUTH_USER, 'true');
+            this.router.navigate([`${APP_ROUTES.home._}`]);
+        }, 1500);
         // console.log("inside");
         // this.authenticationManagementService.sendOtp(userId).subscribe(res => {
         //     console.log(res);

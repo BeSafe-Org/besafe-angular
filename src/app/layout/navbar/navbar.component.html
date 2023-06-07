@@ -11,6 +11,7 @@
     </div>
     <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
         [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
+        [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
         (clicked)="signOut()"></app-button>
     <!-- <button (click)="add()"> Add File</button> -->
     <!-- <button (click)="up()">Update File</button> -->
