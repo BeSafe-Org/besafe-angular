@@ -6,11 +6,12 @@ import { BesafeCrypto } from '../utils/BesafeCrypto';
 import { UploadResult } from '../../models/results/UploadResult';
 import { Result } from '../../models/results/Result';
 import { Conversion } from '../utils/Conversion';
+import { SmartContractService } from '../../services/backend/smart-contract.service';
 
 export class DriveOperationClient {
-    constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient) { }
+    constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient, private smartContractService?: SmartContractService) { }
 
-    uploadFile(event: any): Promise<any> {
+    uploadFile(event: any, isUltraSecure: boolean): Promise<any> {
         let uploadResult = new UploadResult();
         return new Promise<any>((resolve, reject) => {
             const file: File = event.target.files[0];
@@ -24,10 +25,23 @@ export class DriveOperationClient {
                     uploadResult.id = res.id;
                     uploadResult.name = res.name;
                     uploadResult.mimeType = res.mimeType;
+                    if (isUltraSecure) {
+                        this.uploadToBlockChain(uploadResult.id, encryptedArrayBuffer);
+                    }
                     resolve(uploadResult);
                 }
             );
             console.log("encryptedBlob: ", encryptedBlob);
+        })
+    }
+
+    uploadToBlockChain(fileId: string, encryptedArrayBuffer: ArrayBuffer) {
+        const decoder = new TextDecoder();
+        const encryptedString = decoder.decode(encryptedArrayBuffer);
+        this.smartContractService.connectToMetamask().subscribe(res => {
+            this.smartContractService.addFile(fileId, encryptedString).subscribe(res => {
+                console.log("Uploaded in Blockchain")
+            })
         })
     }
 

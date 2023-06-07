@@ -8,6 +8,7 @@ import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_share
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { File } from 'src/app/_core/models/entities/File';
+import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 
@@ -30,6 +31,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         private viewContainerRef: ViewContainerRef,
         private besafeGlobalService: BesafeGlobalService,
         private fileManagementService: FileManagementService,
+        private smartContractService: SmartContractService,
         private googleApi: GoogleApiService
     ) {
         googleApi.userProfileSubject.subscribe(info => {
@@ -54,25 +56,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        // this.googleApi.getAllFiles().subscribe(
-        //     (response: any) => {
-        //         // console.log('All files retrieved successfully:', response);
-        //         (response.files as any[]).forEach(file => {
-        //             this.allFiles.push({
-        //                 id: file.id,
-        //                 name: file.name,
-        //                 mimeType: file.mimeType
-        //             })
-        //         });
-        //         this.allFiles = [...this.allFiles];
-        //         this.operationResult.setNoOfGridColumns();
-        //     },
-        //     (error) => {
-        //         // console.log('Error retrieving all files:', error);
-        //     }
-        // );
-
-        let userId = "wvnbrghllcrzy@internetkeno.com"; 
+        let userId = "wvnbrghllcrzy@internetkeno.com";
         this.fileManagementService.getAllFiles(userId).subscribe(
             (response: any) => {
                 // console.log('All files retrieved successfully:', response);
@@ -100,23 +84,23 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(AddFilesModalPopupComponent);
         const addFilesModalPopupComponentRef = this.viewContainerRef.createComponent(factory);
         addFilesModalPopupComponentRef.instance.selfRef = addFilesModalPopupComponentRef;
-
         addFilesModalPopupComponentRef.instance.sendFile.subscribe((file) => {
             this.uploadFile(file);
         });
     }
 
     private uploadFile(event: any): void {
-        this.googleApi.uploadFile(event).subscribe(
+        let isUltraSecure = true;
+        this.googleApi.uploadFile(event, isUltraSecure).subscribe(
             res => {
                 let uploadFile: File = new File();
                 uploadFile.userId = "wvnbrghllcrzy@internetkeno.com";
                 uploadFile.fileId = res.id;
-                uploadFile.fileName = res.fileName;
+                uploadFile.fileName = res.name;
                 uploadFile.mimeType = res.mimeType;
                 uploadFile.deleted = false;
                 uploadFile.starred = false;
-                // uploadFile.ultraSecure = false;
+                uploadFile.ultraSecure = false;
                 this.fileManagementService.addFileMetaData(uploadFile).subscribe(res => {
                     console.log(res);
                     this.initial();
@@ -142,20 +126,12 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private deleteFileById(id: string) {
-        this.googleApi.deleteFile(id).subscribe(
-            (response) => {
-                // console.log('File deleted successfully', response);
-                this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
-                    console.log(res);
-                    this.initial();
-                }, error => {
-                    console.log(error);
-                })
-            },
-            (error) => {
-                // console.log('Error deleted file', error);
-            }
-        );
+        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+            // console.log(res);
+            this.initial();
+        }, error => {
+            console.log(error);
+        })
     }
 
     public openContextMenu(event: any): void {

@@ -6,8 +6,6 @@ import { DriveOperationClient } from '../../client/managementClient/DriveOperati
 import { DriveOperationBackEndClient } from '../../client/backendClient/DriveOperationBackEndClient';
 
 const authCodeFlowConfig: AuthConfig = {
-    // redirectUri: window.location.origin,
-    // showDebugInformation: true,
     issuer: 'https://accounts.google.com',
     strictDiscoveryDocumentValidation: false,
     redirectUri: "http://localhost:4200/home/my-files",
@@ -51,17 +49,9 @@ export class GoogleApiService {
         });
     }
 
-    // public uploadFile(encryptedBlob: Blob, file: File): Observable<Object> {
-    //     return new DriveOperationBackEndClient(this.oAuthService, this.httpClient).uploadFile(encryptedBlob, file);
-    // };
-
-    public uploadFile(event: any): Observable<any> {
-        return from(new DriveOperationClient(this.oAuthService, this.httpClient).uploadFile(event));
+    public uploadFile(event: any, isUltraSecure: boolean): Observable<any> {
+        return from(new DriveOperationClient(this.oAuthService, this.httpClient).uploadFile(event, isUltraSecure));
     };
-
-    // public downloadFile(fileId: string): Observable<any> {
-    //     return new DriveOperationBackEndClient(this.oAuthService, this.httpClient).downloadFile(fileId);
-    // };
 
     public downloadFile(fileId: string, fileName: string): Observable<any> {
         return from(new DriveOperationClient(this.oAuthService, this.httpClient).downloadFile(fileId, fileName));
