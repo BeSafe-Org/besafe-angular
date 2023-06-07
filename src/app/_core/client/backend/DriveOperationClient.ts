@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { DriveOperationBackEndClient } from './DriveOperationBackEndClient';
 import { Conversion } from '../../utils/Conversion';
 import { BesafeCrypto } from '../../utils/BesafeCrypto';
-import { Result } from '../../utils/Result';
 import { UploadResult } from '../../utils/UploadResult';
+import { Result } from '../../models/Result';
 
 export class DriveOperationClient {
     constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient) { }
@@ -50,8 +50,8 @@ export class DriveOperationClient {
                             link.href = window.URL.createObjectURL(file);
                             link.download = fileName;
                             link.click();
-                            result.error_code = 0;
-                            result.error_message = "File downloaded successfully";
+                            result.errorCode = 0;
+                            result.errorMessage = "File downloaded successfully";
                             console.log('File downloaded: ', response);
                         })
                         .catch(error => {
