@@ -27,14 +27,14 @@ export class RecycleBinComponent {
     }
 
     onFileSelected(event: any): void {
-        this.googleApi.uploadFile(event).subscribe(
-            res => {
-                console.log('File Uploaded:', res);
-            },
-            error => {
-                console.error('Error uploading file:', error);
-            }
-        );
+        // this.googleApi.uploadFile(event).subscribe(
+        //     res => {
+        //         console.log('File Uploaded:', res);
+        //     },
+        //     error => {
+        //         console.error('Error uploading file:', error);
+        //     }
+        // );
     }
 
     downloadFile(fileId = "10HRp3ou-ETJQTUSo06ho2UppzR6TvyAg", fileName = "something.pdf") {

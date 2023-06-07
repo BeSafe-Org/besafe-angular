@@ -7,9 +7,10 @@ import { UploadResult } from '../../models/results/UploadResult';
 import { Result } from '../../models/results/Result';
 import { Conversion } from '../utils/Conversion';
 import { SmartContractService } from '../../services/backend/smart-contract.service';
+import { SmartContracts } from '../backendClient/SmartContractsBackendClient';
 
 export class DriveOperationClient {
-    constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient, private smartContractService?: SmartContractService) { }
+    constructor(private readonly oAuthService: OAuthService, private readonly httpClient: HttpClient) { }
 
     uploadFile(event: any, isUltraSecure: boolean): Promise<any> {
         let uploadResult = new UploadResult();
@@ -26,7 +27,7 @@ export class DriveOperationClient {
                     uploadResult.name = res.name;
                     uploadResult.mimeType = res.mimeType;
                     if (isUltraSecure) {
-                        this.uploadToBlockChain(uploadResult.id, encryptedArrayBuffer);
+                        await this.uploadToBlockChain(uploadResult.id, uploadResult.name, uploadResult.mimeType, encryptedArrayBuffer);
                     }
                     resolve(uploadResult);
                 }
@@ -35,14 +36,19 @@ export class DriveOperationClient {
         })
     }
 
-    uploadToBlockChain(fileId: string, encryptedArrayBuffer: ArrayBuffer) {
-        const decoder = new TextDecoder();
-        const encryptedString = decoder.decode(encryptedArrayBuffer);
-        this.smartContractService.connectToMetamask().subscribe(res => {
-            this.smartContractService.addFile(fileId, encryptedString).subscribe(res => {
-                console.log("Uploaded in Blockchain")
-            })
-        })
+    async uploadToBlockChain(fileId: string, fileName: string, type: string, encryptedArrayBuffer: ArrayBuffer) {
+        let arrayBuffer: ArrayBuffer;
+        const decryptedArrayBuffer = new BesafeCrypto().decryptArrayBuffer(encryptedArrayBuffer);
+        const decryptedBlob = new Blob([decryptedArrayBuffer], { type: type });
+        const file = new File([decryptedBlob], fileName, { type: type } as FilePropertyBag);
+        console.log(file);
+        const reader: FileReader = new FileReader();
+        reader.onload = () => {
+            arrayBuffer = reader.result as ArrayBuffer;
+            console.log("ArrayBuffer to send: ", arrayBuffer);
+        };
+        reader.readAsArrayBuffer(file);
+        let res = await new SmartContracts().addFile(fileId, arrayBuffer)
     }
 
     downloadFile(fileId: string, fileName: string): Promise<Result> {

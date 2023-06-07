@@ -58,58 +58,58 @@ export class NavbarComponent implements OnInit {
 
     add() {
 
-        console.log("start");
-        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", false, true);
-        this.fileManagementService.addFileMetaData(file).subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.log(err);
-        })
-        // const res = this.smartContractService.connectToMetamask();
-        // res.subscribe((res) => {
+        // console.log("start");
+        // let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", false, true);
+        // this.fileManagementService.addFileMetaData(file).subscribe(res => {
         //     console.log(res);
-
         // }, err => {
         //     console.log(err);
-
         // })
+        const res = this.smartContractService.connectToMetamask();
+        res.subscribe((res) => {
+            console.log(res);
+
+        }, err => {
+            console.log(err);
+
+        })
 
     }
 
     up() {
-        console.log("start");
-        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
-        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.log(err);
-        })
-        // const res = this.smartContractService.addFile("45", "ok eissa besafe it is");
-        // res.subscribe((res) => {
+        // console.log("start");
+        // let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
+        // this.fileManagementService.updateFileMetaData(file).subscribe(res => {
         //     console.log(res);
-
         // }, err => {
         //     console.log(err);
-
         // })
+        const res = this.smartContractService.addFile("45", "ok eissa besafe it is");
+        res.subscribe((res) => {
+            console.log(res);
+
+        }, err => {
+            console.log(err);
+
+        })
     }
 
     de() {
-        console.log("start");
-        let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
-        this.fileManagementService.deleteFileMetaData("sdf").subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.log(err);
-        })
-        // const res = this.smartContractService.getFile("45");
-        // res.subscribe((res) => {
+        // console.log("start");
+        // let file = new File("wvnbrghllcrzy@internetkeno.com", "sdf", "Rizwan", "png", true, true);
+        // this.fileManagementService.deleteFileMetaData("sdf").subscribe(res => {
         //     console.log(res);
-
         // }, err => {
         //     console.log(err);
-
         // })
+        const res = this.smartContractService.getFile("45");
+        res.subscribe((res) => {
+            console.log(res);
+
+        }, err => {
+            console.log(err);
+
+        })
     }
 }
 
