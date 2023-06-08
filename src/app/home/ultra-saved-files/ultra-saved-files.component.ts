@@ -69,7 +69,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
 
     private getAllFiles(): void {
         const userId = this.userId;
-        this.allFiles$ = this.fileManagementService.getDeletedFiles(userId).subscribe(
+        this.allFiles$ = this.fileManagementService.getUltraSecureFiles(userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);
                 if (response.length === 0) {
@@ -78,8 +78,8 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
                 }
                 else {
                     const temp = [...response];
-                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
                     this.allFiles = [...temp];
                     this.isLoading = false;
                     this.isEmpty = false;
@@ -108,8 +108,9 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(id: string) {
-        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+    private deleteFileById(file: File) {
+        file.deleted = true;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
             this.refresh();
         }, error => {
@@ -176,7 +177,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
                     this.downloadFile(file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(file.fileId);
+                    this.deleteFileById(file);
             }
         });
     }

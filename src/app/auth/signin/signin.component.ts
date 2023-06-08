@@ -49,10 +49,10 @@ export class SigninComponent implements OnInit {
             this.toaster.success('Sign in successful');
             this.router.navigate([`${APP_ROUTES.home._}`]);
         }, 2500);
-        // this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
-        //     console.log(res);
-        // }, err => {
-        //     console.log(err);
-        // });
+        this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        });
     }
 }

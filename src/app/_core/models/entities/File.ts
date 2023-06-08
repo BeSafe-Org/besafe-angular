@@ -5,7 +5,7 @@ export class File {
     mimeType: string;
     deleted: boolean;
     starred: boolean;
-    ultraSecure: boolean;
+    ultraSafe: boolean;
   
     constructor(
       userId?: string,

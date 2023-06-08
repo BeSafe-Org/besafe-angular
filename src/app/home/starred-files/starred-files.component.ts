@@ -72,15 +72,15 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         const userId = this.userId;
         this.allFiles$ = this.fileManagementService.getStarredFiles(userId).subscribe(
             (response) => {
-                // console.log('All files retrieved successfully:', response);
+                console.log('All files retrieved successfully:', response);
                 if (response.length === 0) {
                     this.isLoading = false;
                     this.isEmpty = true;
                 }
                 else {
                     const temp = [...response];
-                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
                     this.allFiles = [...temp];
                     this.isLoading = false;
                     this.isEmpty = false;
@@ -109,8 +109,9 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(id: string) {
-        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+    private deleteFileById(file: File) {
+        file.deleted = true;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
             this.refresh();
         }, error => {
@@ -119,9 +120,9 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
     }
 
     private toggleFileAsFavourite(file: File): void {
-        file.starred = !file.starred;
+        file.starred = false;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
-            // console.log(res);
+            console.log(res);
             this.refresh();
         }, error => {
             // console.log(error);
@@ -163,7 +164,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         contextMenu.instance.selectedFiles = files;
         contextMenu.instance.pointerEventPosition = position;
         contextMenu.instance.options = [
-            { type: 'star', name: files[0].starred ? 'Remove from favourites' : 'Mark as favourite', isForSingle: true, svgImgName: 'star-icon' },
+            { type: 'star', name: true ? 'Remove from favourites' : 'Mark as favourite', isForSingle: true, svgImgName: 'star-icon' },
             { type: 'download', name: 'Download', isForSingle: true, svgImgName: 'download-icon' },
             { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
         ];
@@ -178,7 +179,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
                     this.downloadFile(file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(file.fileId);
+                    this.deleteFileById(file);
             }
         });
     }

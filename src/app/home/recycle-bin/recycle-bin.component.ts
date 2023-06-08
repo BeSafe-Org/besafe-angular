@@ -72,15 +72,15 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
         const userId = this.userId;
         this.allFiles$ = this.fileManagementService.getDeletedFiles(userId).subscribe(
             (response) => {
-                // console.log('All files retrieved successfully:', response);
+                console.log('All files retrieved successfully:', response);
                 if (response.length === 0) {
                     this.isLoading = false;
                     this.isEmpty = true;
                 }
                 else {
                     const temp = [...response];
-                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
                     this.allFiles = [...temp];
                     this.isLoading = false;
                     this.isEmpty = false;
@@ -101,10 +101,19 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     private deleteFileById(id: string) {
         this.googleApi.deleteFile(id).subscribe(
             (response) => {
+                this.fileManagementService.deleteFileMetaData(id).subscribe(res=>{
+                    this.refresh();
+                }, err=>{
+
+                })
                 // console.log('File deleted successfully', response);
-                this.refresh();
             },
             (error) => {
+                this.fileManagementService.deleteFileMetaData(id).subscribe(res=>{
+                    this.refresh();
+                }, err=>{
+    
+                })
                 // console.log('Error deleted file', error);
             }
         );

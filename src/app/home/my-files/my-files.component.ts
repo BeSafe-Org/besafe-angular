@@ -84,8 +84,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
                 }
                 else {
                     const temp = [...response];
-                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
                     this.allFiles = [...temp];
                     this.isLoading = false;
                     this.isEmpty = false;
@@ -107,14 +107,14 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(AddFilesModalPopupComponent);
         const addFilesModalPopupComponentRef = this.viewContainerRef.createComponent(factory);
         addFilesModalPopupComponentRef.instance.selfRef = addFilesModalPopupComponentRef;
-        addFilesModalPopupComponentRef.instance.sendFile.subscribe(({ file, isUltraSecure }) => {
-            this.uploadFile(file, isUltraSecure);
+        addFilesModalPopupComponentRef.instance.sendFile.subscribe(({ file, ultraSafe }) => {
+            this.uploadFile(file, ultraSafe);
         });
     }
 
-    private uploadFile(event: any, isUltraSecure: boolean): void {
-        console.log('isUltraSecure', isUltraSecure);
-        this.googleApi.uploadFile(event, isUltraSecure).subscribe(
+    private uploadFile(event: any, ultraSafe: boolean): void {
+        console.log('isUltraSecure: ', ultraSafe);
+        this.googleApi.uploadFile(event, ultraSafe).subscribe(
             res => {
                 let uploadFile: File = new File();
                 uploadFile.userId = this.userId;
@@ -123,7 +123,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
                 uploadFile.mimeType = res.mimeType;
                 uploadFile.deleted = false;
                 uploadFile.starred = false;
-                uploadFile.ultraSecure = false;
+                uploadFile.ultraSafe = ultraSafe;
                 this.fileManagementService.addFileMetaData(uploadFile).subscribe(res => {
                     // console.log(res);
                     this.refresh();
@@ -148,8 +148,9 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(id: string) {
-        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+    private deleteFileById(file: File) {
+        file.deleted = true;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
             this.refresh();
         }, error => {
@@ -216,7 +217,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
                     this.downloadFile(file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(file.fileId);
+                    this.deleteFileById(file);
             }
         });
     }

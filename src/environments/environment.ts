@@ -5,7 +5,7 @@
 export const environment = {
     baseUrl: "http://localhost:8080",
     production: false,
-    address: '0x49103e1ebF765795d93e4aACc77Eb9dB7184e873',
+    address: '0x0822cee0CD021Ef353519183A0E9464be00d2808',
     abi: [
       {
         "inputs": [] as any,
