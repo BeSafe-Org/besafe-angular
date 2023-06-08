@@ -100,7 +100,7 @@ export class FileBackendClient {
                     resolve(restResult);
                 }
                 else {
-                    reject([]);
+                    resolve([]);
                 }
             }
             catch (err) {
@@ -120,7 +120,7 @@ export class FileBackendClient {
                     resolve(restResult);
                 }
                 else {
-                    reject([]);
+                    resolve([]);
                 }
             }
             catch (err) {
@@ -140,7 +140,7 @@ export class FileBackendClient {
                     resolve(restResult);
                 }
                 else {
-                    reject([]);
+                    resolve([]);
                 }
             }
             catch (err) {
@@ -160,7 +160,7 @@ export class FileBackendClient {
                     resolve(restResult);
                 }
                 else {
-                    reject([]);
+                    resolve([]);
                 }
                 resolve([]);
             }

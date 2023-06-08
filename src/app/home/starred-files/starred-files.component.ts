@@ -109,8 +109,9 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(id: string) {
-        this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
+    private deleteFileById(file: File) {
+        file.deleted = true;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
             this.refresh();
         }, error => {
@@ -178,7 +179,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
                     this.downloadFile(file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(file.fileId);
+                    this.deleteFileById(file);
             }
         });
     }

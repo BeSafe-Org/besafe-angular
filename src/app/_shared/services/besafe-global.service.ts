@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export type FileViewType = 'list' | 'grid';
 export type IsSidebarCollapsed = 'true' | 'false';
+export type Theme = 'light' | 'dark';
 
 function _window(): any {
     return window;
