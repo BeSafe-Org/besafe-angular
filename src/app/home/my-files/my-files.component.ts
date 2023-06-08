@@ -10,6 +10,7 @@ import { FileManagementService } from 'src/app/_core/services/backend/file-manag
 import { File } from 'src/app/_core/models/entities/File';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
+import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 
@@ -31,6 +32,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
 
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
+
+    userId: string = new LocalStorage().getItem("userId");
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -70,7 +73,8 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        const userId = "wvnbrghllcrzy@internetkeno.com";
+        const userId = this.userId;
+        console.log(userId);
         this.allFiles$ = this.fileManagementService.getAllFiles(userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);
@@ -113,7 +117,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         this.googleApi.uploadFile(event, isUltraSecure).subscribe(
             res => {
                 let uploadFile: File = new File();
-                uploadFile.userId = "wvnbrghllcrzy@internetkeno.com";
+                uploadFile.userId = this.userId;
                 uploadFile.fileId = res.id;
                 uploadFile.fileName = res.name;
                 uploadFile.mimeType = res.mimeType;

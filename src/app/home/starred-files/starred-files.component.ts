@@ -9,6 +9,7 @@ import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_share
 import { File } from 'src/app/_core/models/entities/File';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
+import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 
 @Component({
     selector: 'app-starred-files',
@@ -28,6 +29,9 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
 
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
+
+    
+    userId: string = new LocalStorage().getItem("userId");
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -65,7 +69,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        const userId = "wvnbrghllcrzy@internetkeno.com";
+        const userId = this.userId;
         this.allFiles$ = this.fileManagementService.getStarredFiles(userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);
