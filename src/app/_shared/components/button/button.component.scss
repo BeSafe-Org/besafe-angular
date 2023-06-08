@@ -1,5 +1,23 @@
 @import "src/app/_shared/scss/mixin";
 
+@keyframes button_loader {
+    0% {
+        $size: 0.3rem;
+        width: $size;
+        height: $size;
+    }
+    50% {
+        $size: 0.6rem;
+        width: $size;
+        height: $size;
+    }
+    100% {
+        $size: 0.3rem;
+        width: $size;
+        height: $size;
+    }
+}
+
 .bs_button {
     width: max-content;
     height: max-content;
@@ -11,6 +29,9 @@
     outline: none;
     @include flex(center, center);
     gap: 0.4rem;
+    user-select: none;
+    -webkit-user-drag: none;
+    position: relative;
     cursor: pointer;
     .icon {
         $size: 1.5rem;
@@ -20,9 +41,35 @@
     .title {
         font-size: 1rem;
     }
+    .loader {
+        width: 2.3rem;
+        height: 1.5rem;
+        @include flex(center, center);
+        gap: 0.2rem;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        .circle {
+            $size: 0.6rem;
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            $animationDuration: 1000ms;
+            animation: button_loader $animationDuration ease-in-out infinite;
+            &:nth-child(1) {
+                animation-delay: 0ms;
+            }
+            &:nth-child(2) {
+                animation-delay: $animationDuration / 2;
+            }
+            &:nth-child(3) {
+                animation-delay: 0ms;
+            }
+        }
+    }
     &.disabled {
-        cursor: not-allowed;
-        filter: brightness(250%);
+        pointer-events: none;
     }
 }
 
@@ -34,6 +81,11 @@
     .title {
         color: $whiteColor;
     }
+    .loader {
+        .circle {
+            background-color: $whiteColor;
+        }
+    }
     // &:hover {
     // }
     &:active {
@@ -42,6 +94,7 @@
     }
     &.disabled {
         background: $darkGrayOneColor;
+        filter: brightness(250%);
         .icon,
         .title {
             filter: brightness(250%);
@@ -63,6 +116,11 @@
     .title {
         color: $brandPrimaryColor;
     }
+    .loader {
+        .circle {
+            background-color: $brandPrimaryColor;
+        }
+    }
     // &:hover {
     // }
     &:active {
@@ -70,6 +128,43 @@
     }
     &.disabled {
         border-color: $darkGrayOneColor;
+        filter: brightness(250%);
+        .icon {
+            fill: $darkGrayOneColor;
+        }
+        .title {
+            color: $darkGrayOneColor;
+        }
+    }
+}
+
+.bs_button.tertiary {
+    box-shadow: none;
+    border-color: transparent;
+    .icon {
+        fill: $brandPrimaryColor;
+    }
+    .title {
+        color: $brandPrimaryColor;
+    }
+    .loader {
+        .circle {
+            background-color: $brandPrimaryColor;
+        }
+    }
+    &:hover {
+        background-color: $tintThreeColor;
+    }
+    &:active {
+        filter: brightness(150%);
+    }
+    &.disabled {
+        filter: brightness(250%);
+        .loader {
+            .circle {
+                background-color: $darkGrayOneColor;
+            }
+        }
         .icon {
             fill: $darkGrayOneColor;
         }

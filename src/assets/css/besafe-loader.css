@@ -1,0 +1,131 @@
+:root {
+    --time_gap: 30ms;
+}
+
+@keyframes ziroh_store_loader {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+.full_viewport {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader_area {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader_area .loader_track {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader_area .loader_track .center {
+    width: 0px;
+    height: 0px;
+    position: relative;
+}
+
+.loader_area .loader_track .center .circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    left: 0px;
+}
+
+.loader_area .loader_track .center .circle_primary_color {
+    background-color: #005776;
+    top: -25px;
+}
+
+.loader_area .loader_track .center .circle_secondary_color {
+    background-color: #6dd5fa;
+    top: 25px;
+}
+
+.loader_area .loader_track .center {
+    animation-name: ziroh_store_loader;
+    animation-duration: 2000ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+.center1 {
+    --n: 1;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center2 {
+    --n: 2;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center3 {
+    --n: 3;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center4 {
+    --n: 4;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center5 {
+    --n: 5;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center6 {
+    --n: 6;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center7 {
+    --n: 7;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center8 {
+    --n: 8;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center9 {
+    --n: 9;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center10 {
+    --n: 10;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center11 {
+    --n: 11;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}
+
+.center12 {
+    --n: 12;
+    animation-delay: calc((var(--n) - 1) * var(--time_gap));
+}

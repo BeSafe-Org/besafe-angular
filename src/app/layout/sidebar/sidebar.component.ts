@@ -21,9 +21,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
             imgSrc: 'ultra-safe-files-sidebar-icon'
         },
         {
-            title: 'Starred',
+            title: 'Favourite files',
             routerLink: `/${APP_ROUTES.home._}/${APP_ROUTES.home.starredFiles._}`,
-            imgSrc: 'starred-sidebar-icon'
+            imgSrc: 'favourite-sidebar-icon'
         },
         {
             title: 'Recycle bin',

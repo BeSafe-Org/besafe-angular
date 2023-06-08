@@ -1,15 +1,38 @@
-<div *ngIf="isLoggedIn()">
-    <div class="container">Hi and welcome!</div>
-    <div class="container">Name: {{ userInfo?.info?.name }}</div>
-    <!-- <div class="container"><img src="{{ userInfo?.info?.picture }}"></div> -->
-    <div class="container">
-        <!-- <button (click)="getEmails()">List Emails</button> -->
-        <input type="file" (change)="onFileSelected($event)">
-        <button (click)="getAllFiles()">Get Files</button>
-        <button (click)="downloadFile()">Download file</button>
-        <button (click)="deleteFile()">Delete file</button>
+<div class="recycle_bin" tabindex="-1" [id]="fileSystemOperationContainerId" #fileSystemOperationContainer>
+    <div class="header">
+        <div class="header_title"> Recycle bin </div>
+        <div class="actions">
+            <app-button
+                [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
+                [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
+                (clicked)="toggleViewType()">
+            </app-button>
+        </div>
     </div>
-    <div class="container">
-        <button (click)="logout()">Logout from Google</button>
-    </div>
+    <ng-container *ngIf="!isLoading">
+        <ul [ngClass]="viewType + '_view'"
+            appFileSystemOperations
+            [viewType]="viewType"
+            [fileCollection]="allFiles"
+            [prefix]="fileIdPrefix"
+            #operationResult="operationResult"
+            (contextmenu)="openContextMenu($event)">
+            <hr>
+            <ng-container *ngFor="let file of allFiles">
+                <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
+                    [ngClass]="{'selected': operationResult.isSelected(file.fileId),
+                                    'focused': operationResult.isLastFocused(file.fileId)}"
+                    [title]="file.fileName">
+                    <div class="stop_pointer_events">
+                        <app-file-card [viewType]="viewType" [fileName]="file.fileName"></app-file-card>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </ng-container>
+    <ng-container *ngIf="isLoading">
+        <div class="flash_screen">
+            <app-loader></app-loader>
+        </div>
+    </ng-container>
 </div>

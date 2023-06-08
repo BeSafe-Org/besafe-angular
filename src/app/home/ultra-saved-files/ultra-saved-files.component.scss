@@ -1,0 +1,5 @@
+@import "src/app/home/_shared/scss/mixin";
+
+.ultra_safe_files {
+    @include file_system();
+}

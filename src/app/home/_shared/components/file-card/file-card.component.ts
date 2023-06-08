@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FileViewType } from 'src/app/_shared/services/besafe-global.service';
-import { FILE_NAME_PREFIX } from 'src/app/home/my-files/my-files.component';
+import { FILE_NAME_PREFIX } from '../../directives/file-system-operations/file-system-operations.directive';
 
 @Component({
     selector: 'app-file-card',

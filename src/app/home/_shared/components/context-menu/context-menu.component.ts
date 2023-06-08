@@ -1,9 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { File } from 'src/app/_core/models/entities/File';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
 
 export type ContextMenuPointerEventPosition = { x: number, y: number }
 
-type ClickedOption = 'download' | 'star' | 'delete';
+type ClickedOption = 'download' | 'star' | 'delete' | 'restore';
 
 type ContextMenuOption = {
     type: ClickedOption,
@@ -21,15 +22,11 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
     @Output() clickedOnOption: EventEmitter<ClickedOption> = new EventEmitter<ClickedOption>();
 
     public selfRef: ComponentRef<ContextMenuComponent>;
-    public selectedFilesId: string[];
+    public selectedFiles: File[];
     public pointerEventPosition: ContextMenuPointerEventPosition;
     private _top: number;
     private _left: number;
-    public readonly options: ContextMenuOption[] = [
-        { type: 'star', name: 'Mark as favourite', isForSingle: true, svgImgName: 'star-icon' },
-        { type: 'download', name: 'Download', isForSingle: true, svgImgName: 'download-icon' },
-        { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
-    ];
+    public options: ContextMenuOption[];
 
     public get top(): number {
         return this._top;
@@ -46,7 +43,6 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit(): void {
-        console.log(this.selectedFilesId);
     }
 
     ngAfterViewInit(): void {
@@ -55,7 +51,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
 
     public shouldBeVisible(isForSingle: boolean): boolean {
         if (!isForSingle) return true;
-        if (this.selectedFilesId.length <= 1) {
+        if (this.selectedFiles.length <= 1) {
             return true;
         }
         return false;

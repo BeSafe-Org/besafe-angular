@@ -36,7 +36,7 @@
         <div class="button_container">
             <app-button
                 [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'submit'"
-                [title]="'Sign up'" [isDisabled]="false"
+                [title]="'Sign up'" [isDisabled]="isSigningUp" [isLoading]="isSigningUp"
                 (clicked)="onFormSubmit()">
             </app-button>
         </div>

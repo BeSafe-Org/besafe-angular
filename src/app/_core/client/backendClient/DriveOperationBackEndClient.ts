@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
 import { UploadResult } from '../../models/results/UploadResult';
-import { FILE_NAME_PREFIX } from 'src/app/home/my-files/my-files.component';
+import { FILE_NAME_PREFIX } from 'src/app/home/_shared/directives/file-system-operations/file-system-operations.directive';
 
 export class DriveOperationBackEndClient {
     gmail = 'https://gmail.googleapis.com'

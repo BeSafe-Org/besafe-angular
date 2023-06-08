@@ -23,10 +23,19 @@
                     <span class="file_name"> {{ file?.target?.files[0].name }} </span>
                 </ng-container>
             </label>
-            <label class="ultra_secure_file">
-                <input type="checkbox" (change)="checkboxToggle($event)" [disabled]="file ? false : true">
-                <span> Ultra Secure File </span>
-            </label>
+            <div class="ultra_secure_file">
+                <span> Ultra secure your file? </span>
+                <label>
+                    <input type="checkbox" (change)="checkboxToggle($event)" [disabled]="file ? false : true">
+                    <div class="bg">
+                        <div class="circle">
+                            <svg>
+                                <use xlink:href="assets/images/svg/common-sprite.svg#besafe-shield-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </label>
+            </div>
         </div>
     </ng-template>
 </app-modal-popup>
