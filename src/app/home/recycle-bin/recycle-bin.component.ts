@@ -79,8 +79,8 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
                 }
                 else {
                     const temp = [...response];
-                    const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
+                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
+                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
                     this.allFiles = [...temp];
                     this.isLoading = false;
                     this.isEmpty = false;

@@ -10,7 +10,7 @@ export class AddFilesModalPopupComponent implements OnInit {
 
     public selfRef: ComponentRef<AddFilesModalPopupComponent>;
     public file: any;
-    public isUltraSecureFile: boolean;
+    public ultraSafe: boolean;
 
     constructor() { }
 
@@ -25,7 +25,7 @@ export class AddFilesModalPopupComponent implements OnInit {
         if (this.file) {
             this.sendFile.emit({
                 file: this.file,
-                isUltraSecure: this.isUltraSecureFile ? true : false
+                isUltraSecure: this.ultraSafe ? true : false
             });
             this.destroySelf();
         }
@@ -36,6 +36,6 @@ export class AddFilesModalPopupComponent implements OnInit {
     }
 
     public checkboxToggle(event: any): void {
-        this.isUltraSecureFile = event.target.checked;
+        this.ultraSafe = event.target.checked;
     }
 }
