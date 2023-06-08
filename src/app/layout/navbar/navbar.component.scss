@@ -33,4 +33,8 @@
             }
         }
     }
+    .right_section {
+        margin-left: auto;
+        @include flex(space-between, center);
+    }
 }

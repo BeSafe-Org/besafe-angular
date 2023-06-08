@@ -29,7 +29,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
 
-    
+
     userId: string = new LocalStorage().getItem("userId");
 
     constructor(
