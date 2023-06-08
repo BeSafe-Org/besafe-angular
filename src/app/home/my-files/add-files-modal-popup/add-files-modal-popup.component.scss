@@ -28,8 +28,14 @@
             font-size: 0.8rem;
             color: $brandPrimaryColor;
         }
-        // .file_name {
-        // }
+        > .lock {
+            height: 4rem;
+            margin-bottom: 1rem;
+            fill: $brandPrimaryColor;
+        }
+        .file_name {
+            transition: all 300ms ease-in-out;
+        }
     }
     .ultra_secure_file {
         margin-top: 1rem;

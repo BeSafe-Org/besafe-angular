@@ -20,6 +20,9 @@
                     <span> Drag & Drop CSV file </span>
                 </ng-container>
                 <ng-container *ngIf="file">
+                    <svg *ngIf="isUltraSecureFile" class="lock">
+                        <use xlink:href="assets/images/svg/common-sprite.svg#lock-icon"></use>
+                    </svg>
                     <span class="file_name"> {{ file?.target?.files[0].name }} </span>
                 </ng-container>
             </label>
