@@ -8,6 +8,7 @@ import { FileManagementService } from 'src/app/_core/services/backend/file-manag
 import { File } from 'src/app/_core/models/entities/File';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
+import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 
 @Component({
     selector: 'app-recycle-bin',
@@ -28,6 +29,9 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
 
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
+
+    
+    userId: string = new LocalStorage().getItem("userId");
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -65,7 +69,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        const userId = "wvnbrghllcrzy@internetkeno.com";
+        const userId = this.userId;
         this.allFiles$ = this.fileManagementService.getDeletedFiles(userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);

@@ -8,6 +8,7 @@ import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
+import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 
 @Component({
     selector: 'app-ultra-saved-files',
@@ -27,6 +28,9 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
 
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
+
+    
+    userId: string = new LocalStorage().getItem("userId");
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -64,7 +68,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
     }
 
     private getAllFiles(): void {
-        const userId = "wvnbrghllcrzy@internetkeno.com";
+        const userId = this.userId;
         this.allFiles$ = this.fileManagementService.getDeletedFiles(userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);

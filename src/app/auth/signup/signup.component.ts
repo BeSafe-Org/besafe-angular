@@ -64,11 +64,11 @@ export class SignupComponent implements OnInit {
         // this.authenticationManagementService.sendOtp(userId).subscribe(res => {
         //     console.log(res);
         //     console.log("creating");
-        //     this.userManagementService.createUserAccount(userId, userPassword).subscribe(res => {
-        //         console.log(res);
-        //     }, err => {
-        //         console.log(err);
-        //     })
+        this.userManagementService.createUserAccount(userId, userPassword).subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        })
         // }, err => {
         //     console.log(err);
         // });
