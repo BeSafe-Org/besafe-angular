@@ -15,7 +15,7 @@
             </app-button>
         </div>
     </div>
-    <ng-container *ngIf="!isLoading">
+    <ng-container *ngIf="!(isLoading || isEmpty)">
         <ul [ngClass]="viewType + '_view'"
             appFileSystemOperations
             [viewType]="viewType"
@@ -36,9 +36,10 @@
             </ng-container>
         </ul>
     </ng-container>
-    <ng-container *ngIf="isLoading">
+    <ng-container *ngIf="isLoading || isEmpty">
         <div class="flash_screen">
-            <app-loader></app-loader>
+            <app-loader *ngIf="isLoading"></app-loader>
+            <div class="empty" *ngIf="isEmpty"> No files to show </div>
         </div>
     </ng-container>
 </div>
