@@ -9,10 +9,16 @@
             </svg>
         </button>
     </div>
-    <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
-        [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
-        [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
-        (clicked)="signOut()"></app-button>
+    <div class="right_section">
+        <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
+            [title]="'Refresh google'" [imgSrc]="''"
+            [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
+            (clicked)="refreshGoogle()"></app-button>
+        <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
+            [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
+            [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
+            (clicked)="signOut()"></app-button>
+    </div>
     <!-- <button (click)="add()"> Add File</button> -->
     <!-- <button (click)="up()">Update File</button> -->
     <!-- <button (click)="de()">Delete</button> -->
