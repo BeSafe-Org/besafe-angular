@@ -55,22 +55,19 @@ export class SignupComponent implements OnInit {
 
     private createUserAccount(userId: string, userPassword: string): void {
         this.isSigningUp = true;
-        setTimeout(() => {
-            localStorage.setItem(UserManagementService.AUTH_USER, 'true');
-            this.toaster.success('Sign up successsful')
-            this.router.navigate([`${APP_ROUTES.home._}`]);
-        }, 1500);
-        // console.log("inside");
-        // this.authenticationManagementService.sendOtp(userId).subscribe(res => {
-        //     console.log(res);
-        //     console.log("creating");
-        this.userManagementService.createUserAccount(userId, userPassword).subscribe(res => {
-            console.log(res);
+        this.authenticationManagementService.sendOtp(userId).subscribe(res => {
+            console.log("creating");
+            this.userManagementService.createUserAccount(userId, userPassword).subscribe(res => {
+                this.toaster.success('Sign up successsful')
+                this.router.navigate([`${APP_ROUTES.home._}`]);
+                this.isSigningUp = false;
+            }, err => {
+                this.toaster.error(err.errorMessage)
+                this.isSigningUp = false;
+            })
         }, err => {
-            console.log(err);
-        })
-        // }, err => {
-        //     console.log(err);
-        // });
+            this.toaster.error(err.errorMessage)
+            this.isSigningUp = false;
+        });
     }
 }
