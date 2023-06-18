@@ -114,7 +114,6 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     private uploadFile(event: any, ultraSafe: boolean): void {
-        console.log('isUltraSecure: ', ultraSafe);
         this.googleApi.uploadFile(event, ultraSafe).subscribe(
             res => {
                 let uploadFile: BeSafeFile = new BeSafeFile();
@@ -227,83 +226,4 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         this.allFiles$.unsubscribe();
         this.viewTypeSubscription.unsubscribe();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  password: "master key from localstore";
-
-  async encryptFile() {
-    const fileInput = (document.querySelector('input[type=file]') as HTMLInputElement);
-    if (fileInput.files.length === 0) {
-      alert('Please select a file.');
-      return;
-    }
-
-    const file = fileInput.files[0];
-    const fileContent = await this.readFileContent(file);
-    const encryptedContent = await new AesCrypto().encryptAES(fileContent, this.password);
-    const encryptedBlob = new Blob([encryptedContent], { type: 'application/octet-stream' });
-    
-    //upload blob
-    
-    const encryptedFile = new File([encryptedBlob], file.name + '.enc');
-    this.downloadFile2(encryptedFile);
-}
-
-  async decryptFile() {
-    const fileInput = (document.querySelector('input[type=file]') as HTMLInputElement);
-    if (fileInput.files.length === 0) {
-      alert('Please select a file.');
-      return;
-    }
-    
-    
-    //download Blob
-    // const encryptedFile = new File([encryptedBlob], file.name + '.enc');
-
-    const file = fileInput.files[0];
-    const fileContent = await this.readFileContent(file);
-    const decryptedContent = await new AesCrypto().decryptAES(fileContent, this.password);
-    const decryptedBlob = new Blob([decryptedContent], { type: file.type });
-    const decryptedFile = new File([decryptedBlob], file.name.substring(0, file.name.lastIndexOf('.enc')));
-    this.downloadFile2(decryptedFile);
-  }
-
-  readFileContent(file: File): Promise<ArrayBuffer> {
-    return new Promise<ArrayBuffer>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as ArrayBuffer);
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(file);
-    });
-  }
-
-  downloadFile2(fileToDownload: File) {
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(fileToDownload);
-    link.download = fileToDownload.name;
-    link.click();
-  }
-
-
-
-
-
-
-
-
-
-
-
 }
