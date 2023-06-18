@@ -101,22 +101,33 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     private deleteFileById(id: string) {
         this.googleApi.deleteFile(id).subscribe(
             (response) => {
-                this.fileManagementService.deleteFileMetaData(id).subscribe(res=>{
+                this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
                     this.refresh();
-                }, err=>{
+                }, err => {
 
                 })
                 // console.log('File deleted successfully', response);
             },
             (error) => {
-                this.fileManagementService.deleteFileMetaData(id).subscribe(res=>{
+                this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
                     this.refresh();
-                }, err=>{
-    
+                }, err => {
+
                 })
                 // console.log('Error deleted file', error);
             }
         );
+    }
+
+    private restoreFile(file: BeSafeFile) {
+        file.deleted = false;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
+            this.toaster.success('File restores');
+            this.refresh();
+        }, error => {
+            this.toaster.error('Failed to restore file');
+            console.log(error);
+        })
     }
 
     public openContextMenu(event: any): void {
@@ -162,7 +173,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'restore':
-                    // this.toggleFileAsFavourite(file);
+                    this.restoreFile(file);
                     break;
                 case 'delete':
                     this.deleteFileById(file.fileId);
