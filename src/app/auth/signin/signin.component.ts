@@ -44,14 +44,14 @@ export class SigninComponent implements OnInit {
 
     private verifyUserAccount(userId: string, userPassword: string): void {
         this.isSigningIn = true;
-        setTimeout(() => {
-            localStorage.setItem(UserManagementService.AUTH_USER, 'true');
+        this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
             this.toaster.success('Sign in successful');
             this.router.navigate([`${APP_ROUTES.home._}`]);
-        }, 2500);
-        this.userManagementService.verifyUserAccount(userId, userPassword).subscribe((res) => {
+            this.isSigningIn = false;
             console.log(res);
         }, err => {
+            this.toaster.error(err.errorMessage);
+            this.isSigningIn = false;
             console.log(err);
         });
     }

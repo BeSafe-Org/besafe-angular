@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { log } from 'console';
 import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
+import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { File } from 'src/app/_core/models/entities/File';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { GoogleApiService } from 'src/app/_core/services/backend/google-api.service';
@@ -57,7 +58,8 @@ export class NavbarComponent implements OnInit {
     public signOut(): void {
         this.isSigningOut = true;
         setTimeout(() => {
-            localStorage.removeItem(UserManagementService.AUTH_USER);
+            new LocalStorage().removeItem("userId");
+            new LocalStorage().removeItem("masterKey");
             this.router.navigate([`${APP_ROUTES.auth._}`]);
         }, 3000);
     }
