@@ -1,0 +1,17 @@
+<button class="bs_button" [ngClass]="isDisabled ? buttonDisplayType.toLowerCase() + ' disabled': buttonDisplayType.toLowerCase()"
+    [type]="buttonFunctionalityType" [disabled]="isDisabled"
+    (click)="clicked()">
+    <ng-container *ngIf="imgSrc">
+        <svg class="icon" [ngStyle]="{visibility: isLoading ? 'hidden' : 'visible'}">
+            <use [attr.xlink:href]="imgSrc"></use>
+        </svg>
+    </ng-container>
+    <ng-container *ngIf="title">
+        <span class="title" [ngStyle]="{visibility: isLoading ? 'hidden' : 'visible'}"> {{ title }} </span>
+    </ng-container>
+    <div class="loader" *ngIf="isLoading">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+</button>

@@ -1,0 +1,13 @@
+<ul class="context_menu" [ngStyle]="{'top': top + 'px', 'left': left + 'px'}"
+    (contextmenu)="$event.preventDefault()"
+    appClickedOutside
+    (clickedOutside)="selfRef.destroy()">
+    <ng-container *ngFor="let option of options">
+        <li *ngIf="shouldBeVisible(option.isForSingle)" (click)="contextMenuClickHandler(option.type)">
+            <svg>
+                <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + option.svgImgName"></use>
+            </svg>
+            <span> {{ option.name }} </span>
+        </li>
+    </ng-container>
+</ul>

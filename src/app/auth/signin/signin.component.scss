@@ -1,0 +1,21 @@
+@import "src/app/auth/_shared/scss/mixin";
+
+.signin_container {
+    @include auth_form_container();
+    .heading {
+        @include auth_form_heading();
+    }
+    .signin_form {
+        @include auth_form();
+        // .email {
+        // }
+        // .password {
+        // }
+        .button_container {
+            @include auth_form_button_container();
+        }
+        .do_not_have_an_account {
+            @include auth_form_have_or_do_not_have_an_account();
+        }
+    }
+}

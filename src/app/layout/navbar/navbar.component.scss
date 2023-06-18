@@ -1,0 +1,40 @@
+@import "src/app/layout/_shared/scss/mixin";
+
+.navbar {
+    // @include dev_border(2px, red);
+    padding: 0 1rem;
+    height: 100%;
+    // background-color: $brandPrimaryColor;
+    // box-shadow: 1px 2px 4px 0px #0000001a;
+    border-bottom: 0.5px solid #dbdbdb;
+    @include flex(space-between, center);
+    .app_logo_and_hamburger {
+        @include flex(center, center);
+        gap: 2rem;
+        .app_logo_container {
+            width: max-content;
+            height: max-content;
+        }
+        .hamburger_button {
+            padding: 0.1rem;
+            background: none;
+            border-radius: 0.4rem;
+            border: 1.5px solid $brandPrimaryColor;
+            @include flex(center, center);
+            cursor: pointer;
+            > svg {
+                $size: 1.5rem;
+                width: $size;
+                height: $size;
+                fill: $brandPrimaryColor;
+            }
+            &:active {
+                background-color: $tintThreeColor;
+            }
+        }
+    }
+    .right_section {
+        margin-left: auto;
+        @include flex(space-between, center);
+    }
+}

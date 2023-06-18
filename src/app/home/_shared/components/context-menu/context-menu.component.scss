@@ -1,0 +1,27 @@
+@import "src/app/home/_shared/scss/mixin";
+
+.context_menu {
+    width: max-content;
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    li {
+        padding: 0.5rem;
+        list-style: none;
+        @include flex(flex-start, center);
+        gap: 1ch;
+        cursor: pointer;
+        svg {
+            $size: 1.5rem;
+            width: $size;
+            height: $size;
+        }
+        // span {
+        // }
+        &:hover {
+            background-color: lighten($color: $lightGrayOneColor, $amount: 25%);
+        }
+    }
+}
