@@ -1,0 +1,95 @@
+@import "src/app/_shared/scss/mixin";
+
+.input_field_label {
+    // @include dev_border();
+    margin-top: 1rem;
+    display: block;
+    position: relative;
+    .input_field,
+    .title,
+    .icon {
+        transition: all ease-in-out 100ms;
+    }
+    .input_field {
+        width: 100%;
+        height: 2.8rem;
+        padding-left: calc(3rem + 4px);
+        padding-right: 1rem;
+        background: transparent;
+        border: 2px solid $lightGrayOneColor;
+        border-radius: 0.5rem;
+        outline: none;
+        color: $lightGrayOneColor;
+        font-size: 1rem;
+        &:focus,
+        &:not(:placeholder-shown) {
+            & ~ .title {
+                transform: unset;
+                top: -1.1rem;
+                left: 0;
+            }
+        }
+        &:focus {
+            border-color: $brandPrimaryColor;
+            color: unset;
+            ~ .title {
+                color: $brandPrimaryColor;
+            }
+            ~ .icon {
+                fill: $brandPrimaryColor;
+            }
+        }
+        // &:not(:placeholder-shown) {
+        // }
+    }
+    .title {
+        height: 1rem;
+        color: $lightGrayOneColor;
+        font-size: 1rem;
+        line-height: 1rem;
+        transform: translateY(-50%);
+        position: absolute;
+        top: 1.4rem;
+        left: 3.5rem;
+        pointer-events: none;
+    }
+    .icon {
+        // @include dev_border();
+        $size: 2rem;
+        width: $size;
+        height: $size;
+        transform: translateY(-50%);
+        position: absolute;
+        top: 1.4rem;
+        left: 0.8rem;
+        fill: $lightGrayOneColor;
+    }
+    // invalid.input_field_label
+    &.invalid {
+        .input_field {
+            border-color: $errorColor;
+            &:focus {
+                ~ .title {
+                    color: $errorColor;
+                }
+                ~ .icon {
+                    fill: $errorColor;
+                }
+            }
+        }
+        .title {
+            color: $errorColor;
+        }
+        .icon {
+            fill: $errorColor;
+        }
+    }
+    + .invalid_message {
+        color: $errorColor;
+        text-align: right;
+        visibility: hidden;
+        &.show {
+            visibility: visible;
+        }
+    }
+}

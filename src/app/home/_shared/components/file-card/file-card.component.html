@@ -1,0 +1,8 @@
+<div [ngClass]="viewType + '_view_card'">
+    <div class="icon_and_name">
+        <svg class="icon">
+            <use xlink:href="assets/images/svg/common-sprite.svg#file-icon"></use>
+        </svg>
+        <div class="name"> {{ fileName.slice(FILE_NAME_PREFIX.length) }} </div>
+    </div>
+</div>

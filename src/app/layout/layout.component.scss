@@ -1,0 +1,26 @@
+@import "src/app/layout/_shared/scss/mixin";
+
+$navbarHeight: 4rem;
+
+.layout {
+    .navbar_conatainer {
+        // @include dev_border();
+        height: $navbarHeight;
+        // padding: 0.5rem;
+    }
+    .main_container {
+        // @include dev_border(1px, red);
+        height: calc(100vh - #{$navbarHeight});
+        display: flex;
+        .sidebar_container {
+            // @include dev_border();
+            flex-shrink: 0;
+        }
+        .main_content_container {
+            // @include dev_border();
+            width: 100%;
+            height: 100%;
+            // padding: 1rem;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<div class="ultra_safe_files" tabindex="-1" [id]="fileSystemOperationContainerId" #fileSystemOperationContainer>
+    <div class="header">
+        <div class="header_title"> Ultra safe files </div>
+        <div class="actions">
+            <app-button
+                [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
+                [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
+                (clicked)="toggleViewType()">
+            </app-button>
+        </div>
+    </div>
+    <ng-container *ngIf="!(isLoading || isEmpty)">
+        <ul [ngClass]="viewType + '_view'"
+            appFileSystemOperations
+            [viewType]="viewType"
+            [fileCollection]="allFiles"
+            [prefix]="fileIdPrefix"
+            #operationResult="operationResult"
+            (contextmenu)="openContextMenu($event)">
+            <hr>
+            <ng-container *ngFor="let file of allFiles">
+                <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
+                    [ngClass]="{'selected': operationResult.isSelected(file.fileId),
+                                    'focused': operationResult.isLastFocused(file.fileId)}"
+                    [title]="file.fileName">
+                    <div class="stop_pointer_events">
+                        <app-file-card [viewType]="viewType" [fileName]="file.fileName"></app-file-card>
+                    </div>
+                </li>
+            </ng-container>
+        </ul>
+    </ng-container>
+    <ng-container *ngIf="isLoading || isEmpty">
+        <div class="flash_screen">
+            <app-loader *ngIf="isLoading"></app-loader>
+            <div class="empty" *ngIf="isEmpty"> No files to show </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,58 @@
+@import "src/app/layout/_shared/scss/mixin";
+
+.sidebar {
+    // @include dev_border();s
+    height: 100%;
+    // background-color: $brandPrimaryColor;
+    // background-color: $brandSecondaryColor;
+    // box-shadow: 1px 2px 4px 0px #0000001a;
+    border-right: 0.5px solid #dbdbdb;
+    .sidebar_menu {
+        .option {
+            list-style: none;
+            > a {
+                padding: 0.8rem 0;
+                // border-top-right-radius: 5rem;
+                // border-bottom-right-radius: 5rem;
+                text-decoration: none;
+                @include flex(flex-start, center);
+                .icon {
+                    $size: 2rem;
+                    width: $size;
+                    height: $size;
+                    margin: 0 0.8rem;
+                    fill: black;
+                }
+                > span {
+                    padding-right: 2.5rem;
+                    color: black;
+                    font-size: 1rem;
+                }
+                &:hover {
+                    background-color: $brandSecondaryColor;
+                }
+                &.selected {
+                    background-color: $brandPrimaryColor;
+                    .icon {
+                        fill: white;
+                    }
+                    > span {
+                        color: white;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+    &.collapsed {
+        .sidebar_menu {
+            .option {
+                > a {
+                    > span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

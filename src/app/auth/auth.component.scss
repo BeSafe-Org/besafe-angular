@@ -1,0 +1,47 @@
+@import "src/app/auth/_shared/scss/mixin";
+
+.full_container {
+    width: 100vw;
+    height: 100vh;
+    // background: url("/assets/images/svg/auth-background-image.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    .left_section {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        // .app_logo {
+        //     @include dev_border();
+        //     width: max-content;
+        //     height: max-content;
+        //     background-color: $brandSecondaryColor;
+        //     padding: 1rem;
+        //     border-radius: 1rem;
+        //     margin-top: 2rem;
+        // }
+        .intro {
+            margin: auto 1rem auto 4rem;
+            .title {
+                font-size: 4rem;
+                .be {
+                    color: $brandPrimaryColor;
+                    font-weight: 600;
+                }
+                .safe {
+                    color: $brandSecondaryColor;
+                }
+            }
+            .description {
+                color: lighten($color: $brandPrimaryColor, $amount: 10%);
+                font-size: 1.5rem;
+                margin-left: 0.2rem;
+            }
+        }
+    }
+    .right_section {
+        width: 50%;
+        @include flex(center, center);
+    }
+}

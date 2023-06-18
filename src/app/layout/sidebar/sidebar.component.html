@@ -1,0 +1,14 @@
+<div class="sidebar" [ngClass]="{ 'collapsed' : isSidebarCollapsed }">
+    <ul class="sidebar_menu">
+        <ng-container *ngFor="let option of sidebarOptions">
+            <li class="option">
+                <a [routerLink]="option.routerLink" routerLinkActive="selected">
+                    <svg class="icon">
+                        <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + option.imgSrc"></use>
+                    </svg>
+                    <span> {{ option.title }} </span>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+</div>

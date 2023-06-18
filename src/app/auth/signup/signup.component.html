@@ -1,0 +1,48 @@
+<div class="signup_container">
+    <div class="heading"> Sign up to be safe </div>
+    <form class="signup_form" [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
+        <div class="email">
+            <label class="input_field_label" [ngClass]="{'invalid' : signupForm.get('email').touched && signupForm.get('email').invalid}">
+                <input class="input_field" type="text" placeholder="&nbsp;" formControlName="email">
+                <div class="title"> E-mail </div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/common-sprite.svg#email-icon"></use>
+                </svg>
+            </label>
+            <div class="invalid_message" [ngClass]="{'show' : signupForm.get('email').touched && signupForm.get('email').invalid}"> Required </div>
+        </div>
+        <div class="password">
+            <label class="input_field_label" [ngClass]="{'invalid' : signupForm.get('password').touched && signupForm.get('password').invalid}">
+                <input class="input_field" type="password" placeholder="&nbsp;" formControlName="password">
+                <div class="title"> Password </div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/common-sprite.svg#password-icon"></use>
+                </svg>
+            </label>
+            <div class="invalid_message" [ngClass]="{'show' : signupForm.get('password').touched && signupForm.get('password').invalid}"> Required </div>
+        </div>
+        <div class="confirm_password">
+            <label class="input_field_label" [ngClass]="{'invalid' : signupForm.get('confirmPassword').touched && signupForm.get('confirmPassword').invalid}">
+                <input class="input_field" type="password" placeholder="&nbsp;" formControlName="confirmPassword">
+                <div class="title"> Confirm Password </div>
+                <svg class="icon">
+                    <use xlink:href="assets/images/svg/common-sprite.svg#password-icon"></use>
+                </svg>
+            </label>
+            <div class="invalid_message" [ngClass]="{'show' : signupForm.get('confirmPassword').touched && signupForm.get('confirmPassword').invalid}">
+                {{ signupForm.errors?.passwordDidNotMatch ? 'Passwords did not match' : 'Required' }}
+            </div>
+        </div>
+        <div class="button_container">
+            <app-button
+                [buttonDisplayType]="'primary'" [buttonFunctionalityType]="'submit'"
+                [title]="'Sign up'" [isDisabled]="isSigningUp" [isLoading]="isSigningUp"
+                (clicked)="onFormSubmit()">
+            </app-button>
+        </div>
+        <div class="already_have_an_account">
+            <span> Already have an account? </span>
+            <a routerLink="/auth/signin"> Sign in </a>
+        </div>
+    </form>
+</div>

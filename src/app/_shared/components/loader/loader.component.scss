@@ -1,0 +1,14 @@
+@import "src/app/_shared/scss/mixin";
+
+.loading_messenger {
+    width: max-content;
+    max-width: 30rem;
+    border-radius: 15px;
+    .loader {
+        @include flex(center, center);
+    }
+    .message {
+        text-align: center;
+        font-weight: 600;
+    }
+}

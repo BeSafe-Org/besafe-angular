@@ -1,0 +1,5 @@
+@import "src/app/home/_shared/scss/mixin";
+
+.recycle_bin {
+    @include file_system();
+}

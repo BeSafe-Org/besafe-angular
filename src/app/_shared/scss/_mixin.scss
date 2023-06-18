@@ -1,0 +1,18 @@
+@import "src/app/_shared/scss/color";
+
+@mixin dev_border($width: 1px, $color: black, $style: solid) {
+    border: $width $style $color;
+}
+
+@mixin flex($justifyContent, $alignItems) {
+    display: flex;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+}
+
+@mixin manage_long_text() {
+    overflow-y: clip;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
