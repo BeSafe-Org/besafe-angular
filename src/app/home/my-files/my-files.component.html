@@ -36,6 +36,29 @@
             </ng-container>
         </ul>
     </ng-container>
+
+
+
+
+
+
+
+    <h1>AES File Encryption and Decryption</h1>
+
+    <input type="file" #fileInput />
+    <br /><br />
+    <label for="password">Encryption Password:</label>
+    <br /><br />
+    <button (click)="encryptFile()">Encrypt</button>
+    <button (click)="decryptFile()">Decrypt</button>
+
+
+
+
+
+
+
+    
     <ng-container *ngIf="isLoading || isEmpty">
         <div class="flash_screen">
             <app-loader *ngIf="isLoading"></app-loader>

@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { AddFilesModalPopupComponent } from '../my-files/add-files-modal-popup/add-files-modal-popup.component';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
@@ -22,7 +22,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
     public viewType: FileViewType;
     userInfo?: UserInfo;
     public viewTypeSubscription: Subscription;
-    public allFiles: File[] = [];
+    public allFiles: BeSafeFile[] = [];
     private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.favouriteFiles;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
@@ -109,7 +109,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(file: File) {
+    private deleteFileById(file: BeSafeFile) {
         file.deleted = true;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -119,7 +119,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         })
     }
 
-    private toggleFileAsFavourite(file: File): void {
+    private toggleFileAsFavourite(file: BeSafeFile): void {
         file.starred = false;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             console.log(res);
@@ -156,7 +156,7 @@ export class StarredFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.allFiles.find(file => file.fileId === id);
             if (file) files.push(file);

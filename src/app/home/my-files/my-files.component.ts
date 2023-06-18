@@ -7,10 +7,11 @@ import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
+import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 
@@ -25,7 +26,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     public viewType: FileViewType;
     userInfo?: UserInfo;
     public viewTypeSubscription: Subscription;
-    public allFiles: File[] = [];
+    public allFiles: BeSafeFile[] = [];
     private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
@@ -116,7 +117,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         console.log('isUltraSecure: ', ultraSafe);
         this.googleApi.uploadFile(event, ultraSafe).subscribe(
             res => {
-                let uploadFile: File = new File();
+                let uploadFile: BeSafeFile = new BeSafeFile();
                 uploadFile.userId = this.userId;
                 uploadFile.fileId = res.id;
                 uploadFile.fileName = res.name;
@@ -148,7 +149,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(file: File) {
+    private deleteFileById(file: BeSafeFile) {
         file.deleted = true;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -158,7 +159,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         })
     }
 
-    private toggleFileAsFavourite(file: File): void {
+    private toggleFileAsFavourite(file: BeSafeFile): void {
         file.starred = !file.starred;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -194,7 +195,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.allFiles.find(file => file.fileId === id);
             if (file) files.push(file);
@@ -226,4 +227,83 @@ export class MyFilesComponent implements OnInit, OnDestroy {
         this.allFiles$.unsubscribe();
         this.viewTypeSubscription.unsubscribe();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  password: "master key from localstore";
+
+  async encryptFile() {
+    const fileInput = (document.querySelector('input[type=file]') as HTMLInputElement);
+    if (fileInput.files.length === 0) {
+      alert('Please select a file.');
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const fileContent = await this.readFileContent(file);
+    const encryptedContent = await new AesCrypto().encryptAES(fileContent, this.password);
+    const encryptedBlob = new Blob([encryptedContent], { type: 'application/octet-stream' });
+    
+    //upload blob
+    
+    const encryptedFile = new File([encryptedBlob], file.name + '.enc');
+    this.downloadFile2(encryptedFile);
+}
+
+  async decryptFile() {
+    const fileInput = (document.querySelector('input[type=file]') as HTMLInputElement);
+    if (fileInput.files.length === 0) {
+      alert('Please select a file.');
+      return;
+    }
+    
+    
+    //download Blob
+    // const encryptedFile = new File([encryptedBlob], file.name + '.enc');
+
+    const file = fileInput.files[0];
+    const fileContent = await this.readFileContent(file);
+    const decryptedContent = await new AesCrypto().decryptAES(fileContent, this.password);
+    const decryptedBlob = new Blob([decryptedContent], { type: file.type });
+    const decryptedFile = new File([decryptedBlob], file.name.substring(0, file.name.lastIndexOf('.enc')));
+    this.downloadFile2(decryptedFile);
+  }
+
+  readFileContent(file: File): Promise<ArrayBuffer> {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as ArrayBuffer);
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  downloadFile2(fileToDownload: File) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(fileToDownload);
+    link.download = fileToDownload.name;
+    link.click();
+  }
+
+
+
+
+
+
+
+
+
+
+
 }

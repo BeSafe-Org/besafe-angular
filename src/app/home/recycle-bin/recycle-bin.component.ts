@@ -5,7 +5,7 @@ import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besa
 import { Subscription } from 'rxjs';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
@@ -22,7 +22,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     public viewType: FileViewType;
     userInfo?: UserInfo;
     public viewTypeSubscription: Subscription;
-    public allFiles: File[] = [];
+    public allFiles: BeSafeFile[] = [];
     private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.recycleBin;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
@@ -146,7 +146,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.allFiles.find(file => file.fileId === id);
             if (file) files.push(file);

@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { Result } from "../../models/results/Result";
 import { RestCalls } from "../restOperations/RestCalls";
-import { File } from "../../models/entities/File";
+import { BeSafeFile } from "../../models/entities/File";
 
 export class FileBackendClient {
     
@@ -10,7 +10,7 @@ export class FileBackendClient {
         this.restCalls = new RestCalls()
     }
     
-    addFileMetaData(newFile: File): Promise<Result> {
+    addFileMetaData(newFile: BeSafeFile): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let addFileResult = new Result();
             try {
@@ -36,7 +36,7 @@ export class FileBackendClient {
         })
     }
 
-    updateFileMetaData(file: File): Promise<Result> {
+    updateFileMetaData(file: BeSafeFile): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let addFileResult = new Result();
             try {
@@ -89,7 +89,7 @@ export class FileBackendClient {
         })
     }
 
-    getAllFiles(userId: string): Promise<File[]> {
+    getAllFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
@@ -109,7 +109,7 @@ export class FileBackendClient {
         })
     }
 
-    getStarredFiles(userId: string): Promise<File[]> {
+    getStarredFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
@@ -129,7 +129,7 @@ export class FileBackendClient {
         })
     }
 
-    getUltraSecureFiles(userId: string): Promise<File[]> {
+    getUltraSecureFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
@@ -149,7 +149,7 @@ export class FileBackendClient {
         })
     }
 
-    getDeletedFiles(userId: string): Promise<File[]> {
+    getDeletedFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
