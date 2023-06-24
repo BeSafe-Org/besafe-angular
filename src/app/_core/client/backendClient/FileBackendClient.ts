@@ -2,14 +2,15 @@ import { environment } from "src/environments/environment";
 import { Result } from "../../models/results/Result";
 import { RestCalls } from "../restOperations/RestCalls";
 import { BeSafeFile } from "../../models/entities/File";
+import { FileCategory } from "../../models/entities/FileCategory";
 
 export class FileBackendClient {
-    
+
     restCalls: RestCalls;
     constructor() {
         this.restCalls = new RestCalls()
     }
-    
+
     addFileMetaData(newFile: BeSafeFile): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let addFileResult = new Result();
@@ -63,7 +64,7 @@ export class FileBackendClient {
     }
 
 
-    deleteFileMetaData(fileId: string): Promise<Result>  {
+    deleteFileMetaData(fileId: string): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let deleteFileResult = new Result();
             try {
@@ -89,14 +90,14 @@ export class FileBackendClient {
         })
     }
 
-    searchFileByToken(userId: string, searchToken: string): Promise<BeSafeFile[]> {
+    searchFileByToken(userId: string, category: FileCategory, searchToken: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
-                let relativeUrl = `/files/${userId}/${searchToken}`;
+                let relativeUrl = `/files/${category}/${userId}/${searchToken}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -116,7 +117,7 @@ export class FileBackendClient {
                 let relativeUrl = `/files/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -136,7 +137,7 @@ export class FileBackendClient {
                 let relativeUrl = `/files/starred/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -156,7 +157,7 @@ export class FileBackendClient {
                 let relativeUrl = `/files/ultrasafe/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -176,7 +177,7 @@ export class FileBackendClient {
                 let relativeUrl = `/files/deleted/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
