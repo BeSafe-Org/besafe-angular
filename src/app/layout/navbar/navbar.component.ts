@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { log } from 'console';
 import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { GoogleApiService } from 'src/app/_core/services/backend/google-api.service';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
@@ -32,21 +32,21 @@ export class NavbarComponent implements OnInit {
         private googleApiService: GoogleApiService
     ) {
 
-        const password = 'Pass123$';
-        const salt = 'a1b2c3d4e5f6dsdfsdfdf';
+        // const password = 'Pass123$';
+        // const salt = 'a1b2c3d4e5f6dsdfsdfdf';
 
-        const userKey = new AesCrypto().generateUserKey(password, salt);
-        const iv = new AesCrypto().generateRandomIV();
-        console.log(userKey);
+        // const userKey = new AesCrypto().generateUserKey(password, salt);
+        // const iv = new AesCrypto().generateRandomIV();
+        // console.log(userKey);
 
-        const aes = new AesCrypto(userKey, iv);
+        // const aes = new AesCrypto(userKey, iv);
 
-        const plainText = 'Hello, world!';
-        this.encryptedText = aes.encrypt(plainText);
-        this.decryptedText = aes.decrypt(this.encryptedText);
+        // const plainText = 'Hello, world!';
+        // this.encryptedText = aes.encrypt(plainText);
+        // this.decryptedText = aes.decrypt(this.encryptedText);
 
-        console.log(this.encryptedText);
-        console.log(this.decryptedText);
+        // console.log(this.encryptedText);
+        // console.log(this.decryptedText);
     }
 
     ngOnInit(): void {

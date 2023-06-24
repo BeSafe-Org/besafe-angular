@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
 import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
     public viewType: FileViewType;
     userInfo?: UserInfo;
     public viewTypeSubscription: Subscription;
-    public allFiles: File[] = [];
+    public allFiles: BeSafeFile[] = [];
     private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.ultraSafeFiles;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
@@ -108,7 +108,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
         );
     }
 
-    private deleteFileById(file: File) {
+    private deleteFileById(file: BeSafeFile) {
         file.deleted = true;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -118,7 +118,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
         })
     }
 
-    private toggleFileAsFavourite(file: File): void {
+    private toggleFileAsFavourite(file: BeSafeFile): void {
         file.starred = !file.starred;
         this.fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -154,7 +154,7 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.allFiles.find(file => file.fileId === id);
             if (file) files.push(file);
