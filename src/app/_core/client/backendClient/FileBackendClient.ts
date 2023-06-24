@@ -89,6 +89,26 @@ export class FileBackendClient {
         })
     }
 
+    searchFileByToken(userId: string, searchToken: string): Promise<BeSafeFile[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/${userId}/${searchToken}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.length>0) {
+                    resolve(restResult);
+                }
+                else {
+                    resolve([]);
+                }
+            }
+            catch (err) {
+                reject([]);
+            }
+        })
+    }
+
     getAllFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {

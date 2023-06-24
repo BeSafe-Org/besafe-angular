@@ -22,6 +22,10 @@ export class FileManagementService {
         return from(new FileBackendClient().deleteFileMetaData(fileId));
     }
 
+    searchFileByToken(userId: string, searchToken: string): Observable<BeSafeFile[]>  {
+        return from(new FileBackendClient().searchFileByToken(userId, searchToken));
+    }
+
     getAllFiles(userId: string): Observable<BeSafeFile[]>  {
         return from(new FileBackendClient().getAllFiles(userId));
     }
