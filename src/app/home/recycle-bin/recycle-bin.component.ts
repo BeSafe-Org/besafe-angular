@@ -30,7 +30,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
 
-    
+
     userId: string = new LocalStorage().getItem("userId");
 
     constructor(
@@ -111,7 +111,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
             (error) => {
                 this.fileManagementService.deleteFileMetaData(id).subscribe(res => {
                     this.refresh();
-                }, err => {
+                }, err=>{
 
                 })
                 // console.log('Error deleted file', error);
@@ -165,8 +165,8 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
         contextMenu.instance.selectedFiles = files;
         contextMenu.instance.pointerEventPosition = position;
         contextMenu.instance.options = [
-            { type: 'restore', name: 'Restore', isForSingle: true, svgImgName: 'download-icon' },
-            { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
+            { type: 'restore', name: 'Restore', isForSingle: true, svgImgName: 'restore-icon' },
+            { type: 'delete', name: 'Delete permanently', isForSingle: true, svgImgName: 'delete-icon' }
         ];
 
         contextMenu.instance.clickedOnOption.subscribe((clickedOption) => {

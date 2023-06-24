@@ -30,6 +30,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     private allFiles$: Subscription;
     public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
+    public readonly FILE_NAME_PREFIX = FILE_NAME_PREFIX;
 
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
@@ -223,7 +224,7 @@ export class MyFilesComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allFiles$.unsubscribe();
-        this.viewTypeSubscription.unsubscribe();
+        this.allFiles$?.unsubscribe();
+        this.viewTypeSubscription?.unsubscribe();
     }
 }
