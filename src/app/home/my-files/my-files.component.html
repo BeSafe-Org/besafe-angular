@@ -23,14 +23,18 @@
             [prefix]="fileIdPrefix"
             #operationResult="operationResult"
             (contextmenu)="openContextMenu($event)">
-            <hr>
             <ng-container *ngFor="let file of allFiles">
                 <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
                     [ngClass]="{'selected': operationResult.isSelected(file.fileId),
                                     'focused': operationResult.isLastFocused(file.fileId)}"
-                    [title]="file.fileName">
+                    [title]="file.fileName.slice(FILE_NAME_PREFIX.length)">
                     <div class="stop_pointer_events">
-                        <app-file-card [viewType]="viewType" [fileName]="file.fileName"></app-file-card>
+                        <app-file-card
+                            [fileName]="file.fileName"
+                            [fileMimeType]="file.mimeType"
+                            [isUltraSafe]="file.ultraSafe"
+                            [isStarred]="file.starred"
+                            [viewType]="viewType"></app-file-card>
                     </div>
                 </li>
             </ng-container>

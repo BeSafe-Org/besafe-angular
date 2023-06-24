@@ -18,6 +18,7 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 })
 export class NavbarComponent implements OnInit {
     public isSigningOut: boolean = false;
+    public currentTheme: boolean = true;
 
     encryptedText: string;
     decryptedText: string;
@@ -49,6 +50,10 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    public switchTheme(): void {
+        this.currentTheme = !this.currentTheme;
     }
 
     public toggleCollapseSidebar(): void {

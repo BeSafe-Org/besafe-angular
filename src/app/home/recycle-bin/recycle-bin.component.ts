@@ -30,7 +30,7 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
     public isLoading: boolean = true;
     public isEmpty: boolean = true;
 
-    
+
     userId: string = new LocalStorage().getItem("userId");
 
     constructor(
@@ -112,11 +112,21 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
                 this.fileManagementService.deleteFileMetaData(id).subscribe(res=>{
                     this.refresh();
                 }, err=>{
-    
+
                 })
                 // console.log('Error deleted file', error);
             }
         );
+    }
+
+    private restoreFile(file: File): void {
+        file.deleted = false;
+        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
+            // console.log(res);
+            this.refresh();
+        }, error => {
+            // console.log(error);
+        });
     }
 
     public openContextMenu(event: any): void {
@@ -154,15 +164,15 @@ export class RecycleBinComponent implements OnInit, OnDestroy {
         contextMenu.instance.selectedFiles = files;
         contextMenu.instance.pointerEventPosition = position;
         contextMenu.instance.options = [
-            { type: 'restore', name: 'Restore', isForSingle: true, svgImgName: 'download-icon' },
-            { type: 'delete', name: 'Delete', isForSingle: true, svgImgName: 'delete-icon' }
+            { type: 'restore', name: 'Restore', isForSingle: true, svgImgName: 'restore-icon' },
+            { type: 'delete', name: 'Delete permanently', isForSingle: true, svgImgName: 'delete-icon' }
         ];
 
         contextMenu.instance.clickedOnOption.subscribe((clickedOption) => {
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'restore':
-                    // this.toggleFileAsFavourite(file);
+                    this.restoreFile(file);
                     break;
                 case 'delete':
                     this.deleteFileById(file.fileId);

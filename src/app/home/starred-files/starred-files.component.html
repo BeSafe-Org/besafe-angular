@@ -24,7 +24,12 @@
                                     'focused': operationResult.isLastFocused(file.fileId)}"
                     [title]="file.fileName">
                     <div class="stop_pointer_events">
-                        <app-file-card [viewType]="viewType" [fileName]="file.fileName"></app-file-card>
+                        <app-file-card
+                            [fileName]="file.fileName"
+                            [fileMimeType]="file.mimeType"
+                            [isUltraSafe]="file.ultraSafe"
+                            [isStarred]="file.starred"
+                            [viewType]="viewType"></app-file-card>
                     </div>
                 </li>
             </ng-container>
