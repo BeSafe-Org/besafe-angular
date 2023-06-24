@@ -3,6 +3,7 @@ import { FileBackendClient } from '../../client/backendClient/FileBackendClient'
 import { Observable, from } from 'rxjs';
 import { BeSafeFile } from '../../models/entities/File';
 import { Result } from '../../models/results/Result';
+import { FileCategory } from '../../models/entities/FileCategory';
 
 
 @Injectable({
@@ -14,19 +15,19 @@ export class FileManagementService {
         return from(new FileBackendClient().addFileMetaData(newFile));
     }
 
-    updateFileMetaData(file: BeSafeFile): Observable<Result>  {
+    updateFileMetaData(file: BeSafeFile): Observable<Result> {
         return from(new FileBackendClient().updateFileMetaData(file));
     }
 
-    deleteFileMetaData(fileId: string): Observable<Result>  {
+    deleteFileMetaData(fileId: string): Observable<Result> {
         return from(new FileBackendClient().deleteFileMetaData(fileId));
     }
 
-    searchFileByToken(userId: string, searchToken: string): Observable<BeSafeFile[]>  {
-        return from(new FileBackendClient().searchFileByToken(userId, searchToken));
+    searchFileByToken(userId: string, category: FileCategory, searchToken: string): Observable<BeSafeFile[]> {
+        return from(new FileBackendClient().searchFileByToken(userId, category, searchToken));
     }
 
-    getAllFiles(userId: string): Observable<BeSafeFile[]>  {
+    getAllFiles(userId: string): Observable<BeSafeFile[]> {
         return from(new FileBackendClient().getAllFiles(userId));
     }
 
