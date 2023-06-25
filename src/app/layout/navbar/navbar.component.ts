@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { log } from 'console';
+import { Subscription } from 'rxjs';
 import { AesCrypto } from 'src/app/_core/client/utils/AesCrypto';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
@@ -9,6 +10,7 @@ import { GoogleApiService } from 'src/app/_core/services/backend/google-api.serv
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 import { UserManagementService } from 'src/app/_core/services/backend/user-management.service';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
 @Component({
@@ -18,13 +20,13 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 })
 export class NavbarComponent implements OnInit {
     public isSigningOut: boolean = false;
-    public currentTheme: boolean = true;
 
     encryptedText: string;
     decryptedText: string;
 
     constructor(
         private besafeGlobalService: BesafeGlobalService,
+        public themeService: ThemeService,
         private smartContractService: SmartContractService,
         private userManagementService: UserManagementService,
         private fileManagementService: FileManagementService,
@@ -52,8 +54,8 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    public switchTheme(): void {
-        this.currentTheme = !this.currentTheme;
+    public changeTheme(): void {
+        this.themeService.changeTheme();
     }
 
     public toggleCollapseSidebar(): void {

@@ -5,6 +5,8 @@
     padding: 1rem;
     outline: none;
     border: none;
+    background-color: $bgOneColor;
+    transition: background-color 300ms;
     $headerHeight: 2.5rem;
     .header {
         height: $headerHeight;

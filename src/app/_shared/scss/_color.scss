@@ -1,7 +1,10 @@
-// $brandPrimaryColor: #063146;
-// $brandSecondaryColor: #05415e;
-$brandPrimaryColor: #005776; // remove later
-$brandSecondaryColor: #6dd5fa; // remove later
+$brandPrimaryColor: var(--brand-primary-color);
+$brandSecondaryColor: var(--brand-secondary-color);
+
+$bgOneColor: var(--bg-1-color);
+$bgTwoColor: var(--bg-2-color);
+
+$textColor: var(--text-color);
 
 $tintOneColor: #699afb;
 $tintTwoColor: #c2d7f9;

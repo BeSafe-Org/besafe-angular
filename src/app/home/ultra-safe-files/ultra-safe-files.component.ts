@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { BeSafeFile } from 'src/app/_core/models/entities/File';
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { File } from 'src/app/_core/models/entities/File';
 import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
 import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
 import { Subscription } from 'rxjs';
@@ -9,122 +9,82 @@ import { FileManagementService } from 'src/app/_core/services/backend/file-manag
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
+import { HomeCommons } from '../_shared/classes/home-commons';
+import { Title } from '@angular/platform-browser';
+import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
 
 @Component({
-    selector: 'app-ultra-saved-files',
-    templateUrl: './ultra-saved-files.component.html',
-    styleUrls: ['./ultra-saved-files.component.scss']
+    selector: 'app-ultra-safe-files',
+    templateUrl: './ultra-safe-files.component.html',
+    styleUrls: ['./ultra-safe-files.component.scss']
 })
-export class UltraSavedFilesComponent implements OnInit, OnDestroy {
+export class UltraSafeFilesComponent extends HomeCommons implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('fileSystemOperationContainer') fileSystemOperationContainer: ElementRef;
     @ViewChild('operationResult') operationResult: FileSystemOperationsDirective;
 
-    public viewType: FileViewType;
     userInfo?: UserInfo;
-    public viewTypeSubscription: Subscription;
-    public allFiles: BeSafeFile[] = [];
-    private allFiles$: Subscription;
-    public readonly fileIdPrefix: string = FILE_ID_PREFIX.ultraSafeFiles;
-    public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
-
-    public isLoading: boolean = true;
-    public isEmpty: boolean = true;
-
-
-    userId: string = new LocalStorage().getItem("userId");
+    public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
+    private userId: string = new LocalStorage().getItem("userId");
+    private setTimeoutRef: NodeJS.Timeout;
 
     constructor(
+        private titleService: Title,
         private changeDetectorRef: ChangeDetectorRef,
         private componentFactoryResolver: ComponentFactoryResolver,
         private viewContainerRef: ViewContainerRef,
         private fileManagementService: FileManagementService,
         private besafeGlobalService: BesafeGlobalService,
-        private googleApi: GoogleApiService,
-        private toaster: ToasterService
+        private googleApiService: GoogleApiService,
+        private toasterService: ToasterService
     ) {
-        googleApi.userProfileSubject.subscribe(info => {
+        super();
+        googleApiService.userProfileSubject.subscribe(info => {
             this.userInfo = info
         })
     }
 
     ngOnInit(): void {
-        this.initializeViewTypeObserver();
-        this.initial();
+        this.setPageMetaData(this.titleService, META_TAGS.ultraSafeFiles);
+        this.setViewType(this.besafeGlobalService);
+        this.initializeView(this.initializeViewExtras);
+        this.setTimeoutRef = setTimeout(() => {
+            this.getUltraSafeFiles();
+        }, 1000);
     }
 
-    private initial(): void {
-        this.isLoading = true;
-        this.isEmpty = false;
-        this.allFiles = [];
-        this.getAllFiles();
+    ngAfterViewInit(): void {
+        this.fileSystemOperationContainer.nativeElement.focus();
     }
 
-    private refresh(): void {
-        this.getAllFiles();
-    }
-    private initializeViewTypeObserver(): void {
-        this.viewTypeSubscription = this.besafeGlobalService.fileViewTypeBehaviorSubject.subscribe(value => {
-            this.viewType = value;
-        });
+    protected initializeViewExtras = (): void => {
     }
 
-    private getAllFiles(): void {
-        const userId = this.userId;
-        this.allFiles$ = this.fileManagementService.getUltraSecureFiles(userId).subscribe(
+    public changeFileView(): void {
+        this.besafeGlobalService.changeFileView();
+    }
+
+    protected detectNoOfGridColumns(): void {
+        this.changeDetectorRef.detectChanges();
+        this.operationResult.setNoOfGridColumns();
+    }
+
+    private getUltraSafeFiles = (): void => {
+        this.initializeView(this.initializeViewExtras);
+        this.fetchedItems$ = this.fileManagementService.getUltraSecureFiles(this.userId).subscribe(
             (response) => {
-                // console.log('All files retrieved successfully:', response);
+                // console.log('Ultra safe files retrieved successfully:', response);
                 if (response.length === 0) {
-                    this.isLoading = false;
-                    this.isEmpty = true;
+                    this.setEmpty();
                 }
                 else {
-                    const temp = [...response];
-                    // const compare = (s1: string, s2: string, i: number): boolean => s1[i] === s2[i] ? compare(s1, s2, i + 1) : s1[i] > s2[i];
-                    // temp.sort((a, b) => compare(a.fileName, b.fileName, 0) ? -1 : 1);
-                    this.allFiles = [...temp];
-                    this.isLoading = false;
-                    this.isEmpty = false;
-                    this.changeDetectorRef.detectChanges();
-                    this.operationResult.setNoOfGridColumns();
+                    this.setContent(response);
+                    this.detectNoOfGridColumns();
                 }
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
             }
         );
-    }
-
-    public toggleViewType(): void {
-        this.besafeGlobalService.togglefileViewType();
-    }
-
-    private downloadFile(id: string, name: string) {
-        this.googleApi.downloadFile(id, name).subscribe(
-            res => {
-                // console.log('File Downloaded:', res);
-            },
-            error => {
-                // console.error('Error downloading file:', error);
-            }
-        );
-    }
-
-    private deleteFileById(file: BeSafeFile) {
-        file.deleted = true;
-        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
-            // console.log(res);
-            this.refresh();
-        }, error => {
-            console.log(error);
-        })
-    }
-
-    private toggleFileAsFavourite(file: BeSafeFile): void {
-        file.starred = !file.starred;
-        this.fileManagementService.updateFileMetaData(file).subscribe(res => {
-            // console.log(res);
-        }, error => {
-            // console.log(error);
-        });
     }
 
     public openContextMenu(event: any): void {
@@ -149,14 +109,14 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
         }
     }
 
-    private createContextMenu(ids: string[], position: ContextMenuPointerEventPosition): void {
+    protected createContextMenu(ids: string[], position: ContextMenuPointerEventPosition): void {
         this.viewContainerRef.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: BeSafeFile[] = [];
+        const files: File[] = [];
         ids.forEach(id => {
-            const file = this.allFiles.find(file => file.fileId === id);
+            const file = this.fileCollection.find(file => file.fileId === id);
             if (file) files.push(file);
         });
         contextMenu.instance.selectedFiles = files;
@@ -171,19 +131,20 @@ export class UltraSavedFilesComponent implements OnInit, OnDestroy {
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'star':
-                    this.toggleFileAsFavourite(file);
+                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file);
                     break;
                 case 'download':
-                    this.downloadFile(file.fileId, file.fileName);
+                    this.downloadFile(this.toasterService, this.googleApiService, file.fileId, file.fileName);
                     break;
                 case 'delete':
-                    this.deleteFileById(file);
+                    this.moveFileToRecycleBin(this.toasterService, this.fileManagementService, file, this.getUltraSafeFiles);
             }
         });
     }
 
     ngOnDestroy(): void {
-        this.allFiles$.unsubscribe();
-        this.viewTypeSubscription.unsubscribe();
+        this.fetchedItems$?.unsubscribe();
+        this.viewTypeSubscription$?.unsubscribe();
+        clearTimeout(this.setTimeoutRef);
     }
 }
