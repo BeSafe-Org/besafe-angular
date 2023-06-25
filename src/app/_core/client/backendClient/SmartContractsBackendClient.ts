@@ -82,16 +82,8 @@ export class SmartContracts {
             if (isConnected) {
                 const contract = new window.web3.eth.Contract(this.abi, this.address);
                 const accounts = await this.getAccounts();
-
                 const hexFileData = this.arrayBufferToHex(fileData);
-
-                console.log("fileData: ", fileData);
-
-                console.log("hexFileData: ", hexFileData);
-
-                console.log("hexFileData.length: ", hexFileData.length);
-
-                const result = await contract.methods.addFile(fileId, hexFileData).send({ from: accounts[0] });
+                const result = await contract.methods.addFile(fileId, "x0").send({ from: accounts[0] });
                 return result;
             }
         } catch (error) {
@@ -108,26 +100,6 @@ export class SmartContracts {
         }
         return '0x' + hexString;
     }
-
-    // public async addFile(fileId: string, fileData: Blob): Promise<any> {
-    //     try {
-    //         let isConnected = await this.connectToMetamask();
-    //         if (isConnected) {
-    //             const contract = new window.web3.eth.Contract(this.abi, this.address);
-    //             const accounts = await this.getAccounts();
-
-    //             const fileString = await this.blobToString(fileData);
-    //             console.log(fileString);
-
-    //             const hexFileData = this.stringToHex(fileString);
-
-    //             const result = await contract.methods.addFile(fileId, hexFileData).send({ from: accounts[0] });
-    //             return result;
-    //         }
-    //     } catch (error) {
-    //         console.log("Error:", error);
-    //     }
-    // }
 
     private async blobToString(blob: Blob): Promise<string> {
         return new Promise<string>((resolve, reject) => {
