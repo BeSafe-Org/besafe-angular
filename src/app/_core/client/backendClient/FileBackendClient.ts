@@ -3,6 +3,7 @@ import { Result } from "../../models/results/Result";
 import { RestCalls } from "../restOperations/RestCalls";
 import { BeSafeFile } from "../../models/entities/File";
 import { FileCategory } from "../../models/entities/FileCategory";
+import { GoogleApiService } from "../../services/backend/google-api.service";
 
 export class FileBackendClient {
 
@@ -111,6 +112,11 @@ export class FileBackendClient {
     }
 
     getAllFiles(userId: string): Promise<BeSafeFile[]> {
+        let temp = localStorage.getItem("isCloudConnected");
+
+        if (temp == "true") {
+            new GoogleApiService().loadProFile();
+        }
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
