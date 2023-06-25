@@ -59,17 +59,37 @@ export class SmartContracts {
         return addresses.length ? addresses[0] : null;
     };
 
-    public async addFile(fileId: string, fileData: Blob): Promise<any> {
+    public async addFile(fileId: string, fileData: string): Promise<any> {
         try {
             let isConnected = await this.connectToMetamask();
             if (isConnected) {
                 const contract = new window.web3.eth.Contract(this.abi, this.address);
                 const accounts = await this.getAccounts();
 
-                const fileString = await this.blobToString(fileData);
-                console.log(fileString);
-                
-                const hexFileData = this.stringToHex(fileString);
+                // const hexFileData = this.arrayBufferToHex(fileData);
+
+                const result = await contract.methods.addFile(fileId, fileData).send({ from: accounts[0] });
+                return result;
+            }
+        } catch (error) {
+            console.log("Error:", error);
+        }
+    }
+
+    public async addFileArrayBuffer(fileId: string, fileData: ArrayBuffer): Promise<any> {
+        try {
+            let isConnected = await this.connectToMetamask();
+            if (isConnected) {
+                const contract = new window.web3.eth.Contract(this.abi, this.address);
+                const accounts = await this.getAccounts();
+
+                const hexFileData = this.arrayBufferToHex(fileData);
+
+                console.log("fileData: ", fileData);
+
+                console.log("hexFileData: ", hexFileData);
+
+                console.log("hexFileData.length: ", hexFileData.length);
 
                 const result = await contract.methods.addFile(fileId, hexFileData).send({ from: accounts[0] });
                 return result;
@@ -78,6 +98,36 @@ export class SmartContracts {
             console.log("Error:", error);
         }
     }
+
+    arrayBufferToHex(arrayBuffer: ArrayBuffer) {
+        const uint8Array = new Uint8Array(arrayBuffer);
+        let hexString = '';
+        for (let i = 0; i < uint8Array.length; i++) {
+            const hex = uint8Array[i].toString(16).padStart(2, '0');
+            hexString += hex;
+        }
+        return '0x' + hexString;
+    }
+
+    // public async addFile(fileId: string, fileData: Blob): Promise<any> {
+    //     try {
+    //         let isConnected = await this.connectToMetamask();
+    //         if (isConnected) {
+    //             const contract = new window.web3.eth.Contract(this.abi, this.address);
+    //             const accounts = await this.getAccounts();
+
+    //             const fileString = await this.blobToString(fileData);
+    //             console.log(fileString);
+
+    //             const hexFileData = this.stringToHex(fileString);
+
+    //             const result = await contract.methods.addFile(fileId, hexFileData).send({ from: accounts[0] });
+    //             return result;
+    //         }
+    //     } catch (error) {
+    //         console.log("Error:", error);
+    //     }
+    // }
 
     private async blobToString(blob: Blob): Promise<string> {
         return new Promise<string>((resolve, reject) => {
