@@ -7,7 +7,7 @@ import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { SmartContractService } from 'src/app/_core/services/backend/smart-contract.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
@@ -107,7 +107,7 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
         // console.log('isUltraSecure: ', ultraSafe);
         this.googleApiService.uploadFile(event, ultraSafe).subscribe(
             res => {
-                let uploadFile: File = new File();
+                let uploadFile: BeSafeFile = new BeSafeFile();
                 uploadFile.userId = this.userId;
                 uploadFile.fileId = res.id;
                 uploadFile.fileName = res.name;
@@ -158,7 +158,7 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.fileCollection.find(file => file.fileId === id);
             if (file) files.push(file);

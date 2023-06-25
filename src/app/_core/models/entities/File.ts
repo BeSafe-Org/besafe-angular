@@ -1,4 +1,4 @@
-export class File {
+export class BeSafeFile {
     userId: string;
     fileId: string;
     fileName: string;

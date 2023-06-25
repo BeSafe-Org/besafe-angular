@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { AddFilesModalPopupComponent } from '../my-files/add-files-modal-popup/add-files-modal-popup.component';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { ToasterService } from 'src/app/_shared/services/toaster.service';
 import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
@@ -115,7 +115,7 @@ export class StarredFilesComponent extends HomeCommons implements OnInit, AfterV
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.fileCollection.find(file => file.fileId === id);
             if (file) files.push(file);

@@ -1,16 +1,17 @@
 import { environment } from "src/environments/environment";
 import { Result } from "../../models/results/Result";
 import { RestCalls } from "../restOperations/RestCalls";
-import { File } from "../../models/entities/File";
+import { BeSafeFile } from "../../models/entities/File";
+import { FileCategory } from "../../models/entities/FileCategory";
 
 export class FileBackendClient {
-    
+
     restCalls: RestCalls;
     constructor() {
         this.restCalls = new RestCalls()
     }
-    
-    addFileMetaData(newFile: File): Promise<Result> {
+
+    addFileMetaData(newFile: BeSafeFile): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let addFileResult = new Result();
             try {
@@ -36,7 +37,7 @@ export class FileBackendClient {
         })
     }
 
-    updateFileMetaData(file: File): Promise<Result> {
+    updateFileMetaData(file: BeSafeFile): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let addFileResult = new Result();
             try {
@@ -63,7 +64,7 @@ export class FileBackendClient {
     }
 
 
-    deleteFileMetaData(fileId: string): Promise<Result>  {
+    deleteFileMetaData(fileId: string): Promise<Result> {
         return new Promise(async (resolve, reject) => {
             let deleteFileResult = new Result();
             try {
@@ -89,14 +90,34 @@ export class FileBackendClient {
         })
     }
 
-    getAllFiles(userId: string): Promise<File[]> {
+    searchFileByToken(userId: string, category: FileCategory, searchToken: string): Promise<BeSafeFile[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let baseUrl = environment.baseUrl;
+                let relativeUrl = `/files/${category}/${userId}/${searchToken}`;
+                let completeUrl = baseUrl + relativeUrl;
+                let restResult = await this.restCalls.GET(completeUrl);
+                if (restResult.length > 0) {
+                    resolve(restResult);
+                }
+                else {
+                    resolve([]);
+                }
+            }
+            catch (err) {
+                reject([]);
+            }
+        })
+    }
+
+    getAllFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -109,14 +130,14 @@ export class FileBackendClient {
         })
     }
 
-    getStarredFiles(userId: string): Promise<File[]> {
+    getStarredFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/starred/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -129,14 +150,14 @@ export class FileBackendClient {
         })
     }
 
-    getUltraSecureFiles(userId: string): Promise<File[]> {
+    getUltraSecureFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/ultrasafe/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
@@ -149,14 +170,14 @@ export class FileBackendClient {
         })
     }
 
-    getDeletedFiles(userId: string): Promise<File[]> {
+    getDeletedFiles(userId: string): Promise<BeSafeFile[]> {
         return new Promise(async (resolve, reject) => {
             try {
                 let baseUrl = environment.baseUrl;
                 let relativeUrl = `/files/deleted/${userId}`;
                 let completeUrl = baseUrl + relativeUrl;
                 let restResult = await this.restCalls.GET(completeUrl);
-                if (restResult.length>0) {
+                if (restResult.length > 0) {
                     resolve(restResult);
                 }
                 else {
