@@ -5,20 +5,20 @@
             <app-button
                 [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
                 [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
-                (clicked)="toggleViewType()">
+                (clicked)="changeFileView()">
             </app-button>
         </div>
     </div>
-    <ng-container *ngIf="!(isLoading || isEmpty)">
+    <ng-container *ngIf="!(isLoading || isError || isEmpty)">
         <ul [ngClass]="viewType + '_view'"
             appFileSystemOperations
             [viewType]="viewType"
-            [fileCollection]="allFiles"
+            [fileCollection]="fileCollection"
             [prefix]="fileIdPrefix"
             #operationResult="operationResult"
             (contextmenu)="openContextMenu($event)">
             <hr>
-            <ng-container *ngFor="let file of allFiles">
+            <ng-container *ngFor="let file of fileCollection">
                 <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
                     [ngClass]="{'selected': operationResult.isSelected(file.fileId),
                                     'focused': operationResult.isLastFocused(file.fileId)}"
@@ -35,9 +35,10 @@
             </ng-container>
         </ul>
     </ng-container>
-    <ng-container *ngIf="isLoading || isEmpty">
+    <ng-container *ngIf="isLoading || isError || isEmpty">
         <div class="flash_screen">
             <app-loader *ngIf="isLoading"></app-loader>
+            <div class="empty" *ngIf="isError"> Something went wrong </div>
             <div class="empty" *ngIf="isEmpty"> No files to show </div>
         </div>
     </ng-container>

@@ -4,7 +4,7 @@ import { MyFilesComponent } from './my-files/my-files.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { RecycleBinComponent } from './recycle-bin/recycle-bin.component';
 import { StarredFilesComponent } from './starred-files/starred-files.component';
-import { UltraSavedFilesComponent } from './ultra-saved-files/ultra-saved-files.component';
+import { UltraSafeFilesComponent } from './ultra-safe-files/ultra-safe-files.component';
 import { SharedModule } from '../_shared/shared.module';
 import { AddFilesModalPopupComponent } from './my-files/add-files-modal-popup/add-files-modal-popup.component';
 import { FileCardComponent } from './_shared/components/file-card/file-card.component';
@@ -16,7 +16,7 @@ import { ContextMenuComponent } from './_shared/components/context-menu/context-
         MyFilesComponent,
         RecycleBinComponent,
         StarredFilesComponent,
-        UltraSavedFilesComponent,
+        UltraSafeFilesComponent,
         AddFilesModalPopupComponent,
         FileCardComponent,
         FileSystemOperationsDirective,

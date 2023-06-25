@@ -124,7 +124,8 @@
     // &:hover {
     // }
     &:active {
-        background-color: $tintThreeColor;
+        background-color: $bgOneColor;
+        filter: brightness(80%);
     }
     &.disabled {
         border-color: $darkGrayOneColor;
@@ -134,6 +135,11 @@
         }
         .title {
             color: $darkGrayOneColor;
+        }
+        .loader {
+            .circle {
+                background-color: $darkGrayOneColor;
+            }
         }
     }
 }
@@ -153,10 +159,12 @@
         }
     }
     &:hover {
-        background-color: $tintThreeColor;
+        // background-color: $tintThreeColor;
+        background-color: $bgOneColor;
+        filter: brightness(90%);
     }
     &:active {
-        filter: brightness(150%);
+        filter: brightness(70%);
     }
     &.disabled {
         filter: brightness(250%);

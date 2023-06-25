@@ -3,7 +3,6 @@ import { BehaviorSubject } from 'rxjs';
 
 export type FileViewType = 'list' | 'grid';
 export type IsSidebarCollapsed = 'true' | 'false';
-export type Theme = 'light' | 'dark';
 
 function _window(): any {
     return window;
@@ -25,32 +24,22 @@ export class BesafeGlobalService {
     }
 
     public toggleCollapseSidebar(): void {
-        let isSidebarCollapsed = this.collapseSidebarBehaviorSubject.getValue();
-        isSidebarCollapsed = isSidebarCollapsed === 'false' ? 'true' : 'false';
+        const isSidebarCollapsed: IsSidebarCollapsed = this.collapseSidebarBehaviorSubject.getValue() === 'false' ? 'true' : 'false';
         localStorage.setItem(this.isSidebarCollapsed_localStorage_KEY, isSidebarCollapsed);
         this.collapseSidebarBehaviorSubject.next(this.getIsSidebarCollapsedFromLocalStorage());
     }
     private getIsSidebarCollapsedFromLocalStorage(): IsSidebarCollapsed {
         const isSidebarCollapsed = localStorage.getItem(this.isSidebarCollapsed_localStorage_KEY);
-        if (isSidebarCollapsed) {
-            return isSidebarCollapsed as IsSidebarCollapsed;
-        } else {
-            return 'false';
-        }
+        return isSidebarCollapsed ? isSidebarCollapsed as IsSidebarCollapsed : 'false';
     }
 
-    public togglefileViewType(): void {
-        let viewType = this.fileViewTypeBehaviorSubject.getValue();
-        viewType = viewType === 'list' ? 'grid' : 'list';
+    public changeFileView(): void {
+        const viewType: FileViewType = this.fileViewTypeBehaviorSubject.getValue() === 'list' ? 'grid' : 'list';
         localStorage.setItem(this.fileViewtype_localStorage_KEY, viewType);
         this.fileViewTypeBehaviorSubject.next(this.getFileViewTypeFromLocalStorage());
     }
     private getFileViewTypeFromLocalStorage(): FileViewType {
         const viewType = localStorage.getItem(this.fileViewtype_localStorage_KEY);
-        if (viewType) {
-            return viewType as FileViewType;
-        } else {
-            return 'list';
-        }
+        return viewType ? viewType as FileViewType : 'grid';
     }
 }

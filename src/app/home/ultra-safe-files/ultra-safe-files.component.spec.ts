@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UltraSavedFilesComponent } from './ultra-saved-files.component';
+import { UltraSafeFilesComponent } from './ultra-safe-files.component';
 
-describe('UltraSavedFilesComponent', () => {
-  let component: UltraSavedFilesComponent;
-  let fixture: ComponentFixture<UltraSavedFilesComponent>;
+describe('UltraSafeFilesComponent', () => {
+  let component: UltraSafeFilesComponent;
+  let fixture: ComponentFixture<UltraSafeFilesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UltraSavedFilesComponent ]
+      declarations: [ UltraSafeFilesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UltraSavedFilesComponent);
+    fixture = TestBed.createComponent(UltraSafeFilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
