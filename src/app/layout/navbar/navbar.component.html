@@ -10,33 +10,26 @@
         </button>
     </div>
     <label class="searchbar">
-        <svg class="icon">
+        <svg class="search_icon">
             <use xlink:href="assets/images/svg/common-sprite.svg#search-icon"></use>
         </svg>
-        <input type="text" placeholder="Search for files...">
+        <input type="text" placeholder="Search for files..." (keyup)="keyupEventHandler($event)" #searchInput>
+        <svg class="clear_icon">
+            <use xlink:href="assets/images/svg/common-sprite.svg#close-icon"></use>
+        </svg>
     </label>
     <div class="right_section">
-        <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
-        [title]="'Refresh google'"
-        (clicked)="refreshGoogle()"></app-button>
-        <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
-        [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
-        [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
-        (clicked)="signOut()"></app-button>
-        <button class="theme_toggle_button" [title]="'currentTheme === THEME.light' ? 'Switch to dark mode' : 'Switch to light mode'"
-            (click)="changeTheme()">
-            <!-- <div class="icon_container" [ngClass]="themeService.theme === 'light' ? 'light_position' : 'dark_position'"> -->
-            <svg class="dark_mode_icon" *ngIf="themeService.theme === 'dark'">
-                <use xlink:href="assets/images/svg/common-sprite.svg#dark-mode-icon"></use>
-            </svg>
-            <svg class="light_mode_icon" *ngIf="themeService.theme === 'light'">
-                <use xlink:href="assets/images/svg/common-sprite.svg#light-mode-icon"></use>
-            </svg>
-            <!-- </div> -->
-        </button>
+        <!-- <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
+            [title]="'Refresh google'"
+            (clicked)="refreshGoogle()"></app-button> -->
+        <app-icon-button [title]="'Switch to ' + (themeService.theme === 'light' ? 'dark' : 'light') + ' mode'"
+            [imgSrc]="'assets/images/svg/common-sprite.svg#' + (themeService.theme === 'light' ? 'light' : 'dark') + '-mode-icon'"
+            (clicked)="themeService.changeTheme()"></app-icon-button>
+        <app-icon-button [title]="'Connect Google cloud'" [imgSrc]="'assets/images/svg/common-sprite.svg#connect-cloud-icon'"
+            [isDisabled]="isConnectingGoogleCloud" [isLoading]="isConnectingGoogleCloud"
+            (clicked)="connectGoogleCloud()"></app-icon-button>
+        <app-icon-button [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
+            [isDisabled]="isSigningOut" [isLoading]="isSigningOut"
+            (clicked)="signOut()"></app-icon-button>
     </div>
-    <!-- <button (click)="add()"> Add File</button> -->
-    <!-- <button (click)="up()">Update File</button> -->
-    <!-- <button (click)="de()">Delete</button> -->
-    <!-- <button (click)="get()">Get File</button> -->
 </div>

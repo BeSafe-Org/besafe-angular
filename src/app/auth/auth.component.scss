@@ -4,9 +4,10 @@
     width: 100vw;
     height: 100vh;
     // background: url("/assets/images/svg/auth-background-image.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    background-color: $bgOneColor;
     display: flex;
     .left_section {
         width: 50%;
@@ -43,5 +44,10 @@
     .right_section {
         width: 50%;
         @include flex(center, center);
+    }
+    .theme_toggle_button {
+        position: fixed;
+        top: 0.8rem;
+        right: 0.8rem;
     }
 }

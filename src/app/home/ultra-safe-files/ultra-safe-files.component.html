@@ -22,7 +22,8 @@
                 <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
                     [ngClass]="{'selected': operationResult.isSelected(file.fileId),
                                     'focused': operationResult.isLastFocused(file.fileId)}"
-                    [title]="file.fileName">
+                    [title]="file.fileName"
+                    [attr.data-theme]="themeService.theme">
                     <div class="stop_pointer_events">
                         <app-file-card
                             [fileName]="file.fileName"

@@ -46,26 +46,44 @@
             height: $size_of_grid_card;
             display: flex;
             border-radius: 12px;
-            border: 1px solid $lightGrayOneColor;
             .stop_pointer_events {
                 border-radius: 11px;
                 width: 100%;
                 height: 100%;
-                border: 2px solid transparent;
                 aspect-ratio: 1;
+                border: 1px solid transparent;
                 pointer-events: none;
             }
-            &:hover {
-                background-color: $tintThreeColor;
-            }
-            &.focused {
-                border-color: white;
-                .stop_pointer_events {
+            &[data-theme="light"] {
+                border: 1px solid $lightGrayOneColor;
+                &:hover {
+                    background-color: $tintThreeColor;
+                }
+                &.focused {
                     border-color: $brandPrimaryColor;
+                    .stop_pointer_events {
+                        border-color: $brandPrimaryColor;
+                    }
+                }
+                &.selected {
+                    background-color: $tintTwoColor;
                 }
             }
-            &.selected {
-                background-color: $tintTwoColor;
+            &[data-theme="dark"] {
+                border: 1px solid $darkGrayOneColor;
+                &:hover {
+                    background-color: #00a2dc20;
+                }
+                &.focused {
+                    border-color: $brandPrimaryColor;
+                    .stop_pointer_events {
+                        border-color: $brandPrimaryColor;
+                    }
+                }
+                &.selected {
+                    background-color: $tintTwoColor;
+                    background-color: #00a2dc60;
+                }
             }
         }
     }
@@ -83,21 +101,39 @@
         }
         .file_card_container {
             list-style: none;
-            border-bottom: 1px solid $lightGrayOneColor;
+            border: 1px solid transparent;
+            border-bottom-color: $lightGrayOneColor;
             .stop_pointer_events {
-                border: 2px solid transparent;
+                border: 1px solid transparent;
                 pointer-events: none;
             }
-            &:hover {
-                background-color: $tintThreeColor;
-            }
-            &.focused {
-                .stop_pointer_events {
+            &[data-theme="light"] {
+                &:hover {
+                    background-color: $tintThreeColor;
+                }
+                &.focused {
                     border-color: $brandPrimaryColor;
+                    .stop_pointer_events {
+                        border-color: $brandPrimaryColor;
+                    }
+                }
+                &.selected {
+                    background-color: $tintTwoColor;
                 }
             }
-            &.selected {
-                background-color: $tintTwoColor;
+            &[data-theme="dark"] {
+                &:hover {
+                    background-color: #00a2dc20;
+                }
+                &.focused {
+                    border-color: $brandPrimaryColor;
+                    .stop_pointer_events {
+                        border-color: $brandPrimaryColor;
+                    }
+                }
+                &.selected {
+                    background-color: #00a2dc60;
+                }
             }
         }
     }

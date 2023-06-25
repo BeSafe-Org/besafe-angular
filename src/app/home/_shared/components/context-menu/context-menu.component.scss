@@ -4,7 +4,7 @@
     width: max-content;
     padding: 0.5rem 0;
     border-radius: 0.5rem;
-    background: #ffffff;
+    background: $bgTwoColor;
     box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.15);
     position: fixed;
     li {
@@ -17,11 +17,24 @@
             $size: 1.5rem;
             width: $size;
             height: $size;
+            fill: $textColor;
         }
-        // span {
-        // }
-        &:hover {
-            background-color: lighten($color: $lightGrayOneColor, $amount: 25%);
+        span {
+            color: $textColor;
+        }
+    }
+    &[data-theme="light"] {
+        li {
+            &:hover {
+                background-color: lighten($color: $lightGrayOneColor, $amount: 25%);
+            }
+        }
+    }
+    &[data-theme="dark"] {
+        li {
+            &:hover {
+                background-color: darken($color: $lightGrayOneColor, $amount: 25%);
+            }
         }
     }
 }

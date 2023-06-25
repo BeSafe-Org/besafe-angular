@@ -24,7 +24,6 @@ export class FileCardComponent implements OnInit {
 
     ngOnInit(): void {
         this.setFileImgType();
-        console.log(this.isUltraSafe);
     }
 
     private setFileImgType(): void {

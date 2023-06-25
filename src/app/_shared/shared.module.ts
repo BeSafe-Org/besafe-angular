@@ -5,11 +5,13 @@ import { ButtonComponent } from './components/button/button.component';
 import { ModalPopupComponent } from './components/modal-popup/modal-popup.component';
 import { ClickedOutsideDirective } from './directives/clicked-outside/clicked-outside.directive';
 import { LoaderComponent } from './components/loader/loader.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
 @NgModule({
     declarations: [
         LogoComponent,
         ButtonComponent,
+        IconButtonComponent,
         ModalPopupComponent,
         ClickedOutsideDirective,
         LoaderComponent
@@ -20,6 +22,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     exports: [
         LogoComponent,
         ButtonComponent,
+        IconButtonComponent,
         ModalPopupComponent,
         ClickedOutsideDirective,
         LoaderComponent

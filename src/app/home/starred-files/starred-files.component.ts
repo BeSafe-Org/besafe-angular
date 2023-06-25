@@ -11,6 +11,7 @@ import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 
 @Component({
     selector: 'app-starred-files',
@@ -34,7 +35,8 @@ export class StarredFilesComponent extends HomeCommons implements OnInit, AfterV
         private fileManagementService: FileManagementService,
         private besafeGlobalService: BesafeGlobalService,
         private googleApiService: GoogleApiService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
@@ -82,6 +84,7 @@ export class StarredFilesComponent extends HomeCommons implements OnInit, AfterV
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
+                this.setError();
             }
         );
     }
@@ -130,7 +133,7 @@ export class StarredFilesComponent extends HomeCommons implements OnInit, AfterV
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'star':
-                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file);
+                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file, this.getStarredFiles);
                     break;
                 case 'download':
                     this.downloadFile(this.toasterService, this.googleApiService, file.fileId, file.fileName);

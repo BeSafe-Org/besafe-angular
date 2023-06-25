@@ -1,4 +1,4 @@
-const APP_NAME = 'BS - BeSafe';
+const APP_NAME = 'BeSafe';
 
 export const META_TAGS = {
     myFiles: `${APP_NAME} - All files`,

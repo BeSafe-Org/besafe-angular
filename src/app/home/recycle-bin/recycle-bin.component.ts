@@ -11,6 +11,7 @@ import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 
 @Component({
     selector: 'app-recycle-bin',
@@ -35,7 +36,8 @@ export class RecycleBinComponent extends HomeCommons implements OnInit, AfterVie
         private fileManagementService: FileManagementService,
         private besafeGlobalService: BesafeGlobalService,
         private googleApiService: GoogleApiService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
@@ -83,6 +85,7 @@ export class RecycleBinComponent extends HomeCommons implements OnInit, AfterVie
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
+                this.setError();
             }
         );
     }
