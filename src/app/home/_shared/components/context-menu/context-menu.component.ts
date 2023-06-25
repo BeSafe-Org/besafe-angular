@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 
 export type ContextMenuPointerEventPosition = { x: number, y: number }
 
@@ -39,7 +40,8 @@ export class ContextMenuComponent implements OnInit, AfterViewInit {
     constructor(
         private besafeGlobalService: BesafeGlobalService,
         private elementRef: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
+        public themeService: ThemeService
     ) { }
 
     ngOnInit(): void {

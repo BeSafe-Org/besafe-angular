@@ -4,6 +4,7 @@
     // @include dev_border(red);
     width: 100vw;
     height: 100vh;
+    backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0.35);
     position: fixed;
     top: 0;
@@ -13,7 +14,7 @@
         // @include dev_border(1px , red);
         width: 35rem;
         padding: 1rem;
-        background-color: white;
+        background-color: $bgOneColor;
         border-radius: 1rem;
         transform: translate(-50%, -50%);
         position: absolute;
@@ -36,22 +37,42 @@
                 top: 0.5rem;
                 right: 0.5rem;
                 cursor: pointer;
-                &:hover {
-                    background: lighten($color: $lightGrayOneColor, $amount: 20%);
+                &[data-theme="light"] {
+                    &:hover {
+                        background: lighten($color: $lightGrayOneColor, $amount: 20%);
+                    }
                 }
-                &:active {
-                    background: lighten($color: $lightGrayOneColor, $amount: 10%);
+                &[data-theme="dark"] {
+                    &:hover {
+                        background: darken($color: $darkGrayOneColor, $amount: 10%);
+                    }
+                }
+                &[data-theme="light"] {
+                    &:active {
+                        background: lighten($color: $lightGrayOneColor, $amount: 10%);
+                    }
+                }
+                &[data-theme="dark"] {
+                    &:active {
+                        background: darken($color: $darkGrayOneColor, $amount: 20%);
+                    }
                 }
                 svg {
                     $size: 1.5rem;
                     width: $size;
                     height: $size;
+                    fill: $textColor;
                 }
             }
         }
         .subheading {
             // @include dev_border();
-            color: $darkGrayOneColor;
+            &[data-theme="light"] {
+                color: $darkGrayOneColor;
+            }
+            &[data-theme="dark"] {
+                color: $lightGrayOneColor;
+            }
         }
         .main_content_container {
             // @include dev_border();
@@ -69,10 +90,13 @@
                 justify-content: center;
             }
         }
+        &.modal_popup_container_active {
+            top: 50% !important;
+            transition: all 200ms ease-out;
+        }
     }
-}
-
-.modal_popup_container_active {
-    top: 50% !important;
-    transition: all 300ms ease-out;
+    &.modal_popup_bg_active {
+        backdrop-filter: blur(4px);
+        transition: backdrop-filter 200ms;
+    }
 }

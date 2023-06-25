@@ -137,7 +137,7 @@ export abstract class HomeCommons {
         );
     }
 
-    protected toggleFileAsFavourite(toasterService: ToasterService, fileManagementService: FileManagementService, file: BeSafeFile): void {
+    protected toggleFileAsFavourite(toasterService: ToasterService, fileManagementService: FileManagementService, file: BeSafeFile, refresh: Function): void {
         const changeTo = !file.starred;
         file.starred = changeTo;
         fileManagementService.updateFileMetaData(file).subscribe(res => {

@@ -1,0 +1,10 @@
+<button class="icon_button" [ngClass]="{'disabled' : isDisabled}" [title]="title" (click)="clicked()" [disabled]="isDisabled">
+    <svg class="icon" *ngIf="!isLoading">
+        <use [attr.xlink:href]="imgSrc"></use>
+    </svg>
+    <div class="loader" *ngIf="isLoading">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+</button>

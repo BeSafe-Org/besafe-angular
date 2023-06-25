@@ -13,6 +13,7 @@ import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 
 export const FILE_NAME_PREFIX = '';
 
@@ -40,7 +41,8 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
         private fileManagementService: FileManagementService,
         private smartContractService: SmartContractService,
         private googleApiService: GoogleApiService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
@@ -104,6 +106,7 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
 
     private uploadFile(event: any, ultraSafe: boolean): void {
         // console.log('isUltraSecure: ', ultraSafe);
+        // this.googleApiService.connectCloud();
         this.googleApiService.uploadFile(event, ultraSafe).subscribe(
             res => {
                 let uploadFile: BeSafeFile = new BeSafeFile();
@@ -174,7 +177,7 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'star':
-                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file);
+                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file, this.getAllFiles);
                     break;
                 case 'download':
                     this.downloadFile(this.toasterService, this.googleApiService, file.fileId, file.fileName);

@@ -11,6 +11,7 @@ import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 
 @Component({
     selector: 'app-ultra-safe-files',
@@ -34,7 +35,8 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
         private fileManagementService: FileManagementService,
         private besafeGlobalService: BesafeGlobalService,
         private googleApiService: GoogleApiService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
@@ -82,6 +84,7 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
             },
             (error) => {
                 // console.log('Error retrieving all files:', error);
+                this.setError();
             }
         );
     }
@@ -130,7 +133,7 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
             const file = contextMenu.instance.selectedFiles[0];
             switch (clickedOption) {
                 case 'star':
-                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file);
+                    this.toggleFileAsFavourite(this.toasterService, this.fileManagementService, file, this.getUltraSafeFiles);
                     break;
                 case 'download':
                     this.downloadFile(this.toasterService, this.googleApiService, file.fileId, file.fileName);

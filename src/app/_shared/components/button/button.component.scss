@@ -168,7 +168,7 @@
     }
     &.disabled {
         filter: brightness(250%);
-        .loader {
+        .loader {   
             .circle {
                 background-color: $darkGrayOneColor;
             }

@@ -25,7 +25,6 @@ export class ThemeService {
         this.theme_localStorage_KEY = 'theme';
         this._theme = this.getThemeFromLocalStorage();
         this.themeBehaviorSubject = new BehaviorSubject<Theme>(this._theme);
-        this.toggleClassInBody(this._theme);
     }
 
     public changeTheme(): void {
@@ -44,6 +43,13 @@ export class ThemeService {
             this._document.body.classList.remove(Theme.Light);
             this._document.body.classList.add(Theme.Dark);
         }
+    }
+
+    /**
+     * TO BE USED IN AppComponent ONLY
+     */
+    public toggleClassInBodyFromAppComponent(): void {
+        this.toggleClassInBody(this._theme);
     }
 
     private getThemeFromLocalStorage(): Theme {
