@@ -6,21 +6,22 @@ export class BeSafeFile {
     deleted: boolean;
     starred: boolean;
     ultraSafe: boolean;
-  
+
     constructor(
-      userId?: string,
-      fileId?: string,
-      fileName?: string,
-      mimeType?: string,
-      deleted?: boolean,
-      starred?: boolean
+        userId?: string,
+        fileId?: string,
+        fileName?: string,
+        mimeType?: string,
+        deleted?: boolean,
+        starred?: boolean,
+        ultraSafe?: boolean
     ) {
-      this.userId = userId;
-      this.fileId = fileId;
-      this.fileName = fileName;
-      this.mimeType = mimeType;
-      this.deleted = deleted;
-      this.starred = starred;
+        this.userId = userId;
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.mimeType = mimeType;
+        this.deleted = deleted;
+        this.starred = starred;
+        this.ultraSafe = ultraSafe;
     }
-  }
-  
+}
