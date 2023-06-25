@@ -1,13 +1,7 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FileViewType, BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
-
-// export type FileUI = {
-//     id: string,
-//     name: string,
-//     mimeType: string
-// }
 
 export const FILE_NAME_PREFIX = 'BeSafe-';
 

@@ -2,7 +2,7 @@ import { ElementRef } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
 import { BesafeGlobalService, FileViewType } from "src/app/_shared/services/besafe-global.service";
-import { File } from "src/app/_core/models/entities/File";
+import { BeSafeFile } from "src/app/_core/models/entities/File";
 import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from "../directives/file-system-operations/file-system-operations.directive";
 import { FileManagementService } from "src/app/_core/services/backend/file-management.service";
 import { GoogleApiService } from "src/app/_core/services/backend/google-api.service";
@@ -19,7 +19,7 @@ export abstract class HomeCommons {
     private _isEmpty: boolean = false;
     public readonly fileSystemOperationContainerId: string = FILE_SYSTEM_OPERATION_CONTAINER_ID;
     // For data:
-    public fileCollection: File[] = [];
+    public fileCollection: BeSafeFile[] = [];
     protected fetchedItems$: Subscription;
 
     public get isLoading(): boolean { return this._isLoading; }
@@ -66,7 +66,7 @@ export abstract class HomeCommons {
         this._isEmpty = true;
     }
 
-    protected setContent(fileCollection: File[]): void {
+    protected setContent(fileCollection: BeSafeFile[]): void {
         this.fileCollection = fileCollection;
         this._isLoading = false;
         this._isError = false;
@@ -85,7 +85,7 @@ export abstract class HomeCommons {
     }
 
     // File related API calls:
-    protected restoreFileFromRecycleBin(toasterService: ToasterService, fileManagementService: FileManagementService, file: File, refresh: Function): void {
+    protected restoreFileFromRecycleBin(toasterService: ToasterService, fileManagementService: FileManagementService, file: BeSafeFile, refresh: Function): void {
         file.deleted = false;
         fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -97,7 +97,7 @@ export abstract class HomeCommons {
         });
     }
 
-    protected moveFileToRecycleBin(toasterService: ToasterService, fileManagementService: FileManagementService, file: File, refresh: Function): void {
+    protected moveFileToRecycleBin(toasterService: ToasterService, fileManagementService: FileManagementService, file: BeSafeFile, refresh: Function): void {
         file.deleted = true;
         fileManagementService.updateFileMetaData(file).subscribe(res => {
             // console.log(res);
@@ -137,7 +137,7 @@ export abstract class HomeCommons {
         );
     }
 
-    protected toggleFileAsFavourite(toasterService: ToasterService, fileManagementService: FileManagementService, file: File): void {
+    protected toggleFileAsFavourite(toasterService: ToasterService, fileManagementService: FileManagementService, file: BeSafeFile): void {
         const changeTo = !file.starred;
         file.starred = changeTo;
         fileManagementService.updateFileMetaData(file).subscribe(res => {
