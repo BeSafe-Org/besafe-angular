@@ -1,8 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AddFilesModalPopupComponent } from './add-files-modal-popup/add-files-modal-popup.component';
-import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
-import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
-import { Subscription } from 'rxjs';
+import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { ContextMenuComponent, ContextMenuPointerEventPosition } from '../_shared/components/context-menu/context-menu.component';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';

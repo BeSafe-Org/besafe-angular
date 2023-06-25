@@ -1,8 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { File } from 'src/app/_core/models/entities/File';
-import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
-import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
-import { Subscription } from 'rxjs';
+import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
@@ -12,6 +10,7 @@ import { LocalStorage } from 'src/app/_core/client/utils/LocalStorage';
 import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 
 @Component({
     selector: 'app-ultra-safe-files',
@@ -114,7 +113,7 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
         const factory = this.componentFactoryResolver.resolveComponentFactory(ContextMenuComponent);
         const contextMenu = this.viewContainerRef.createComponent(factory);
         contextMenu.instance.selfRef = contextMenu;
-        const files: File[] = [];
+        const files: BeSafeFile[] = [];
         ids.forEach(id => {
             const file = this.fileCollection.find(file => file.fileId === id);
             if (file) files.push(file);

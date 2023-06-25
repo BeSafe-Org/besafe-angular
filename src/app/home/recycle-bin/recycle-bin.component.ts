@@ -1,8 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { GoogleApiService, UserInfo } from 'src/app/_core/services/backend/google-api.service';
-import { FILE_SYSTEM_OPERATION_CONTAINER_ID, FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
-import { BesafeGlobalService, FileViewType } from 'src/app/_shared/services/besafe-global.service';
-import { Subscription } from 'rxjs';
+import { FileSystemOperationsDirective } from '../_shared/directives/file-system-operations/file-system-operations.directive';
+import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
 import { FILE_ID_PREFIX } from '../_shared/utils/file-id-prefix';
 import { FileManagementService } from 'src/app/_core/services/backend/file-management.service';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
