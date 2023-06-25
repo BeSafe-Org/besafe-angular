@@ -26,7 +26,7 @@ export class SmartContractService {
     };
 
     public addFile(fileId: string, fileData: string) {
-        return from(new SmartContracts().addFile(fileId, new Blob([fileData])));
+        return from(new SmartContracts().addFile(fileId, fileData));
     }
 
     public getFile(fileId: string) {

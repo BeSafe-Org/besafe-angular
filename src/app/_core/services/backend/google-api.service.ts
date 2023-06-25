@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { DriveOperationClient } from '../../client/managementClient/DriveOperationClient';
 import { DriveOperationBackEndClient } from '../../client/backendClient/DriveOperationBackEndClient';
+import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
 const authCodeFlowConfig: AuthConfig = {
     issuer: 'https://accounts.google.com',
     strictDiscoveryDocumentValidation: false,
-    redirectUri: "http://localhost:4200/home/my-files",
-    clientId: '232333650014-qq92u4mj4jh97r1asgv32e90fqcdbsg1.apps.googleusercontent.com',
+    redirectUri: `http://localhost:4200/${APP_ROUTES.googleRedirect}`,
+    clientId: "232333650014-qq92u4mj4jh97r1asgv32e90fqcdbsg1.apps.googleusercontent.com",
     scope: 'openid profile email https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file',
 };
 
@@ -33,15 +34,17 @@ export class GoogleApiService {
 
     userProfileSubject = new Subject<UserInfo>()
 
-    constructor(private readonly oAuthService?: OAuthService, private readonly httpClient?: HttpClient) {
-        oAuthService.configure(authCodeFlowConfig);
-        oAuthService.logoutUrl = "https://www.google.com/accounts/Logout";
-        oAuthService.loadDiscoveryDocument().then(() => {
-            oAuthService.tryLoginImplicitFlow().then(() => {
-                if (!oAuthService.hasValidAccessToken()) {
-                    oAuthService.initLoginFlow()
+    constructor(private readonly oAuthService?: OAuthService, private readonly httpClient?: HttpClient) { }
+
+    public connectCloud(): void {
+        this.oAuthService.configure(authCodeFlowConfig);
+        this.oAuthService.logoutUrl = "https://www.google.com/accounts/Logout";
+        this.oAuthService.loadDiscoveryDocument().then(() => {
+            this.oAuthService.tryLoginImplicitFlow().then(() => {
+                if (!this.oAuthService.hasValidAccessToken()) {
+                    this.oAuthService.initLoginFlow()
                 } else {
-                    oAuthService.loadUserProfile().then((userProfile) => {
+                    this.oAuthService.loadUserProfile().then((userProfile) => {
                         this.userProfileSubject.next(userProfile as UserInfo)
                     })
                 }

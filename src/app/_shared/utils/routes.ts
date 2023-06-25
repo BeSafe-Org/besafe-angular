@@ -1,3 +1,5 @@
+import { google } from "googleapis";
+
 /**
  * @description
  * Temporary boolean variable only for development to create senario whether user is logged in or not until singin/signup API is implemented.
@@ -17,5 +19,6 @@ export const APP_ROUTES = {
         ultraSavedFiles: { _: 'ultra-saved-files' },
         starredFiles: { _: 'starred-files' },
         recycleBin: { _: 'recycle-bin' },
-    }
+    },
+    googleRedirect: 'home/my-files'
 };
