@@ -9,19 +9,16 @@
             </svg>
         </button>
     </div>
-    <label class="searchbar">
-        <svg class="search_icon">
-            <use xlink:href="assets/images/svg/common-sprite.svg#search-icon"></use>
-        </svg>
-        <input type="text" placeholder="Search for files..." (keyup)="keyupEventHandler($event)" #searchInput>
-        <svg class="clear_icon">
-            <use xlink:href="assets/images/svg/common-sprite.svg#close-icon"></use>
-        </svg>
-    </label>
+    <div class="searchbar_container">
+        <app-searchbar></app-searchbar>
+    </div>
     <div class="right_section">
         <!-- <app-button [buttonDisplayType]="'tertiary'" [buttonFunctionalityType]="'button'"
             [title]="'Refresh google'"
             (clicked)="refreshGoogle()"></app-button> -->
+        <!-- <app-icon-button [title]="'Switch to ' + (themeService.theme === 'light' ? 'dark' : 'light') + ' mode'"
+            [imgSrc]="'assets/images/svg/common-sprite.svg#' + (themeService.theme === 'light' ? 'light' : 'dark') + '-mode-icon'"
+            (clicked)="'()'"></app-icon-button> -->
         <app-icon-button [title]="'Switch to ' + (themeService.theme === 'light' ? 'dark' : 'light') + ' mode'"
             [imgSrc]="'assets/images/svg/common-sprite.svg#' + (themeService.theme === 'light' ? 'light' : 'dark') + '-mode-icon'"
             (clicked)="themeService.changeTheme()"></app-icon-button>

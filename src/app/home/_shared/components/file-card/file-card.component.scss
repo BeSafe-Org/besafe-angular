@@ -58,6 +58,7 @@
     padding: 0.5rem 0;
     @include flex(space-between, center);
     .icon_and_name {
+        // @include dev_border();
         width: 100%;
         @include flex(flex-start, center);
         .icon {
@@ -68,31 +69,25 @@
         }
         .name {
             // @include dev_border();
-            // width: 30%;
-            max-width: 60%;
+            width: 30%;
+            min-width: 10ch;
             @include manage_long_text();
         }
         .besafe_shield_icon {
+            // @include dev_border();
             $size: 1.5rem;
             width: $size;
             height: $size;
-            margin-left: 0.5rem;
-            // position: absolute;
-            // // top: 4rem;
-            // // left: 4.5rem;
-            // top: 0;
-            // right: 0;
+            margin-left: 4rem;
             fill: $brandPrimaryColor;
         }
         .star_filled_icon,
         .star_icon {
+            // @include dev_border();
             $size: 1.5rem;
             width: $size;
             height: $size;
-            margin-left: 0.5rem;
-            // position: absolute;
-            // top: 0;
-            // left: 0;
+            margin-left: 4rem;
         }
         .star_filled_icon {
             fill: #f1c024;

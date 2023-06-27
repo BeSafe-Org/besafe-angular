@@ -14,6 +14,8 @@ import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
 import { ThemeService } from 'src/app/_shared/services/theme.service';
+import { SearchService } from 'src/app/layout/_shared/services/search.service';
+import { FileCategory } from 'src/app/_core/models/entities/FileCategory';
 
 export const FILE_NAME_PREFIX = '';
 
@@ -42,24 +44,32 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
         private smartContractService: SmartContractService,
         private googleApiService: GoogleApiService,
         private toasterService: ToasterService,
+        private searchService: SearchService,
         public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
             this.userInfo = info
-        })
+        });
     }
 
     ngOnInit(): void {
         this.setPageMetaData(this.titleService, META_TAGS.myFiles);
         this.setViewType(this.besafeGlobalService);
-        // this.initializeView(this.initializeViewExtras);
-        // this.setTimeoutRef = setTimeout(() => {
-        this.getAllFiles();
-        // }, 3000);
+        this.searchService.searchInitiator.subscribe((value) => {
+            this.searchTerm = value.searchTerm;
+            if (this.searchTerm) {
+                this.getFilesFromSearch(this.fileManagementService, this.userId, FileCategory.ALL, this.searchTerm);
+            } else {
+                // this.setTimeoutRef = setTimeout(() => {
+                this.getAllFiles();
+                // }, 3000);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
+        this.searchService.searchInObserver.next('all-files');
         this.fileSystemOperationContainer.nativeElement.focus();
     }
 
@@ -77,6 +87,7 @@ export class MyFilesComponent extends HomeCommons implements OnInit, AfterViewIn
 
     private getAllFiles = (): void => {
         this.initializeView(this.initializeViewExtras);
+        this.fetchedItems$?.unsubscribe();
         this.fetchedItems$ = this.fileManagementService.getAllFiles(this.userId).subscribe(
             (response) => {
                 // console.log('All files retrieved successfully:', response);

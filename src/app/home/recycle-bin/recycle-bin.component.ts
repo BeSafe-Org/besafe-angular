@@ -12,6 +12,8 @@ import { HomeCommons } from '../_shared/classes/home-commons';
 import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
 import { ThemeService } from 'src/app/_shared/services/theme.service';
+import { SearchService } from 'src/app/layout/_shared/services/search.service';
+import { FileCategory } from 'src/app/_core/models/entities/FileCategory';
 
 @Component({
     selector: 'app-recycle-bin',
@@ -24,7 +26,7 @@ export class RecycleBinComponent extends HomeCommons implements OnInit, AfterVie
     @ViewChild('operationResult') operationResult: FileSystemOperationsDirective;
 
     userInfo?: UserInfo;
-    public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
+    public readonly fileIdPrefix: string = FILE_ID_PREFIX.recycleBin;
     private userId: string = new LocalStorage().getItem("userId");
     private setTimeoutRef: NodeJS.Timeout;
 
@@ -37,24 +39,32 @@ export class RecycleBinComponent extends HomeCommons implements OnInit, AfterVie
         private besafeGlobalService: BesafeGlobalService,
         private googleApiService: GoogleApiService,
         private toasterService: ToasterService,
+        private searchService: SearchService,
         public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
             this.userInfo = info
-        })
+        });
     }
 
     ngOnInit(): void {
         this.setPageMetaData(this.titleService, META_TAGS.recycleBin);
         this.setViewType(this.besafeGlobalService);
-        this.initializeView(this.initializeViewExtras);
-        this.setTimeoutRef = setTimeout(() => {
-            this.getRecycleBinFiles();
-        }, 1000);
+        this.searchService.searchInitiator.subscribe((value) => {
+            this.searchTerm = value.searchTerm;
+            if (this.searchTerm) {
+                this.getFilesFromSearch(this.fileManagementService, this.userId, FileCategory.DELETED, this.searchTerm);
+            } else {
+                // this.setTimeoutRef = setTimeout(() => {
+                this.getRecycleBinFiles();
+                // }, 3000);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
+        this.searchService.searchInObserver.next('recycle-bin');
         this.fileSystemOperationContainer.nativeElement.focus();
     }
 
@@ -72,6 +82,7 @@ export class RecycleBinComponent extends HomeCommons implements OnInit, AfterVie
 
     private getRecycleBinFiles = (): void => {
         this.initializeView(this.initializeViewExtras);
+        this.fetchedItems$?.unsubscribe();
         this.fetchedItems$ = this.fileManagementService.getDeletedFiles(this.userId).subscribe(
             (response) => {
                 // console.log('Recycle bin files retrieved successfully:', response);
