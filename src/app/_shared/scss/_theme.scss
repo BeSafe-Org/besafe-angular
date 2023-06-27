@@ -1,0 +1,21 @@
+:root {
+    --brand-primary-color: #005776;
+    --brand-secondary-color: #6dd5fa;
+
+    --bg-1-color: white;
+    --bg-2-color: white;
+
+    --text-color: black;
+}
+
+body {
+    &.dark {
+        --brand-primary-color: #{lighten($color: #005776, $amount: 20%)};
+        --brand-secondary-color: #6dd5fa;
+
+        --bg-1-color: #1f1f1f;
+        --bg-2-color: #28282a;
+
+        --text-color: white;
+    }
+}

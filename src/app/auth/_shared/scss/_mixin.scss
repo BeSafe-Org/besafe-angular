@@ -3,8 +3,10 @@
 @mixin auth_form_container() {
     padding: 1.2rem;
     box-shadow: 0px 4px 40px 2px rgba(7, 60, 7, 0.25);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
-    // background-color: #282828;
+    background-color: $bgOneColor;
+    background-color: $bgTwoColor;
     // box-shadow: 0px 0px 49px #000000;
 }
 

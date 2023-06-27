@@ -1,7 +1,7 @@
 <ul class="context_menu" [ngStyle]="{'top': top + 'px', 'left': left + 'px'}"
     (contextmenu)="$event.preventDefault()"
     appClickedOutside
-    (clickedOutside)="selfRef.destroy()">
+    (clickedOutside)="selfRef.destroy()" [attr.data-theme]="themeService.theme">
     <ng-container *ngFor="let option of options">
         <li *ngIf="shouldBeVisible(option.isForSingle)" (click)="contextMenuClickHandler(option.type)">
             <svg>

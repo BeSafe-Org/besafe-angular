@@ -2,12 +2,13 @@
 
 .navbar {
     // @include dev_border(2px, red);
-    padding: 0 1rem;
+    padding: 0 0.8rem;
     height: 100%;
-    // background-color: $brandPrimaryColor;
-    // box-shadow: 1px 2px 4px 0px #0000001a;
+    background-color: $bgTwoColor;
     border-bottom: 0.5px solid #dbdbdb;
+    transition: background-color 300ms;
     @include flex(space-between, center);
+    column-gap: 2.5rem;
     .app_logo_and_hamburger {
         @include flex(center, center);
         gap: 2rem;
@@ -16,6 +17,8 @@
             height: max-content;
         }
         .hamburger_button {
+            width: 2.2rem;
+            height: 2.2rem;
             padding: 0.1rem;
             background: none;
             border-radius: 0.4rem;
@@ -29,12 +32,22 @@
                 fill: $brandPrimaryColor;
             }
             &:active {
-                background-color: $tintThreeColor;
+                opacity: 0.5;
             }
         }
     }
+    .searchbar_container {
+        // @include dev_border(1px, white);
+        width: 100%;
+        min-width: 15rem;
+        max-width: 30rem;
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
     .right_section {
-        margin-left: auto;
+        // margin-left: auto;
         @include flex(space-between, center);
+        gap: 0.8rem;
     }
 }

@@ -1,8 +1,12 @@
 <div [ngClass]="viewType + '_view_card'">
     <div class="icon_and_name">
-        <svg class="icon">
-            <use xlink:href="assets/images/svg/common-sprite.svg#file-icon"></use>
-        </svg>
+        <img class="icon" [src]="'assets/images/svg/file-icons/' + fileIconName + '.svg'">
         <div class="name"> {{ fileName.slice(FILE_NAME_PREFIX.length) }} </div>
+        <svg class="besafe_shield_icon">
+            <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + (isUltraSafe ? 'besafe-shield-icon' : '')"></use>
+        </svg>
+        <svg [ngClass]="isStarred ? 'star_filled_icon' : 'star_icon'">
+            <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + (isStarred ? 'star-filled-icon' : 'star-icon')"></use>
+        </svg>
     </div>
 </div>

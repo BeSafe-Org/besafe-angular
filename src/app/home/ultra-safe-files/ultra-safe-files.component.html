@@ -1,38 +1,45 @@
 <div class="ultra_safe_files" tabindex="-1" [id]="fileSystemOperationContainerId" #fileSystemOperationContainer>
     <div class="header">
-        <div class="header_title"> Ultra safe files </div>
+        <div class="header_title"> {{ searchTerm ? 'Ultra safe files (Search results for: "' + searchTerm + '")' : 'Ultra safe files' }} </div>
         <div class="actions">
             <app-button
                 [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"
                 [imgSrc]="'assets/images/svg/common-sprite.svg#' + (viewType === 'grid' ? 'list' : 'grid') + '-view-icon'"
-                (clicked)="toggleViewType()">
+                (clicked)="changeFileView()">
             </app-button>
         </div>
     </div>
-    <ng-container *ngIf="!(isLoading || isEmpty)">
+    <ng-container *ngIf="!(isLoading || isError || isEmpty)">
         <ul [ngClass]="viewType + '_view'"
             appFileSystemOperations
             [viewType]="viewType"
-            [fileCollection]="allFiles"
+            [fileCollection]="fileCollection"
             [prefix]="fileIdPrefix"
             #operationResult="operationResult"
             (contextmenu)="openContextMenu($event)">
             <hr>
-            <ng-container *ngFor="let file of allFiles">
+            <ng-container *ngFor="let file of fileCollection">
                 <li class="file_card_container" [id]="fileIdPrefix + file.fileId"
                     [ngClass]="{'selected': operationResult.isSelected(file.fileId),
                                     'focused': operationResult.isLastFocused(file.fileId)}"
-                    [title]="file.fileName">
+                    [title]="file.fileName"
+                    [attr.data-theme]="themeService.theme">
                     <div class="stop_pointer_events">
-                        <app-file-card [viewType]="viewType" [fileName]="file.fileName"></app-file-card>
+                        <app-file-card
+                            [fileName]="file.fileName"
+                            [fileMimeType]="file.mimeType"
+                            [isUltraSafe]="file.ultraSafe"
+                            [isStarred]="file.starred"
+                            [viewType]="viewType"></app-file-card>
                     </div>
                 </li>
             </ng-container>
         </ul>
     </ng-container>
-    <ng-container *ngIf="isLoading || isEmpty">
+    <ng-container *ngIf="isLoading || isError || isEmpty">
         <div class="flash_screen">
             <app-loader *ngIf="isLoading"></app-loader>
+            <div class="empty" *ngIf="isError"> Something went wrong </div>
             <div class="empty" *ngIf="isEmpty"> No files to show </div>
         </div>
     </ng-container>

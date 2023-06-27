@@ -43,9 +43,17 @@ export class Conversion {
         return decoder.decode(uint8Array);
     }
 
-    
     stringToArrayBuffer(inputString: string) {
         const encoder = new TextEncoder();
         return encoder.encode(inputString).buffer;
+    }
+
+    readFileContent(file: File): Promise<ArrayBuffer> {
+        return new Promise<ArrayBuffer>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as ArrayBuffer);
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
     }
 }

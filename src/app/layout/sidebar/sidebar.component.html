@@ -2,7 +2,7 @@
     <ul class="sidebar_menu">
         <ng-container *ngFor="let option of sidebarOptions">
             <li class="option">
-                <a [routerLink]="option.routerLink" routerLinkActive="selected">
+                <a [routerLink]="option.routerLink" routerLinkActive="selected" [attr.data-theme]="themeService.theme">
                     <svg class="icon">
                         <use [attr.xlink:href]="'assets/images/svg/common-sprite.svg#' + option.imgSrc"></use>
                     </svg>
