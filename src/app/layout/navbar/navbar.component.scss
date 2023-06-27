@@ -8,6 +8,7 @@
     border-bottom: 0.5px solid #dbdbdb;
     transition: background-color 300ms;
     @include flex(space-between, center);
+    column-gap: 2.5rem;
     .app_logo_and_hamburger {
         @include flex(center, center);
         gap: 2rem;
@@ -35,44 +36,13 @@
             }
         }
     }
-    .searchbar {
-        width: 30rem;
-        height: 2.2rem;
-        padding: 0 0.3rem;
-        // margin: 0 auto;
-        border-radius: 0.5rem;
-        border: 1px solid $lightGrayOneColor;
-        outline: 1px solid transparent;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        .search_icon,
-        .clear_icon {
-            // @include dev_border();
-            $size: 1.5rem;
-            width: $size;
-            height: $size;
-            flex-shrink: 0;
-            fill: $lightGrayOneColor;
-        }
-        > input {
-            width: 100%;
-            height: 1.5rem;
-            border: none;
-            outline: none;
-            background: none;
-            color: $lightGrayOneColor;
-            // @include dev_border();
-        }
-        &:focus-within {
-            border-color: $brandPrimaryColor;
-            outline-color: $brandPrimaryColor;
-            .icon {
-                fill: $textColor;
-            }
-            > input {
-                color: $textColor;
-            }
+    .searchbar_container {
+        // @include dev_border(1px, white);
+        width: 100%;
+        min-width: 15rem;
+        max-width: 30rem;
+        @media (max-width: 768px) {
+            display: none;
         }
     }
     .right_section {

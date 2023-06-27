@@ -1,0 +1,9 @@
+<label class="searchbar">
+    <svg class="search_icon">
+        <use xlink:href="assets/images/svg/common-sprite.svg#search-icon"></use>
+    </svg>
+    <input type="text" [placeholder]="searchPlaceholder" (input)="keyupEventHandler($event)" #searchInput>
+    <svg class="clear_icon" *ngIf="searchTerm">
+        <use xlink:href="assets/images/svg/common-sprite.svg#close-icon"></use>
+    </svg>
+</label>

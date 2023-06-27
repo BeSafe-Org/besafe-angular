@@ -1,6 +1,6 @@
 <div class="ultra_safe_files" tabindex="-1" [id]="fileSystemOperationContainerId" #fileSystemOperationContainer>
     <div class="header">
-        <div class="header_title"> Ultra safe files </div>
+        <div class="header_title"> {{ searchTerm ? 'Ultra safe files (Search results for: "' + searchTerm + '")' : 'Ultra safe files' }} </div>
         <div class="actions">
             <app-button
                 [buttonDisplayType]="'secondary'" [buttonFunctionalityType]="'button'"

@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { FileViewType, BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
 
-export const FILE_NAME_PREFIX = 'BeSafe-';
+export const FILE_NAME_PREFIX = '';
 
 export const FILE_SYSTEM_OPERATION_CONTAINER_ID = 'file-system-operation-container';
 

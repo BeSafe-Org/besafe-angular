@@ -12,6 +12,8 @@ import { Title } from '@angular/platform-browser';
 import { META_TAGS } from 'src/app/_shared/utils/meta-tags';
 import { BeSafeFile } from 'src/app/_core/models/entities/File';
 import { ThemeService } from 'src/app/_shared/services/theme.service';
+import { SearchService } from 'src/app/layout/_shared/services/search.service';
+import { FileCategory } from 'src/app/_core/models/entities/FileCategory';
 
 @Component({
     selector: 'app-ultra-safe-files',
@@ -23,7 +25,7 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
     @ViewChild('operationResult') operationResult: FileSystemOperationsDirective;
 
     userInfo?: UserInfo;
-    public readonly fileIdPrefix: string = FILE_ID_PREFIX.allFiles;
+    public readonly fileIdPrefix: string = FILE_ID_PREFIX.ultraSafeFiles;
     private userId: string = new LocalStorage().getItem("userId");
     private setTimeoutRef: NodeJS.Timeout;
 
@@ -36,24 +38,32 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
         private besafeGlobalService: BesafeGlobalService,
         private googleApiService: GoogleApiService,
         private toasterService: ToasterService,
+        private searchService: SearchService,
         public themeService: ThemeService
     ) {
         super();
         googleApiService.userProfileSubject.subscribe(info => {
             this.userInfo = info
-        })
+        });
     }
 
     ngOnInit(): void {
         this.setPageMetaData(this.titleService, META_TAGS.ultraSafeFiles);
         this.setViewType(this.besafeGlobalService);
-        this.initializeView(this.initializeViewExtras);
-        this.setTimeoutRef = setTimeout(() => {
-            this.getUltraSafeFiles();
-        }, 1000);
+        this.searchService.searchInitiator.subscribe((value) => {
+            this.searchTerm = value.searchTerm;
+            if (this.searchTerm) {
+                this.getFilesFromSearch(this.fileManagementService, this.userId, FileCategory.ULTRASAFE, this.searchTerm);
+            } else {
+                // this.setTimeoutRef = setTimeout(() => {
+                this.getUltraSafeFiles();
+                // }, 3000);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
+        this.searchService.searchInObserver.next('ultra-safe-files');
         this.fileSystemOperationContainer.nativeElement.focus();
     }
 
@@ -71,6 +81,7 @@ export class UltraSafeFilesComponent extends HomeCommons implements OnInit, Afte
 
     private getUltraSafeFiles = (): void => {
         this.initializeView(this.initializeViewExtras);
+        this.fetchedItems$?.unsubscribe();
         this.fetchedItems$ = this.fileManagementService.getUltraSecureFiles(this.userId).subscribe(
             (response) => {
                 // console.log('Ultra safe files retrieved successfully:', response);

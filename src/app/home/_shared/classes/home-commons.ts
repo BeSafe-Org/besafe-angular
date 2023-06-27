@@ -8,6 +8,7 @@ import { FileManagementService } from "src/app/_core/services/backend/file-manag
 import { GoogleApiService } from "src/app/_core/services/backend/google-api.service";
 import { ContextMenuPointerEventPosition } from "../components/context-menu/context-menu.component";
 import { ToasterService } from "src/app/_shared/services/toaster.service";
+import { FileCategory } from "src/app/_core/models/entities/FileCategory";
 
 export abstract class HomeCommons {
     // For view type:
@@ -21,6 +22,8 @@ export abstract class HomeCommons {
     // For data:
     public fileCollection: BeSafeFile[] = [];
     protected fetchedItems$: Subscription;
+    // For search:
+    public searchTerm: string = '';
 
     public get isLoading(): boolean { return this._isLoading; }
     public get isError(): boolean { return this._isError; }
@@ -147,5 +150,26 @@ export abstract class HomeCommons {
             // console.log(error);
             toasterService.error(changeTo ? 'Error marking file as favourite' : 'Error removing file from favourites');
         });
+    }
+
+    protected getFilesFromSearch(fileManagementService: FileManagementService, userId: string, fileCategory: FileCategory, searchTerm: string): void {
+        this.fetchedItems$?.unsubscribe();
+        this.fetchedItems$ = fileManagementService.searchFileByToken(userId, fileCategory, searchTerm).subscribe(
+            (response) => {
+                // console.log('All files retrieved successfully:', response);
+                if (response.length === 0) {
+                    this.setEmpty();
+                }
+                else {
+                    this.setContent(response);
+                    this.detectNoOfGridColumns();
+                }
+            },
+            (error) => {
+                // console.log('Error retrieving all files:', error);
+                this.setError();
+
+            }
+        );
     }
 }
