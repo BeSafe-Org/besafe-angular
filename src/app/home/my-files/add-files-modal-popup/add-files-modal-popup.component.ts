@@ -1,4 +1,5 @@
 import { Component, ComponentRef, EventEmitter, OnInit } from '@angular/core';
+import { ToasterService } from 'src/app/_shared/services/toaster.service';
 
 @Component({
     selector: 'app-add-files-modal-popup',
@@ -10,11 +11,16 @@ export class AddFilesModalPopupComponent implements OnInit {
 
     public selfRef: ComponentRef<AddFilesModalPopupComponent>;
     public file: any;
-    public ultraSafe: boolean =false;
+    public ultraSafe: boolean = false;
 
-    constructor() { }
+    constructor(
+        private toasterService: ToasterService
+    ) { }
 
     ngOnInit(): void {
+        if (localStorage.getItem('isCloudConnected') !== 'true') {
+            this.toasterService.warn('Please conect your Google cloud account');
+        }
     }
 
     public destroySelf(): void {

@@ -3,7 +3,7 @@
         <use xlink:href="assets/images/svg/common-sprite.svg#search-icon"></use>
     </svg>
     <input type="text" [placeholder]="searchPlaceholder" (input)="keyupEventHandler($event)" #searchInput>
-    <svg class="clear_icon" *ngIf="searchTerm">
+    <svg class="clear_icon" *ngIf="searchTerm" (click)="clear()">
         <use xlink:href="assets/images/svg/common-sprite.svg#close-icon"></use>
     </svg>
 </label>

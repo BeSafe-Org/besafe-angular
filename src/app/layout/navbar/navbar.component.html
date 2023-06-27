@@ -23,7 +23,6 @@
             [imgSrc]="'assets/images/svg/common-sprite.svg#' + (themeService.theme === 'light' ? 'light' : 'dark') + '-mode-icon'"
             (clicked)="themeService.changeTheme()"></app-icon-button>
         <app-icon-button [title]="'Connect Google cloud'" [imgSrc]="'assets/images/svg/common-sprite.svg#connect-cloud-icon'"
-            [isDisabled]="isConnectingGoogleCloud" [isLoading]="isConnectingGoogleCloud"
             (clicked)="connectGoogleCloud()"></app-icon-button>
         <app-icon-button [title]="'Sign out'" [imgSrc]="'assets/images/svg/common-sprite.svg#logout-icon'"
             [isDisabled]="isSigningOut" [isLoading]="isSigningOut"

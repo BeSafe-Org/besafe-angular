@@ -12,7 +12,6 @@ import { APP_ROUTES } from 'src/app/_shared/utils/routes';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    @ViewChild('searchInput') public searchInputElement: ElementRef;
     public isSigningOut: boolean = false;
     public isConnectingGoogleCloud: boolean = false;
 
@@ -41,9 +40,8 @@ export class NavbarComponent implements OnInit {
 
     public connectGoogleCloud(): void {
         this.isConnectingGoogleCloud = true;
-        setTimeout(() => {
-            this.googleApiService.connectCloud();
-        }, 3000);
+        localStorage.setItem('isCloudConnected', 'true');
+        this.googleApiService.connectCloud();
     }
 
     public refreshGoogle(): void {
