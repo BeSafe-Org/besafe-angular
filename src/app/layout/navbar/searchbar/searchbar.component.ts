@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchService } from '../../_shared/services/search.service';
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
     styleUrls: ['./searchbar.component.scss']
 })
 export class SearchbarComponent implements OnInit, OnDestroy {
+    @ViewChild('searchInput') public searchInputElement: ElementRef<HTMLInputElement>;
+
     public searchPlaceholder: string = 'Search for files...';
     private search = new Subject<string>();
     private search$: Subscription;
@@ -69,6 +71,11 @@ export class SearchbarComponent implements OnInit, OnDestroy {
 
     public callSearchFilesAPI(): void {
         this.searchService.searchInitiator.next({ in: 'all-files', searchTerm: this.searchTerm });
+    }
+
+    public clear(): void {
+        this.searchInputElement.nativeElement.value = '';
+        this.search.next('');
     }
 
     ngOnDestroy(): void {
