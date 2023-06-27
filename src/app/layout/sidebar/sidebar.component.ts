@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
+import { ThemeService } from 'src/app/_shared/services/theme.service';
 import { APP_ROUTES } from 'src/app/_shared/utils/routes';
 
 @Component({
@@ -35,7 +36,8 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     private isSidebarCollapsedSubscription: Subscription;
 
     constructor(
-        private besafeGlobalService: BesafeGlobalService
+        private besafeGlobalService: BesafeGlobalService,
+        public themeService: ThemeService
     ) { }
 
     ngOnInit(): void {

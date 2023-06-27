@@ -1,4 +1,5 @@
 import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
     selector: 'app-modal-popup',
@@ -24,7 +25,9 @@ export class ModalPopupComponent implements OnInit {
 
     public showPopUp: boolean = false;
 
-    constructor() { }
+    constructor(
+        public themeService: ThemeService
+    ) { }
 
     ngOnInit(): void {
         setTimeout(() => {

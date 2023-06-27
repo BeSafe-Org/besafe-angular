@@ -1,0 +1,74 @@
+@import "src/app/_shared/scss/mixin";
+
+@keyframes button_loader {
+    0% {
+        $size: 0.2rem;
+        width: $size;
+        height: $size;
+    }
+    50% {
+        $size: 0.4rem;
+        width: $size;
+        height: $size;
+    }
+    100% {
+        $size: 0.2rem;
+        width: $size;
+        height: $size;
+    }
+}
+
+.icon_button {
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid $lightGrayOneColor;
+    border-radius: 1.1rem;
+    background-color: transparent;
+    @include flex(center, center);
+    position: relative;
+    cursor: pointer;
+    // @include dev_border();
+    .icon {
+        $size: 1.5rem;
+        width: $size;
+        height: $size;
+        fill: $brandPrimaryColor;
+    }
+    .loader {
+        // @include dev_border();
+        width: 1.5rem;
+        height: 1rem;
+        @include flex(center, center);
+        gap: 0.2rem;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        .circle {
+            $size: 0.2rem;
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            background-color: $brandPrimaryColor;
+            flex-shrink: 0;
+            $animationDuration: 1000ms;
+            animation: button_loader $animationDuration ease-in-out infinite;
+            &:nth-child(1) {
+                animation-delay: 0ms;
+            }
+            &:nth-child(2) {
+                animation-delay: $animationDuration / 2;
+            }
+            &:nth-child(3) {
+                animation-delay: 0ms;
+            }
+        }
+    }
+    &.disabled {
+        .loader {
+            .circle {
+                background-color: $lightGrayOneColor;
+            }
+        }
+    }
+}

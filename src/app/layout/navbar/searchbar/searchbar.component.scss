@@ -1,0 +1,42 @@
+@import "src/app/layout/_shared/scss/mixin";
+
+.searchbar {
+    width: 100%;
+    height: 2.2rem;
+    padding: 0 0.3rem;
+    // margin: 0 auto;
+    border-radius: 0.5rem;
+    border: 1px solid $lightGrayOneColor;
+    outline: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    .search_icon,
+    .clear_icon {
+        // @include dev_border();
+        $size: 1.5rem;
+        width: $size;
+        height: $size;
+        flex-shrink: 0;
+        fill: $lightGrayOneColor;
+    }
+    > input {
+        width: 100%;
+        height: 1.5rem;
+        border: none;
+        outline: none;
+        background: none;
+        color: $lightGrayOneColor;
+        // @include dev_border();
+    }
+    &:focus-within {
+        border-color: $brandPrimaryColor;
+        outline-color: $brandPrimaryColor;
+        .icon {
+            fill: $textColor;
+        }
+        > input {
+            color: $textColor;
+        }
+    }
+}

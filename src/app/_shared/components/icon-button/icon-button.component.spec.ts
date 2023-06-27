@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UltraSavedFilesComponent } from './ultra-saved-files.component';
+import { IconButtonComponent } from './icon-button.component';
 
-describe('UltraSavedFilesComponent', () => {
-  let component: UltraSavedFilesComponent;
-  let fixture: ComponentFixture<UltraSavedFilesComponent>;
+describe('IconButtonComponent', () => {
+  let component: IconButtonComponent;
+  let fixture: ComponentFixture<IconButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UltraSavedFilesComponent ]
+      declarations: [ IconButtonComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UltraSavedFilesComponent);
+    fixture = TestBed.createComponent(IconButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

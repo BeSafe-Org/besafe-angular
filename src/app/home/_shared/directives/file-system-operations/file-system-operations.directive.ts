@@ -1,15 +1,9 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FileViewType, BesafeGlobalService } from 'src/app/_shared/services/besafe-global.service';
-import { File } from 'src/app/_core/models/entities/File';
+import { BeSafeFile } from 'src/app/_core/models/entities/File';
 
-// export type FileUI = {
-//     id: string,
-//     name: string,
-//     mimeType: string
-// }
-
-export const FILE_NAME_PREFIX = 'BeSafe-';
+export const FILE_NAME_PREFIX = '';
 
 export const FILE_SYSTEM_OPERATION_CONTAINER_ID = 'file-system-operation-container';
 
@@ -18,11 +12,11 @@ export const FILE_SYSTEM_OPERATION_CONTAINER_ID = 'file-system-operation-contain
     exportAs: 'operationResult'
 })
 export class FileSystemOperationsDirective implements OnInit, OnChanges {
-    @Input() fileCollection: File[] = [];
+    @Input() fileCollection: BeSafeFile[] = [];
     @Input() prefix: string = '';
     @Input() viewType: FileViewType;
 
-    private allFiles: File[] = [];
+    private allFiles: BeSafeFile[] = [];
     private _selectedFilesId: string[] = [];
     private _lastFocusedFileId: string | null = null;
     private shiftStartedFileId: string = '';
