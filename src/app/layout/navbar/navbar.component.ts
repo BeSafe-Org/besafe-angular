@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
     public signOut(): void {
         this.isSigningOut = true;
+        localStorage.setItem('isCloudConnected', 'false');
         setTimeout(() => {
             new LocalStorage().removeItem("userId");
             new LocalStorage().removeItem("masterKey");
