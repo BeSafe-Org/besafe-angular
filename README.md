@@ -1,4 +1,7 @@
 # BeSafe-Angular
+![Screenshot (1)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/b94c4466-a633-44e3-9d21-8295a3b893ae)
+
+
 ![Screenshot (15)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/578275ce-680e-40ec-b7a4-5ff89c3dbaa5)
 
 ![Screenshot (16)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/2b01f2ec-6740-465f-b445-8f19c388d38d)
