@@ -21,6 +21,7 @@ When user selects ultra secure, user has to pay gas fee through etherium cryptoc
 
 ![Screenshot (19)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/af584316-072c-4e2b-aa1e-2f4676d4d18b)
 
+## Download Delete and Mark as Favourite
 ![Screenshot (20)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/6cf68276-d45c-481d-a9e9-9c48c8f4a877)
 
 ![Screenshot (21)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/bd736ba4-7fbf-4fb5-962c-878ace99c7d6)
@@ -29,8 +30,10 @@ When user selects ultra secure, user has to pay gas fee through etherium cryptoc
 
 ![Screenshot (23)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/e8d6c8c7-4ed2-4613-a046-3cdc9ef85a10)
 
+All Favoutes can be listed out in seperate tab
 ![Screenshot (24)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/4374c108-4799-4787-82fb-e83e6202f410)
 
+Ultrasafe files have a BeSafe logo at top right and can also be viwed in a seperate tab.
 ![Screenshot (25)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/28dc03c3-8c22-45f9-abb2-8a2e23a51f76)
 ![Screenshot (26)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/cb37176f-32b5-4afb-887e-1dd14c2a361d)
 ![Screenshot (27)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/9f184679-22d9-4e99-83b6-a8a472b6be33)
