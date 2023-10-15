@@ -1,7 +1,8 @@
 # BESAFE: Blockchain and Encryption for Secure Access to Files and Electronic Data
+
 * Final year B. Tech project, it is an innovative solution that addresses the critical need for secure storage and access of electronic data.  
-    * Acts as a wrapper over google drive to store encrypted files, hash of file is stored in Ethereum blockchain for file validation and tamper detection mechanisms.      
-    * User can still use their existing drive whilst enjoying safeguarding of sensitive information.
+* Acts as a wrapper over google drive to store encrypted files, hash of file is stored in Ethereum blockchain for file validation and tamper detection mechanisms.      
+* User can still use their existing drive whilst enjoying safeguarding of sensitive information.
 
 Skills used: Angular, Spring Boot, JDBC, TypeScript, Java, MySQL, and Solidity. 
 
