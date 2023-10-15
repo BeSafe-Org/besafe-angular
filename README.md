@@ -1,14 +1,22 @@
-# BeSafe-Angular
+# BeSafe Preview
+
+## Signing In User
+
 ![Screenshot (1)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/b94c4466-a633-44e3-9d21-8295a3b893ae)
 
-
+## Dashboard
+Dashboard where all existing uploaded files through besafe are listed.
 ![Screenshot (15)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/578275ce-680e-40ec-b7a4-5ff89c3dbaa5)
-
+Three operations can be done on a file, which will be shown furthur in this document
 ![Screenshot (16)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/2b01f2ec-6740-465f-b445-8f19c388d38d)
 
-
+## Uploading file
+User can upload a file by clicking Add Files button. User can upload a file as 
+    - An encrypted file
+    - An Ultra Secure file, where hash of file will be stored in blockchain for detecting tamper. 
 ![Screenshot (17)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/4575be9e-4687-48d0-b154-70bdcabf4b2e)
 
+When user selects ultra secure, user has to pay gas fee through etherium cryptocurrency and file is uploaded successfully
 ![Screenshot (18)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/bb05e0ce-60bf-4862-abca-098d5dbeea2a)
 
 ![Screenshot (19)](https://github.com/BeSafe-Org/besafe-angular/assets/68000460/af584316-072c-4e2b-aa1e-2f4676d4d18b)
